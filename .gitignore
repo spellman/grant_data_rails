@@ -9,3 +9,4 @@ doc/
 .idea
 bundler_stubs/
 .secret
+*.log
