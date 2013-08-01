@@ -1,6 +1,9 @@
 source "https://rubygems.org"
 ruby "2.0.0"
 
+gem "grant_data",              git: "git://github.com/spellman/grant_data"
+gem "grant_data_persistence",  git: "git://github.com/spellman/grant_data_persistence"
+
 gem "rails",                   "4.0.0"
 gem "turbolinks"
 

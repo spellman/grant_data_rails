@@ -1,2 +1,11 @@
 <%= provide :title, "Home" %>
-<p>Find me in app/views/static_pages/index.html.erb</p>
+
+<%= form_tag "/", id: "form" do %>
+  <%= label_tag "name", "Name" %>
+  <%= text_field_tag "name" %>
+  <%= submit_tag "save" %>
+<% end %>
+
+<p>
+  <%= "#{@view_model[:name]}: #{@view_model[:status]}" if @view_model %>
+</p>
