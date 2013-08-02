@@ -9,7 +9,7 @@ feature "home page" do
   end
 
   scenario "dispalys a success message when the user saves a record" do
-    visit "/"
+    visit root_path
     within("#form") do
       fill_in "name", with: "foo"
       click_button "save"

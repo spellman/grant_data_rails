@@ -4,16 +4,20 @@ require "grant_data_persistence/record_repository"
 class StaticPagesController < ApplicationController
 
   def index
+#    @record = Record.new
   end
 
   def save_record
-    request_model = build_request_model_from params
-    repository = GrantDataPersistence::RecordRepository.new
-    response_model = run interactor:    GrantData::PersistRecordInteractor,
-                         request_model: request_model,
-                         repository:    repository
-    build_view_model_from request_model: request_model,
-                          response_model: response_model
+    record = Record.new params
+    if record.valid?
+      request_model = build_request_model_from params
+      repository = GrantDataPersistence::RecordRepository.new
+      response_model = run interactor:    GrantData::PersistRecordInteractor,
+                           request_model: request_model,
+                           repository:    repository
+      build_view_model_from request_model: request_model,
+                            response_model: response_model
+    end
     render "index"
   end
 
