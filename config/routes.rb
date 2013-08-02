@@ -1,6 +1,8 @@
 GrantDataRails::Application.routes.draw do
-  root "static_pages#index"
-  match "/", to: "static_pages#save_record", via: :post
+  root "records#new"
+#  match "/records/save", to: "records#save", via: :post
+  match "/records/new", to: "records#new", via: :get
+  match "/records", to: "records#save", via: :post
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
