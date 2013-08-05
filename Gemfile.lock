@@ -1,12 +1,12 @@
 GIT
   remote: git://github.com/spellman/grant_data
-  revision: 10e4a793e39bf1a600a590efa5f36922f6fe3edd
+  revision: e26f04950b290359ac0f82f06e6a80e3c10a14a6
   specs:
     grant_data (0.0.1)
 
 GIT
   remote: git://github.com/spellman/grant_data_persistence
-  revision: 4e2711cb84c00602334be76249bfc89e3bf877b6
+  revision: 0f95ce50149566913c00e2498131873153dcaef2
   specs:
     grant_data_persistence (0.0.1)
       pg (~> 0.16)
@@ -41,7 +41,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.0)
-    atomic (1.1.10)
+    atomic (1.1.12)
     builder (3.1.4)
     capybara (2.1.0)
       mime-types (>= 1.16)
@@ -76,7 +76,7 @@ GEM
     mime-types (1.23)
     mini_portile (0.5.1)
     minitest (4.7.5)
-    multi_json (1.7.7)
+    multi_json (1.7.8)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     pg (0.16.0)
@@ -121,7 +121,7 @@ GEM
     sdoc (0.3.20)
       json (>= 1.1.3)
       rdoc (~> 3.10)
-    sequel (4.0.0)
+    sequel (4.1.1)
     sequel_pg (1.6.7)
       pg (>= 0.8.0)
       sequel (>= 3.39.0)
