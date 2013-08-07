@@ -2,7 +2,6 @@ require "grant_data/interactors/persist_record_interactor"
 require "grant_data_persistence/record_repository"
 
 class RecordsController < ApplicationController
-  before_action :authenticate_user!
 
   def new
     @record = Record.new
