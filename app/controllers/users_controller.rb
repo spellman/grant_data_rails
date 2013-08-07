@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     authorize @users
+    exclude_current_user
+    sort_users
   end
 
   def new
@@ -25,6 +27,14 @@ class UsersController < ApplicationController
   # private
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
+  def exclude_current_user
+    @users = @users.reject { |user| current_user == user }
+  end
+
+  def sort_users
+    @users = @users.sort
   end
 
 end
