@@ -14,7 +14,7 @@ class RecordsController < ApplicationController
       repository     = GrantDataPersistence::RecordRepository.new
       response_model = GrantData::PersistRecordInteractor.new(request_model: request_model,
                                                               repository:    repository).run
-      view_model     = build_view_model_from response_model
+      view_model     = RecordsPresenter.new(response_model).new
       flash          = build_flash_from view_model
       redirect_to root_path and return
     end
@@ -28,13 +28,6 @@ class RecordsController < ApplicationController
 
   def build_request_model_from form_data
     { name: form_data[:name] }
-  end
-
-  def build_view_model_from response_model
-    {
-      status: "saved",
-      name:   response_model[:record][:name]
-    }
   end
 
   def build_flash_from view_model
