@@ -1,5 +1,9 @@
 class RecordsController < ApplicationController
 
+  def index
+    @records = Record.paginate page: params[:page]
+  end
+
   def new
     @record = Record.new
   end

@@ -2,13 +2,10 @@ GrantDataRails::Application.routes.draw do
   devise_for :users
   resources :users
   
-  devise_scope :user do
-    match "/users/make_new", to: "registrations#make_new", via: :get
-  end
-
   root "records#new"
-  match "/records/new", to: "records#new",  via: :get
-  match "/records",     to: "records#save", via: :post
+  match "/records/new", to: "records#new",   via: :get
+  match "/records",     to: "records#save",  via: :post
+  match "/records",     to: "records#index", via: :get
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

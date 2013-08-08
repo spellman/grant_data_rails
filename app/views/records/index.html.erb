@@ -1,0 +1,9 @@
+<%= will_paginate %>
+  <ul class="records">
+    <% @records.each do |record| %>
+      <li>
+        <%= record.name %>
+      </li>
+    <% end %>
+  </ul>
+<%= will_paginate %>
