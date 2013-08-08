@@ -1,7 +1,11 @@
 require "spec_helper"
-include SignInAndOut
+include UserManagement
 
 feature "user management" do
+
+  before :all do
+    create_test_users
+  end
 
   scenario "a guest user cannot sign up" do
     visit new_user_path
@@ -12,7 +16,10 @@ feature "user management" do
     sign_in_admin
     visit new_user_path
     expect(page).to have_content "Password confirmation"
+  end
 
+  scenario "an admin should have a link to create new users on the users index page" do
+    sign_in_admin
     visit users_path
     expect(page).to have_link "Create new user", href: new_user_path
   end

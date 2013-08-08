@@ -1,7 +1,11 @@
 require "spec_helper"
-include SignInAndOut
+include UserManagement
 
 feature "home page" do
+
+  before :all do
+    create_test_users
+  end
 
   scenario "displays the correct title and heading" do
     sign_in_user
