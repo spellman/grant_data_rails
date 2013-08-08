@@ -18,10 +18,9 @@ class UsersController < ApplicationController
     authorize @user
     if @user.save
       flash[:success] = "Saved"
-      redirect_to new_user_path
-    else
-      render "new"
+      redirect_to new_user_path and return
     end
+    render "new"
   end
 
   # private
