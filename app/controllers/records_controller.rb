@@ -1,5 +1,5 @@
 require "grant_data/interactors/persist_record_interactor"
-require "grant_data_persistence/record_repository"
+#require "grant_data_persistence/record_repository"
 
 class RecordsController < ApplicationController
 
@@ -11,7 +11,8 @@ class RecordsController < ApplicationController
     @record = Record.new record_params
     if @record.valid?
       request_model  = build_request_model_from record_params
-      repository     = GrantDataPersistence::RecordRepository.new
+#      repository     = GrantDataPersistence::RecordRepository.new
+      repository     = RecordRepository.new Record
       response_model = GrantData::PersistRecordInteractor.new(request_model: request_model,
                                                               repository:    repository).run
       view_model     = RecordsPresenter.new(response_model).new
