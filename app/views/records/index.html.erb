@@ -1,9 +1,16 @@
 <%= will_paginate %>
-  <ul class="records">
+  <table class="records">
+    <colgroup>
+      <col class="records_column_1">
+      <col class="records_column_2">
+    </colgroup>
+    <tr>
+      <th>Name</th>
+    </tr>
     <% @records.each do |record| %>
-      <li>
-        <%= record.name %>
-      </li>
+      <tr>
+        <td><%= record.name %></td>
+      </tr>
     <% end %>
-  </ul>
+  </table>
 <%= will_paginate %>
