@@ -37,10 +37,10 @@ feature "home page" do
     31.times { |i| Record.create name: "foo_#{i}" }
     sign_in_user
     visit records_path
-    expect(page).to have_content "foo_0"
-    expect(page).to have_content "foo_29"
+    expect(page).to have_content "foo_30"
+    expect(page).to have_content "foo_1"
     expect(page).to have_content "Next"
-    expect(page).to_not have_content "foo_30"
+    expect(page).to_not have_content "foo_0"
   end
 
   after :each do

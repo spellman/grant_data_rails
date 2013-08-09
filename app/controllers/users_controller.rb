@@ -4,8 +4,7 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     authorize @users
-    exclude_current_user
-    sort_users
+    paginate_users_except_current
   end
 
   def new
@@ -28,12 +27,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
 
-  def exclude_current_user
-    @users = @users.reject { |user| current_user == user }
-  end
-
-  def sort_users
-    @users = @users.sort
+  def paginate_users_except_current
+    @users = User.where.not(email: current_user.email)
+                 .order("created_at DESC")
+                 .paginate(page: params[:page])
   end
 
 end
