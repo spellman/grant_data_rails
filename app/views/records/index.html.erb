@@ -1,16 +1,4 @@
-<% if @record.errors.any? %>
-  <div id="error_explanation">
-  <div class="alert alert-error">
-    The form contains <%= pluralize @record.errors.count, "error" %>.
-  </div>
-  <ul>
-    <% @record.errors.full_messages.each do |msg| %>
-      <li>* <%= msg %></li>
-  <% end %>
-  </ul>
-</div>
-<% end %>
-
+<%= render "shared/error_messages", resource: @record %>
 <%= form_for @record do |f| %>
   <%= f.label "name", "Name" %>
   <%= f.text_field "name" %>
