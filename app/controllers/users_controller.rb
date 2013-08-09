@@ -2,7 +2,9 @@ class UsersController < ApplicationController
   after_action :verify_authorized
 
   def index
+    @user  = User.new
     @users = User.all
+    authorize @user
     authorize @users
     paginate_users_except_current
   end
@@ -15,16 +17,22 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params
     authorize @user
-    if @user.save
-      flash[:success] = "Saved"
-      redirect_to new_user_path and return
-    end
-    render "new"
+    @user.save ? save_succeeded : save_failed
   end
 
   # private
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
+  def save_succeeded
+    flash[:success] = "Saved"
+    redirect_to users_path
+  end
+
+  def save_failed
+    paginate_users_except_current
+    render "index"
   end
 
   def paginate_users_except_current

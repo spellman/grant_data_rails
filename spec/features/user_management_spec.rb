@@ -14,14 +14,8 @@ feature "user management" do
 
   scenario "an admin can create additional users" do
     sign_in_admin
-    visit new_user_path
-    expect(page).to have_content "Password confirmation"
-  end
-
-  scenario "an admin should have a link to create new users on the users index page" do
-    sign_in_admin
     visit users_path
-    expect(page).to have_link "Create new user", href: new_user_path
+    expect(page).to have_content "Password confirmation"
   end
 
   scenario "a non-admin user cannot create additional users" do
@@ -35,6 +29,12 @@ feature "user management" do
     visit users_path
     expect(page).to have_content "admin@test.com"
     expect(page).to have_content "user@test.com"
+  end
+
+  scenario "a non-admin user cannot view users" do
+    sign_in_user
+    visit users_path
+    expect(page).to have_content "You are not authorized to perform this action."
   end
 
   scenario "an admin can delete other users" do

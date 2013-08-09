@@ -2,7 +2,7 @@ class RecordsController < ApplicationController
 
   def index
     @record  = Record.new
-    @records = Record.paginate(page: params[:page]).order("created_at DESC")
+    paginate_records
   end
 
   def save
@@ -21,8 +21,12 @@ class RecordsController < ApplicationController
   end
 
   def save_failed
-    @records = Record.paginate(page: params[:page]).order("created_at DESC")
+    paginate_records
     render "index"
+  end
+
+  def paginate_records
+    @records = Record.paginate(page: params[:page]).order("created_at DESC")
   end
 
 end

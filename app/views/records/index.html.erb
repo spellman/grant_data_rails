@@ -1,3 +1,5 @@
+<%= provide :title, "Home" %>
+
 <%= render "shared/error_messages", resource: @record %>
 <%= form_for @record do |f| %>
   <%= f.label "name", "Name" %>
@@ -6,10 +8,10 @@
 <% end %>
 
 <%= will_paginate %>
-  <table class="records">
+  <table class="records_table">
     <colgroup>
-      <col class="records_column_1">
-      <col class="records_column_2">
+      <col class="records_table_column_1">
+      <col class="records_table_column_2">
     </colgroup>
     <tr>
       <th>Name</th>
