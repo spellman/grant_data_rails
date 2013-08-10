@@ -1,0 +1,12 @@
+<%= link_to "Grant Data Capture App", root_path, class: "navbar-brand" %>
+
+<div class="nav-collapse collapse navbar-responsive-collapse">
+  <p class="navbar-text pull-right">
+    <% if user_signed_in? %>
+        <span class="current-user-email"><%= current_user.email %></span>
+        <%= link_to "Sign out", destroy_user_session_path, class: "navbar-link", method: :delete %>
+    <% else %>
+        <%= link_to "Sign in", new_user_session_path, class: "navbar-link" %>
+    <% end %>
+  </p>
+</div>

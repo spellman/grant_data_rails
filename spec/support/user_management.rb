@@ -26,9 +26,7 @@ module UserManagement
 
   def sign_out
     visit root_path
-    within("#user_panel") do
-      click_link "Sign out"
-    end
+    click_link "Sign out"
   end
 
 end
