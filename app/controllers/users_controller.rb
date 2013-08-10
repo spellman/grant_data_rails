@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   end
 
   def save_succeeded
-    flash[:success] = "Saved"
+    flash[:success] = "Created user #{@user.email}"
     redirect_to users_path
   end
 

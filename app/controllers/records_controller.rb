@@ -16,7 +16,7 @@ class RecordsController < ApplicationController
   end
 
   def save_succeeded
-    flash[:success] = "#{@record.name}: saved"
+    flash[:success] = "Saved #{@record.name}"
     redirect_to root_path
   end
 
