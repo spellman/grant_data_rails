@@ -29,6 +29,14 @@ class UsersController < ApplicationController
     authorize @user
   end
 
+  def destroy
+    user = User.find(params[:id])
+    authorize user
+    user.destroy
+    flash[:success] = "User deleted"
+    redirect_to users_path
+  end
+
   # private
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
@@ -45,7 +53,7 @@ class UsersController < ApplicationController
   end
 
   def paginate_users
-    @users = User.order("created_at DESC").paginate(page: params[:page])
+    @users = User.order("created_at ASC").paginate(page: params[:page])
   end
 
 end

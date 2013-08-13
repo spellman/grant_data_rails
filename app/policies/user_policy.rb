@@ -9,8 +9,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    (user && user.admin?) ||
-    (user.id == user_on_which_to_act.id)
+    create? || user.id == user_on_which_to_act.id
+  end
+
+  def destroy?
+    create?
   end
 
 end
