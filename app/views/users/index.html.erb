@@ -29,7 +29,9 @@
         </div>
         <div class="delete_user">
           <%= link_to "edit", user_path(user.id) %>
-          <%= link_to "delete", user, method: :delete, data: { confirm: "Delete for realsies?" } %>
+          <% unless user == current_user %>
+            <%= link_to "delete", user, method: :delete, data: { confirm: "Delete for realsies?" } %>
+          <% end %>
         </div>
       </li>
     <% end %>

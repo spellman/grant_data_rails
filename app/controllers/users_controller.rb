@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     @users = User.all
     authorize @user
     authorize @users
-    paginate_users_except_current
+    paginate_users
   end
 
   def new
@@ -44,10 +44,8 @@ class UsersController < ApplicationController
     render "index"
   end
 
-  def paginate_users_except_current
-    @users = User.where.not(email: current_user.email)
-                 .order("created_at DESC")
-                 .paginate(page: params[:page])
+  def paginate_users
+    @users = User.order("created_at DESC").paginate(page: params[:page])
   end
 
 end
