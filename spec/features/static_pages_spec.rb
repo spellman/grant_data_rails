@@ -50,7 +50,7 @@ feature "home page" do
     expect(page).to have_link "delete", href: record_path(Record.first.id)
   end
 
-  scenario "lets a user update records" do
+  scenario "allows a user update records" do
     Record.create name: "foo"
     visit records_path
     click_link "edit"

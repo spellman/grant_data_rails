@@ -12,6 +12,10 @@ class UserPolicy < ApplicationPolicy
     create? || user.id == user_on_which_to_act.id
   end
 
+  def update?
+    show?
+  end
+
   def destroy?
     create?
   end

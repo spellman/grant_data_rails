@@ -28,13 +28,13 @@ class RecordsController < ApplicationController
     params.require(:record).permit(:name)
   end
 
-  def save_succeeded action
-    flash[:success] = "#{save_message(action)} #{@record.name}"
+  def save_succeeded type_sym
+    flash[:success] = "#{save_action(type_sym)} #{@record.name}"
     redirect_to records_path
   end
 
-  def save_message action
-    case action
+  def save_action type_sym
+    case type_sym
     when :create then "Saved"
     when :update then "Updated"
     end

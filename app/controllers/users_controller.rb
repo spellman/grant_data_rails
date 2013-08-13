@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params
     authorize @user
-    @user.save ? save_succeeded : save_failed
+    @user.save ? save_succeeded(:create) : save_failed
   end
 
   def show
@@ -30,10 +30,13 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user = User.find params[:id]
+    authorize @user
+    @user.update_attributes(user_params) ? save_succeeded(:update) : render("show")
   end
 
   def destroy
-    user = User.find(params[:id])
+    user = User.find params[:id]
     authorize user
     user.destroy
     flash[:success] = "User deleted"
@@ -45,13 +48,20 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
 
-  def save_succeeded
-    flash[:success] = "Created user #{@user.email}"
+  def save_succeeded type_sym
+    flash[:success] = "#{save_action(type_sym)} user #{@user.email}"
     redirect_to users_path
   end
 
+  def save_action type_sym
+    case type_sym
+    when :create then "Saved"
+    when :update then "Updated"
+    end
+  end
+
   def save_failed
-    paginate_users_except_current
+    paginate_users
     render "index"
   end
 
