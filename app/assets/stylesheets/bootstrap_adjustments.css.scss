@@ -1,8 +1,8 @@
 // Using sprockets directive in application.css.scss to require Bootstrap. If this is better, switch to this.
 //@import "bootstrap";
 
-// Effectively move "pagination" class styles from the ul to its enclosing div.
-// bootstrap-will_paginate puts the "pagination" class on the enclosing div,
+// Effectively move pagination class styles from the ul to its enclosing div.
+// bootstrap-will_paginate puts the pagination class on the enclosing div for Bootstrap 2,
 // while Bootstrap 3 expects it on the ul.
 .pagination > ul {
   display: inline-block;
