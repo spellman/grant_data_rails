@@ -8,4 +8,9 @@ class UserPolicy < ApplicationPolicy
     user && user.admin?
   end
 
+  def show?
+    (user && user.admin?) ||
+    (user.id == user_on_which_to_act.id)
+  end
+
 end

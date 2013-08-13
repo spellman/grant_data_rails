@@ -20,6 +20,15 @@ class UsersController < ApplicationController
     @user.save ? save_succeeded : save_failed
   end
 
+  def show
+    begin
+      @user = User.find params[:id]
+    rescue ActiveRecord::RecordNotFound
+      raise Pundit::NotAuthorizedError
+    end
+    authorize @user
+  end
+
   # private
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)

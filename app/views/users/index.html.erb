@@ -28,6 +28,7 @@
           <%= user.email %>
         </div>
         <div class="delete_user">
+          <%= link_to "edit", user_path(user.id) %>
           <%= link_to "delete", user, method: :delete, data: { confirm: "Delete for realsies?" } %>
         </div>
       </li>
