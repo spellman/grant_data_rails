@@ -21,7 +21,7 @@ feature "home page" do
     visit records_path
     within "#new_record" do
       fill_in "record_name", with: "foo"
-      click_button "save"
+      click_button "Save"
     end
     expect(page).to have_content "Saved foo"
   end
@@ -29,7 +29,7 @@ feature "home page" do
   scenario "displays the errors when the user tries to save an invalid record" do
     visit records_path
     within "#new_record" do
-      click_button "save"
+      click_button "Save"
     end
     expect(page).to have_content "Name can't be blank"
   end
@@ -48,6 +48,16 @@ feature "home page" do
     visit records_path
     expect(page).to have_link "edit", href: record_path(Record.first.id)
     expect(page).to have_link "delete", href: record_path(Record.first.id)
+  end
+
+  scenario "lets a user update records" do
+    Record.create name: "foo"
+    visit records_path
+    click_link "edit"
+    fill_in "record_name", with: "bar"
+    click_button "Update"
+    expect(page).to have_content "bar"
+    expect(page).to_not have_content "foo"
   end
 
   scenario "exports all saved records to csv" do

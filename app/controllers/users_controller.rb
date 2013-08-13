@@ -29,6 +29,9 @@ class UsersController < ApplicationController
     authorize @user
   end
 
+  def update
+  end
+
   def destroy
     user = User.find(params[:id])
     authorize user

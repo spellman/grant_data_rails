@@ -1,7 +1,7 @@
 <%= provide :title, "Home" %>
 
 <%= render "shared/error_messages", resource: @record %>
-<%= render "shared/record_form" %>
+<%= render "shared/record_form", button_text: "Save" %>
 
 <%= will_paginate %>
   <table id="records_table">

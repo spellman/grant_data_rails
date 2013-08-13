@@ -11,11 +11,16 @@ class RecordsController < ApplicationController
 
   def create
     @record = Record.new record_params
-    @record.save ? save_succeeded : save_failed
+    @record.save ? save_succeeded(:create) : save_failed
   end
 
   def show
     @record = Record.find params[:id]
+  end
+
+  def update
+    @record = Record.find params[:id]
+    @record.update_attributes(record_params) ? save_succeeded(:update) : render("show")
   end
 
   # private
@@ -23,9 +28,16 @@ class RecordsController < ApplicationController
     params.require(:record).permit(:name)
   end
 
-  def save_succeeded
-    flash[:success] = "Saved #{@record.name}"
+  def save_succeeded action
+    flash[:success] = "#{save_message(action)} #{@record.name}"
     redirect_to records_path
+  end
+
+  def save_message action
+    case action
+    when :create then "Saved"
+    when :update then "Updated"
+    end
   end
 
   def save_failed
