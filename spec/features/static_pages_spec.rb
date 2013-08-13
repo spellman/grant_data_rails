@@ -43,14 +43,7 @@ feature "home page" do
     expect(page).to_not have_content "foo_0"
   end
 
-  scenario "displays links to edit and delete records" do
-    Record.create name: "foo"
-    visit records_path
-    expect(page).to have_link "edit", href: record_path(Record.first.id)
-    expect(page).to have_link "delete", href: record_path(Record.first.id)
-  end
-
-  scenario "allows a user update records" do
+  scenario "allows a user to update records" do
     Record.create name: "foo"
     visit records_path
     click_link "edit"
@@ -58,6 +51,16 @@ feature "home page" do
     click_button "Update"
     expect(page).to have_content "bar"
     expect(page).to_not have_content "foo"
+  end
+
+  scenario "allows a user to delete records" do
+    Record.create name: "foo"
+    visit records_path
+    click_link "delete"
+    expect(page).to_not have_content "foo deleted"
+    within "#records_table" do
+      expect(page).to_not have_content "foo"
+    end
   end
 
   scenario "exports all saved records to csv" do

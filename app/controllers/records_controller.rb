@@ -23,6 +23,16 @@ class RecordsController < ApplicationController
     @record.update_attributes(record_params) ? save_succeeded(:update) : render("show")
   end
 
+  def destroy
+    begin
+      Record.find(params[:id]).destroy
+      flash[:success] = "Record deleted"
+    rescue ActiveRecord::RecordNotFound
+      flash[:notice] = "Record to be deleted did not exist. The browser's \"back\" button may have been used to display a record that had already been deleted."
+    end
+    redirect_to :records
+  end
+
   # private
   def record_params
     params.require(:record).permit(:name)
@@ -30,7 +40,12 @@ class RecordsController < ApplicationController
 
   def save_succeeded type_sym
     flash[:success] = "#{save_action(type_sym)} #{@record.name}"
-    redirect_to records_path
+    redirect_to :records
+  end
+
+  def save_failed
+    paginate_records
+    render "index"
   end
 
   def save_action type_sym
@@ -38,11 +53,6 @@ class RecordsController < ApplicationController
     when :create then "Saved"
     when :update then "Updated"
     end
-  end
-
-  def save_failed
-    paginate_records
-    render "index"
   end
 
   def paginate_records

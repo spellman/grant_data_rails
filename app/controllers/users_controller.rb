@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     authorize user
     user.destroy
     flash[:success] = "User deleted"
-    redirect_to users_path
+    redirect_to :users
   end
 
   # private
@@ -49,8 +49,13 @@ class UsersController < ApplicationController
   end
 
   def save_succeeded type_sym
-    flash[:success] = "#{save_action(type_sym)} user #{@user.email}"
-    redirect_to users_path
+    flash[:success] = "#{save_action(type_sym)} #{@user.email}"
+    redirect_to :users
+  end
+
+  def save_failed
+    paginate_users
+    render "index"
   end
 
   def save_action type_sym
@@ -60,13 +65,8 @@ class UsersController < ApplicationController
     end
   end
 
-  def save_failed
-    paginate_users
-    render "index"
-  end
-
   def paginate_users
-    @users = User.order("created_at ASC").paginate(page: params[:page])
+    @users = User.paginate(page: params[:page]).order("created_at ASC")
   end
 
 end
