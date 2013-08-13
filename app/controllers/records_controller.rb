@@ -2,12 +2,20 @@ class RecordsController < ApplicationController
 
   def index
     @record  = Record.new
-    paginate_records
+    @records = Record.all
+    respond_to do |format|
+      format.html { paginate_records }
+      format.csv  { csv_download }
+    end
   end
 
-  def save
+  def create
     @record = Record.new record_params
     @record.save ? save_succeeded : save_failed
+  end
+
+  def show
+    @record = Record.find params[:id]
   end
 
   # private
@@ -17,7 +25,7 @@ class RecordsController < ApplicationController
 
   def save_succeeded
     flash[:success] = "Saved #{@record.name}"
-    redirect_to root_path
+    redirect_to records_path
   end
 
   def save_failed
@@ -27,6 +35,14 @@ class RecordsController < ApplicationController
 
   def paginate_records
     @records = Record.paginate(page: params[:page]).order("created_at DESC")
+  end
+
+  def csv_download
+    send_data @records.to_csv, filename: csv_filename, type: "text/csv"
+  end
+
+  def csv_filename
+    "records-#{DateTime.now.to_s}"
   end
 
 end

@@ -1,16 +1,12 @@
 GrantDataRails::Application.routes.draw do
   devise_for :users
   resources :users
+  resources :records
   
   authenticated :user do
     root to: "records#index", as: :authenticated_root
   end
   root to: redirect("/users/sign_in")
-
-  match "/records",          to: "records#save",  via: :post
-  match "/records",          to: "records#index", via: :get
-#  match "/records/:id/edit", to: "records#edit",  via: :get
-#  match "/records/:id",      to: "records#update",  via: :patch
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
