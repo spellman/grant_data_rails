@@ -46,8 +46,8 @@ feature "home page" do
   scenario "displays links to edit and delete records" do
     Record.create name: "foo"
     visit records_path
-    expect(page).to have_link "edit", href: record_path(0)
-    expect(page).to have_link "delete", href: record_path(0)
+    expect(page).to have_link "edit", href: record_path(Record.first.id)
+    expect(page).to have_link "delete", href: record_path(Record.first.id)
   end
 
   scenario "exports all saved records to csv" do

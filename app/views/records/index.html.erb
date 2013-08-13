@@ -1,11 +1,7 @@
 <%= provide :title, "Home" %>
 
 <%= render "shared/error_messages", resource: @record %>
-<%= form_for @record do |f| %>
-  <%= f.label "name", "Name" %>
-  <%= f.text_field "name" %>
-  <%= f.submit "save" %>
-<% end %>
+<%= render "shared/record_form" %>
 
 <%= will_paginate %>
   <table id="records_table">
