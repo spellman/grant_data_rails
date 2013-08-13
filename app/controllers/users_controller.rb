@@ -50,7 +50,12 @@ class UsersController < ApplicationController
 
   def save_succeeded type_sym
     flash[:success] = "#{save_action(type_sym)} #{@user.email}"
-    redirect_to :users
+    redirect_after_save
+  end
+
+  def redirect_after_save
+    sign_in @user, bypass: true if current_user == @user
+    current_user.admin? ? redirect_to(:users) : redirect_to(:root)
   end
 
   def save_failed
