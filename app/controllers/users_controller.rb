@@ -71,7 +71,7 @@ class UsersController < ApplicationController
   end
 
   def paginate_users
-    @users = User.paginate(page: params[:page]).order("created_at ASC")
+    @users = User.page(params[:page]).per(20).order("created_at ASC")
   end
 
 end

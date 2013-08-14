@@ -3,7 +3,7 @@
 <%= render "shared/error_messages", resource: @user %>
 <%= render "shared/user_form", button_text: "Create user" %>
 
-<%= will_paginate %>
+<%= paginate @users %>
   <ul class="users">
     <% @users.each do |user| %>
       <li>
@@ -19,4 +19,4 @@
       </li>
     <% end %>
   </ul>
-<%= will_paginate %>
+<%= paginate @users %>

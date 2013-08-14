@@ -3,7 +3,7 @@
 <%= render "shared/error_messages", resource: @record %>
 <%= render "shared/record_form", button_text: "Save" %>
 
-<%= will_paginate %>
+<%= paginate @records %>
   <table id="records_table">
     <colgroup>
       <col id="records_table_column_1">
@@ -21,6 +21,6 @@
       </tr>
     <% end %>
   </table>
-<%= will_paginate %>
+<%= paginate @records %>
 
 <%= link_to "Export records to CSV", "/records.csv" %>
