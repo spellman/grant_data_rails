@@ -3,10 +3,6 @@ include UserManagement
 
 feature "home page" do
 
-  before :all do
-    create_test_users
-  end
-
   before :each do
     sign_in_user
   end
@@ -15,6 +11,19 @@ feature "home page" do
     visit root_path
     expect(page).to have_title "Grant Data Capture App | Home"
     expect(page).to have_content "Grant Data Capture App"
+  end
+
+  # Save the creating user's email in the record so the data is not relational.
+  # Records are independent of the user who creates them;
+  # it simply may be useful to know who created which records.
+  scenario "saves a record with the email of the user who created it" do
+    visit records_path
+    within "#new_record" do
+      fill_in "record_name", with: "foo"
+      click_button "Save"
+    end
+    record = Record.find_by_name("foo")
+    expect(record.created_by).to eq "user@test.com"
   end
 
   scenario "displays a success message when the user saves a valid record" do

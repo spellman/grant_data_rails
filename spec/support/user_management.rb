@@ -1,10 +1,5 @@
 module UserManagement
 
-  def create_test_users
-    User.create email: "admin@test.com", password: "password!", admin: true unless User.find_by_email "admin@test.com"
-    User.create email: "user@test.com", password: "password!", admin: false unless User.find_by_email "user@test.com"
-  end
-
   def sign_in_user
     sign_in email:    "user@test.com",
             password: "password!"

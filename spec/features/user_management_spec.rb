@@ -3,10 +3,6 @@ include UserManagement
 
 feature "user management" do
 
-  before :all do
-    create_test_users
-  end
-
   scenario "a guest user cannot sign up" do
     visit new_user_path
     expect(page).to have_content "Sign in"

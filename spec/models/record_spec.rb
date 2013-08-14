@@ -3,14 +3,18 @@ require "spec_helper"
 describe Record do
 
   it "has a name" do
-    params_with_name = { name: "foo" }
-    params_with_blank_name = { name: "" }
-    params_with_nil_name = { name: nil }
-    params_without_name = {}
-    expect(Record.new params_with_name).to be_valid
-    expect(Record.new params_with_blank_name).to_not be_valid
-    expect(Record.new params_with_nil_name).to_not be_valid
-    expect(Record.new params_without_name).to_not be_valid
+    user = User.create email: "user@temp.com", password: "11111111"
+    valid_name = { name: "foo" }
+    no_name    = {}
+    expect(Record.new valid_name).to be_valid
+    expect(Record.new no_name).not_to be_valid
+  end
+
+  it "does not destroy records created by a user if the user is destroyed" do
+    user = User.create email: "user@temp.com", password: "11111111"
+    Record.create({ name: "foo", created_by: user.email })
+    user.destroy
+    expect(Record.all).to have(1).record
   end
 
 end

@@ -10,7 +10,7 @@ class RecordsController < ApplicationController
   end
 
   def create
-    @record = Record.new record_params
+    @record = Record.new record_params.merge({ created_by: current_user.email })
     @record.save ? save_succeeded(:create) : save_failed
   end
 
