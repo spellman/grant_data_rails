@@ -16,7 +16,7 @@ body {
 }
 
 #export-records {
-  margin-bottom: 36px;
+  margin-bottom: 17px;
 }
 
 .records #table-container {
@@ -29,9 +29,9 @@ body {
 
 #table-panel .pagination {
   position: relative;
-  bottom: -14px;
+  bottom: 14px;
 }
 
-#table-container td {
-  padding: 5px 28px 3px 0px ;
+#table-panel .pagination ul {
+  margin-bottom: 0px;
 }
