@@ -1,5 +1,8 @@
 <%= form_for @record do |f| %>
-  <%= f.label "name", "Name" %>
-  <%= f.text_field "name" %>
-  <%= f.submit button_text %>
+  <div>
+    <%= f.label "name", "Name" %>
+    <%= f.text_field "name" %>
+  </div>
+
+  <%= f.submit button_text, class: "btn btn-large btn-primary" %>
 <% end %>

@@ -1,26 +1,16 @@
 <%= provide :title, "Home" %>
 
-<%= render "shared/error_messages", resource: @record %>
-<%= render "shared/record_form", button_text: "Save" %>
+<div class="col-3">
+  <%= render "shared/error_messages", resource: @record %>
+  <%= render "shared/record_form", button_text: "Save" %>
+</div>
 
-<%= paginate @records %>
-  <table id="records_table">
-    <colgroup>
-      <col id="records_table_column_1">
-      <col id="records_table_column_2">
-      <col id="records_table_column_3">
-    </colgroup>
-    <tr>
-      <th>Name</th>
-    </tr>
-    <% @records.each do |record| %>
-      <tr>
-        <td><%= record.name %></td>
-        <td><%= link_to "edit", record_path(record.id) %></td>
-        <td><%= link_to "delete", record, method: :delete, data: { confirm: "Delete for realsies?" } %></td>
-      </tr>
-    <% end %>
-  </table>
-<%= paginate @records %>
-
-<%= link_to "Export records to CSV", "/records.csv" %>
+<div id="table-panel" class="col-9 records">
+  <div id="export-records">
+    <%= link_to "Export all records to CSV", "/records.csv" %>
+  </div>
+  <div id="table-container">
+    <%= render "records/records_display" %>
+  </div>
+  <%= paginate @records %>
+</div>

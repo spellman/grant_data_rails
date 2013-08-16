@@ -67,7 +67,7 @@ feature "home page" do
     visit records_path
     click_link "delete"
     expect(page).to_not have_content "foo deleted"
-    within "#records_table" do
+    within "#table-container" do
       expect(page).to_not have_content "foo"
     end
   end
@@ -75,7 +75,7 @@ feature "home page" do
   scenario "exports all saved records to csv" do
     31.times { |i| Record.create name: "foo_#{i}" }
     visit records_path
-    expect(page).to have_link "Export records to CSV", href: "/records.csv"
+    expect(page).to have_link "Export all records to CSV", href: "/records.csv"
   end
 
   after :each do

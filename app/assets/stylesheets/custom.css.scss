@@ -1,3 +1,37 @@
 body {
   padding-top: 70px;
 }
+
+.new_record .btn,
+.edit_record .btn,
+.new_user .btn,
+.edit_user .btn {
+  margin-top: 28px;
+}
+
+#table-panel {
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-left-color: #dddddd;
+}
+
+#export-records {
+  margin-bottom: 36px;
+}
+
+.records #table-container {
+  min-height: 442px;
+}
+
+.users #table-container {
+  min-height: 490px;
+}
+
+#table-panel .pagination {
+  position: relative;
+  bottom: -14px;
+}
+
+#table-container td {
+  padding: 5px 28px 3px 0px ;
+}

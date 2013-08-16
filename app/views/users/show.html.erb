@@ -1,4 +1,6 @@
 <%= provide :title, "Edit user" %>
 
-<%= render "shared/error_messages", resource: @user %>
-<%= render "shared/user_form", button_text: "Update" %>
+<div class="col-3">
+  <%= render "shared/error_messages", resource: @user %>
+  <%= render "shared/user_form", button_text: "Update" %>
+</div>
