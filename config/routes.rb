@@ -1,7 +1,7 @@
 GrantDataRails::Application.routes.draw do
   devise_for :users
-  resources :users
-  resources :records
+  resources :users,   except: [:new, :edit]
+  resources :records, except: [:new, :edit]
   
   authenticated :user do
     root to: "records#index", as: :authenticated_root

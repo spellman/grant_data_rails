@@ -9,22 +9,17 @@ class UsersController < ApplicationController
     paginate_users
   end
 
-  def new
-    @user = User.new
-    authorize @user
-  end
-
   def create
     @user = User.new user_params
     authorize @user
-    @user.save ? save_succeeded(:create) : save_failed
+    @user.save ? save_succeeded : save_failed
   end
 
   def show
     begin
       @user = User.find params[:id]
     rescue ActiveRecord::RecordNotFound
-      raise Pundit::NotAuthorizedError
+      present_authorization_error_to_non_admin_users
     end
     authorize @user
   end
@@ -32,14 +27,18 @@ class UsersController < ApplicationController
   def update
     @user = User.find params[:id]
     authorize @user
-    @user.update_attributes(user_params) ? save_succeeded(:update) : render("show")
+    @user.update_attributes(user_params) ? save_succeeded : render("show")
   end
 
   def destroy
-    user = User.find params[:id]
-    authorize user
-    user.destroy
-    flash[:success] = "User deleted"
+    begin
+      user = User.find params[:id]
+      authorize user
+      user.destroy
+      delete_succeeded
+    rescue ActiveRecord::RecordNotFound
+      delete_failed
+    end
     redirect_to :users
   end
 
@@ -48,8 +47,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
 
-  def save_succeeded type_sym
-    flash[:success] = "#{save_action(type_sym)} #{@user.email}"
+  def save_succeeded
+    flash[:success] = "Saved #{@user.email}"
     redirect_after_save
   end
 
@@ -63,11 +62,16 @@ class UsersController < ApplicationController
     render "index"
   end
 
-  def save_action type_sym
-    case type_sym
-    when :create then "Saved"
-    when :update then "Updated"
-    end
+  def present_authorization_error_to_non_admin_users
+    raise Pundit::NotAuthorizedError unless current_user.admin?
+  end
+
+  def delete_succeeded
+    flash[:success] = "User deleted"
+  end
+
+  def delete_failed
+    flash[:notice] = "User to be deleted did not exist. The browser's \"back\" button may have been used to display a user that had already been deleted."
   end
 
   def paginate_users

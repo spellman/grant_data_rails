@@ -4,7 +4,7 @@ include UserManagement
 feature "user management" do
 
   scenario "a guest user cannot sign up" do
-    visit new_user_path
+    visit users_path
     expect(page).to have_content "Sign in"
   end
 
@@ -16,7 +16,7 @@ feature "user management" do
 
   scenario "a non-admin user cannot create additional users" do
     sign_in_user
-    visit new_user_path
+    visit users_path
     expect(page).to have_content "You are not authorized to perform this action."
   end
 
@@ -27,7 +27,7 @@ feature "user management" do
     expect(page).to have_content "user@test.com"
   end
 
-  scenario "a non-admin user cannot view users" do
+  scenario "a non-admin user cannot view all users" do
     sign_in_user
     visit users_path
     expect(page).to have_content "You are not authorized to perform this action."
@@ -60,14 +60,16 @@ feature "user management" do
 
   scenario "a non-admin user cannot update other users" do
     sign_in_user
-    visit users_path
+    visit user_path(1)
+    expect(page).to have_content "You are not authorized to perform this action."
+
+    visit user_path(-1)
     expect(page).to have_content "You are not authorized to perform this action."
   end
 
   scenario "an admin can update himself" do
     sign_in_admin
-    visit users_path
-    click_link "edit", href: user_path(1)
+    visit user_path(1)
     expect(page).to have_button "Update"
   end
 

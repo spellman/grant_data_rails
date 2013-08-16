@@ -11,7 +11,7 @@ class RecordsController < ApplicationController
 
   def create
     @record = Record.new record_params.merge({ created_by: current_user.email })
-    @record.save ? save_succeeded(:create) : save_failed
+    @record.save ? save_succeeded : save_failed
   end
 
   def show
@@ -20,15 +20,15 @@ class RecordsController < ApplicationController
 
   def update
     @record = Record.find params[:id]
-    @record.update_attributes(record_params) ? save_succeeded(:update) : render("show")
+    @record.update_attributes(record_params) ? save_succeeded : render("show")
   end
 
   def destroy
     begin
       Record.find(params[:id]).destroy
-      flash[:success] = "Record deleted"
+      delete_succeeded
     rescue ActiveRecord::RecordNotFound
-      flash[:notice] = "Record to be deleted did not exist. The browser's \"back\" button may have been used to display a record that had already been deleted."
+      delete_failed
     end
     redirect_to :records
   end
@@ -38,8 +38,8 @@ class RecordsController < ApplicationController
     params.require(:record).permit(:name)
   end
 
-  def save_succeeded type_sym
-    flash[:success] = "#{save_action(type_sym)} #{@record.name}"
+  def save_succeeded
+    flash[:success] = "Saved #{@record.name}"
     redirect_to :records
   end
 
@@ -48,11 +48,12 @@ class RecordsController < ApplicationController
     render "index"
   end
 
-  def save_action type_sym
-    case type_sym
-    when :create then "Saved"
-    when :update then "Updated"
-    end
+  def delete_succeeded
+    flash[:success] = "Record deleted"
+  end
+
+  def delete_failed
+    flash[:notice] = "Record to be deleted did not exist. The browser's \"back\" button may have been used to display a record that had already been deleted."
   end
 
   def paginate_records
