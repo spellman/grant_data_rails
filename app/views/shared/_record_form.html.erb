@@ -1,7 +1,7 @@
 <%= form_for @record do |f| %>
   <div>
-    <%= f.label "name", "Name" %>
-    <%= f.text_field "name" %>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
   </div>
 
   <%= f.submit button_text, class: "btn btn-large btn-primary" %>
