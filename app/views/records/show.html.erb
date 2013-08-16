@@ -1,6 +1,8 @@
 <%= provide :title, "Edit record" %>
 
-<div class="col-3">
-  <%= render "shared/error_messages", resource: @record %>
-  <%= render "shared/record_form", button_text: "Update" %>
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <%= render "shared/error_messages", resource: @record %>
+    <%= render "shared/record_form", button_text: "Update" %>
+  </div>
 </div>
