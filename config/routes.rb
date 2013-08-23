@@ -1,12 +1,11 @@
 GrantDataRails::Application.routes.draw do
-  devise_for :users
-  resources :users,   except: [:new, :edit]
-  resources :records, except: [:new, :edit]
+  resources :users,    except: [:new, :edit]
+  resources :sessions, only:   [:new, :create, :destroy]
+  resources :records,  except: [:new, :edit]
   
-  authenticated :user do
-    root to: "records#index", as: :authenticated_root
-  end
-  root to: redirect("/users/sign_in")
+  root to: "sessions#new"
+  match "/signin",  to: "sessions#new",     via: :get,    as: "signin"
+  match "/signout", to: "sessions#destroy", via: :delete, as: "signout"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

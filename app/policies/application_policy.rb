@@ -1,10 +1,11 @@
 class ApplicationPolicy
-  attr_reader :user, :user_on_which_to_act
+  attr_reader :user, :object_on_which_to_act
 
-  def initialize user, user_on_which_to_act
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
-    @user = user
-    @user_on_which_to_act = user_on_which_to_act
+  # First parameter, user, refers to current_user.
+  def initialize user, object_on_which_to_act
+    raise Pundit::NotAuthorizedError, "Must be logged in." unless user
+    @user                   = user
+    @object_on_which_to_act = object_on_which_to_act
   end
 
   def index?
@@ -12,7 +13,7 @@ class ApplicationPolicy
   end
 
   def show?
-    scope.where(id: user_on_which_to_act.id).exists?
+    scope.where(id: object_on_which_to_act.id).exists?
   end
 
   def create?
@@ -36,6 +37,6 @@ class ApplicationPolicy
   end
 
   def scope
-    Pundit.policy_scope! user, user_on_which_to_act.class
+    Pundit.policy_scope! user, object_on_which_to_act.class
   end
 end

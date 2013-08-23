@@ -53,8 +53,7 @@ class UsersController < ApplicationController
   end
 
   def redirect_after_save
-    sign_in @user, bypass: true if current_user == @user
-    current_user.admin? ? redirect_to(:users) : redirect_to(:root)
+    current_user.admin? ? redirect_to(:users) : redirect_to(:records)
   end
 
   def save_failed

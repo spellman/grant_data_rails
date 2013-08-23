@@ -17,7 +17,7 @@ feature "user management" do
   scenario "a non-admin user cannot create additional users" do
     sign_in_user
     visit users_path
-    expect(page).to have_content "You are not authorized to perform this action."
+    expect(page).to have_content "You aren't authorized to perform that action."
   end
 
   scenario "an admin can view all users" do
@@ -30,7 +30,7 @@ feature "user management" do
   scenario "a non-admin user cannot view all users" do
     sign_in_user
     visit users_path
-    expect(page).to have_content "You are not authorized to perform this action."
+    expect(page).to have_content "You aren't authorized to perform that action."
   end
 
   scenario "an admin can delete other users" do
@@ -46,7 +46,8 @@ feature "user management" do
   end
 
   scenario "an admin can update other users" do
-    temp_user = User.create email: "temp@user.com", password: "11111111"
+    pw = "11111111"
+    temp_user = User.create email: "temp@user.com", password: pw, password_confirmation: pw
     sign_in_admin
     visit users_path
     all("a").select { |a| a[:href] == "/users/#{temp_user.id}" }.first.click
@@ -61,10 +62,10 @@ feature "user management" do
   scenario "a non-admin user cannot update other users" do
     sign_in_user
     visit user_path(1)
-    expect(page).to have_content "You are not authorized to perform this action."
+    expect(page).to have_content "You aren't authorized to perform that action."
 
     visit user_path(-1)
-    expect(page).to have_content "You are not authorized to perform this action."
+    expect(page).to have_content "You aren't authorized to perform that action."
   end
 
   scenario "an admin can update himself" do

@@ -11,16 +11,16 @@ module UserManagement
   end
 
   def sign_in email: nil, password: nil
-    visit new_user_session_path
-    within "#new_user" do
-      fill_in "user_email", with: email
-      fill_in "user_password", with: password
+    visit signin_path
+    within "#signin-form" do
+      fill_in "email", with: email
+      fill_in "password", with: password
       click_button "Sign in"
     end
   end
 
   def sign_out
-    visit root_path
+    visit records_path
     click_link "Sign out"
   end
 

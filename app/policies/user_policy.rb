@@ -1,5 +1,4 @@
 class UserPolicy < ApplicationPolicy
-
   def index?
     create?
   end
@@ -9,7 +8,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    create? || user.id == user_on_which_to_act.id
+    create? || user.id == object_on_which_to_act.id
   end
 
   def update?
@@ -19,5 +18,4 @@ class UserPolicy < ApplicationPolicy
   def destroy?
     create?
   end
-
 end

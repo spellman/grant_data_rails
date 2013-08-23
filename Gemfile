@@ -13,7 +13,6 @@ gem "sass-rails", "~> 4.0.0"
 
 gem "pg",                          "~> 0.16"
 
-gem "devise",                      "~> 3.0"
 gem "pundit",                      "~> 0.2"
 
 gem "kaminari",                    "~> 0.14.1"
@@ -42,7 +41,8 @@ group :production do
 end
 
 # Use ActiveModel has_secure_password
-# gem "bcrypt-ruby", "~> 3.0.0"
+# Update to ~> 3.1.0 soon, when ActiveSupport updates, updates its dependency.
+gem "bcrypt-ruby",                 "~> 3.0.0"
 
 # Use unicorn as the app server
 gem "unicorn"

@@ -8,12 +8,12 @@ feature "home page" do
   end
 
   scenario "displays the correct title and heading" do
-    visit root_path
+    visit records_path
     expect(page).to have_title "Grant Data Capture App | Home"
     expect(page).to have_content "Grant Data Capture App"
   end
 
-  # Save the creating user's email in the record so the data is not relational.
+  # Save the creating user's email in the record so that the data is not relational.
   # Records are independent of the user who creates them;
   # it simply may be useful to know who created which records.
   scenario "saves a record with the email of the user who created it" do
