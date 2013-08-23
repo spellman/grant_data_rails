@@ -12,7 +12,9 @@
       <td><%= user.email %></td>
       <td><%= link_to "edit", user_path(user.id) %></td>
     <% unless user == current_user %>
-      <td><%= link_to "delete", user, method: :delete, data: { confirm: "Delete #{user.email}?\nThis can't be undone." } %></td>
+      <td>
+        <%= link_to "delete", user, method: :delete, data: { confirm: "Delete #{user.email}?\nThis can't be undone." } %>
+      </td>
     <% end %>
     </tr>
   <% end %>
