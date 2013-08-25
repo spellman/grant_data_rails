@@ -16,6 +16,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def destroy?
-    create?
+    create? && user.id != object_on_which_to_act.id
   end
 end

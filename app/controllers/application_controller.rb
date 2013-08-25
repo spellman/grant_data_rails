@@ -29,6 +29,6 @@ class ApplicationController < ActionController::Base
   end
 
   def log_unauthorized_access_attempt
-    p "USER #{current_user.email} ATTEMPTED TO ACCESS #{request.env["REQUEST_URI"]}"
+    p "USER #{current_user.email} (USER ID #{current_user.id}) ATTEMPTED TO ACCESS #{request.env["REQUEST_URI"]} via #{request.request_method}"
   end
 end
