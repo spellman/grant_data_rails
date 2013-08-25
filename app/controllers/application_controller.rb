@@ -22,10 +22,20 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
-  def user_not_authorized
-    log_unauthorized_access_attempt
-    flash[:danger] = "Whoa, there. You aren't authorized to perform that action."
-    redirect_to :records
+  def user_not_authorized exception
+    if attempt_to_delete_self?
+      redirect_to :users
+      flash[:danger] = "You can't delete yourself."
+    else
+      log_unauthorized_access_attempt
+      flash[:danger] = "Whoa, there. You aren't authorized to perform that action."
+      redirect_to :records
+    end
+  end
+
+  def attempt_to_delete_self?
+    request.request_method.downcase == "delete" &&
+      request.filtered_parameters["id"] == current_user.id.to_s
   end
 
   def log_unauthorized_access_attempt
