@@ -9,29 +9,17 @@ body {
   margin-top: 28px;
 }
 
-#table-panel {
+#resource-display-panel {
+  min-height: 596px;
   border-left-style: solid;
   border-left-width: 1px;
   border-left-color: #dddddd;
 }
 
-#export-records {
-  margin-bottom: 17px;
-}
-
-.records #table-container {
-  min-height: 442px;
-}
-
-.users #table-container {
-  min-height: 490px;
-}
-
-#table-panel .pagination {
-  position: relative;
-  bottom: 14px;
-}
-
-#table-panel .pagination ul {
+#resource-display-panel .pagination ul {
   margin-bottom: 0px;
+}
+
+#export-records {
+  margin-top: 27px;
 }

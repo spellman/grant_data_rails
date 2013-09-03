@@ -1,0 +1,12 @@
+<% provide :content do %>
+  <div class="row">
+    <div id="form-panel" class="col-sm-3 col-md-3 col-lg-3">
+      <%= yield :resource_form %>
+    </div>
+    <div id="resource-display-panel" class="col-sm-9 col-md-9 col-lg-9 users">
+      <%= yield :resource_display %>
+    </div>
+  </div>
+<% end %>
+
+<%= render template: "layouts/application" %>

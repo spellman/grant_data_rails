@@ -1,18 +1,20 @@
-<%= provide :title, "Home" %>
+<% provide :title, "Home" %>
 
-<div class="row">
-  <div class="col-sm-3 col-md-3 col-lg-3">
-    <%= render "shared/error_messages", resource: @record %>
-    <%= render "records/record_form", button_text: "Save" %>
-  </div>
+<% provide :resource_form do %>
+  <%= render "shared/error_messages", resource: @record %>
+  <%= render "records/record_form", button_text: "Save" %>
+<% end %>
 
-  <div id="table-panel" class="col-sm-9 col-md-9 col-lg-9 records">
-    <div id="export-records">
+<% provide :resource_display do %>
+  <%= render "records/records_display" %>
+  <div class="row">
+    <div class="col-sm-8 col-md-8 col-lg-8">
+      <%= paginate @records %>
+    </div>
+    <div id="export-records" class="col-sm-4 col-md-4 col-lg-4">
       <%= link_to "Export all records to CSV", "/records.csv" %>
     </div>
-    <div id="table-container">
-      <%= render "records/records_display" %>
-    </div>
-    <%= paginate @records %>
   </div>
-</div>
+<% end %>
+
+<%= render template: "layouts/resource_index" %>

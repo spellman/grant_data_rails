@@ -3,17 +3,17 @@
 <head>
   <title>Grant Data Capture App | <%= yield :title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
   <%= render "layouts/navigation" %>
-    <div class="container">
-      <%= render "layouts/messages" %>
-      <%= yield %>
-    </div>
-    <footer>
-    </footer>
+  <div class="container">
+    <%= render "layouts/messages" %>
+    <%= content_for?(:content) ? yield(:content) : yield %>
+  </div>
+  <footer>
+  </footer>
 </body>
 </html>

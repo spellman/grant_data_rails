@@ -57,7 +57,7 @@ class RecordsController < ApplicationController
   end
 
   def paginate_records
-    @records = Record.page(params[:page]).per(12).order("created_at DESC")
+    @records = Record.page(params[:page]).per(13).order("created_at DESC")
   end
 
   def csv_download

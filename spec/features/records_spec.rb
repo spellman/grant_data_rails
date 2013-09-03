@@ -67,7 +67,7 @@ feature "home page" do
     visit records_path
     click_link "delete"
     expect(page).to_not have_content "foo deleted"
-    within "#table-container" do
+    within "#records" do
       expect(page).to_not have_content "foo"
     end
   end
