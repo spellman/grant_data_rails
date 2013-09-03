@@ -15,7 +15,8 @@ class RecordsController < ApplicationController
   end
 
   def show
-    @record = Record.find params[:id]
+    @record  = Record.find params[:id]
+    paginate_records
   end
 
   def update

@@ -16,3 +16,12 @@
   <% end %>
   </tbody>
 </table>
+
+<div class="row">
+  <div class="col-sm-8 col-md-8 col-lg-8">
+    <%= paginate @records %>
+  </div>
+  <div id="export-records" class="col-sm-4 col-md-4 col-lg-4">
+    <%= link_to "Export all records to CSV", "/records.csv" %>
+  </div>
+</div>
