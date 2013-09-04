@@ -9,6 +9,10 @@ body {
   margin-top: 28px;
 }
 
+#form-panel form div {
+  margin-top: 14px;
+}
+
 #cancel-update {
   position: relative;
   top: -34px;
@@ -16,13 +20,16 @@ body {
 }
 
 #resource-display-panel {
-  min-height: 596px;
   border-left-style: solid;
   border-left-width: 1px;
   border-left-color: #dddddd;
 }
 
-#resource-display-panel .pagination ul {
+#resource-display-panel #table-container {
+  min-height: 518px;
+}
+
+.pagination {
   margin-bottom: 0px;
 }
 

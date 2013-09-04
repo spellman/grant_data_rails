@@ -60,7 +60,7 @@ class UsersController < ApplicationController
   end
 
   def delete_failed
-    flash[:notice] = "User to be deleted did not exist. The browser's \"back\" button may have been used to display a user that had already been deleted."
+    flash[:warning] = "User to be deleted did not exist. The browser's \"back\" button may have been used to display a user that had already been deleted."
   end
 
   def paginate_users

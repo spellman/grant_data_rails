@@ -9,7 +9,12 @@ class ApplicationController < ActionController::Base
 
   private
   def authenticate_user
-    redirect_to signin_path, notice: "Please sign in." unless signed_in?
+    refuse_entry_and_request_sign_in unless signed_in?
+  end
+
+  def refuse_entry_and_request_sign_in
+    flash[:warning] = "Please sign in"
+    redirect_to signin_path
   end
 
   def signed_in?

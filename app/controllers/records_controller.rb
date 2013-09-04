@@ -48,7 +48,7 @@ class RecordsController < ApplicationController
   end
 
   def delete_failed
-    flash[:notice] = "Record to be deleted did not exist. The browser's \"back\" button may have been used to display a record that had already been deleted."
+    flash[:warning] = "Record to be deleted did not exist. The browser's \"back\" button may have been used to display a record that had already been deleted."
   end
 
   def paginate_records
