@@ -8,7 +8,8 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    create? || user.id == object_on_which_to_act.id
+    create? ||
+      (object_on_which_to_act.is_a?(User) && user.id == object_on_which_to_act.id)
   end
 
   def update?

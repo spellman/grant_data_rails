@@ -16,12 +16,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    begin
-      @user = User.find params[:id]
-    rescue ActiveRecord::RecordNotFound
-      present_authorization_error_to_non_admin_users
-    end
-    authorize @user
+    display_user_if_authorized
+    display_all_users_if_authorized
   end
 
   def update
@@ -75,6 +71,25 @@ class UsersController < ApplicationController
 
   def paginate_users
     @users = User.page(params[:page]).per(13).order("created_at ASC")
+  end
+
+  def display_user_if_authorized
+    begin
+      @user = User.find params[:id]
+    rescue ActiveRecord::RecordNotFound
+      present_authorization_error_to_non_admin_users
+    end
+    authorize @user
+  end
+
+  def display_all_users_if_authorized
+    begin
+      @users = User.all
+      authorize @users
+      paginate_users
+    rescue Pundit::NotAuthorizedError
+      @users = nil
+    end
   end
 
 end
