@@ -62,6 +62,14 @@ feature "home page" do
     expect(page).to_not have_content "foo"
   end
 
+  scenario "provides cancelation of update" do
+    Record.create name: "foo"
+    visit records_path
+    click_link "edit"
+    click_link "Cancel"
+    expect(page).not_to have_content "Update"
+  end
+
   scenario "allows a user to delete records" do
     Record.create name: "foo"
     visit records_path

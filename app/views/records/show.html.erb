@@ -1,8 +1,9 @@
 <% provide :title, "Edit record" %>
 
 <% provide :resource_form do %>
-    <%= render "shared/error_messages", resource: @record %>
-    <%= render "records/record_form", button_text: "Update" %>
+  <%= render "shared/error_messages", resource: @record %>
+  <%= render "records/record_form", button_text: "Update" %>
+  <%= link_to "Cancel", records_path, id: "cancel-update", class: "btn btn-large btn-primary" %>
 <% end %>
 
 <% provide :resource_display do %>

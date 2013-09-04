@@ -1,8 +1,9 @@
-<%= provide :title, "Edit user" %>
+<% provide :title, "Edit user" %>
 
 <% provide :resource_form do %>
   <%= render "shared/error_messages", resource: @user %>
   <%= render "users/user_form", button_text: "Update" %>
+  <%= link_to "Cancel", users_path, id: "cancel-update", class: "btn btn-large btn-primary" %>
 <% end %>
 
 <% provide :resource_display do %>
