@@ -27,7 +27,6 @@ class RecordsController < ApplicationController
   def destroy
     begin
       Record.find(params[:id]).destroy
-      delete_succeeded
     rescue ActiveRecord::RecordNotFound
       delete_failed
     end
@@ -40,17 +39,12 @@ class RecordsController < ApplicationController
   end
 
   def save_succeeded
-    flash[:success] = "Saved #{@record.name}"
     redirect_to :records
   end
 
   def save_failed
     paginate_records
     render "index"
-  end
-
-  def delete_succeeded
-    flash[:success] = "Record deleted"
   end
 
   def delete_failed

@@ -32,7 +32,7 @@ feature "home page" do
       fill_in "record_name", with: "foo"
       click_button "Save"
     end
-    expect(page).to have_content "Saved foo"
+    expect(page).to have_content "foo"
   end
 
   scenario "displays the errors when the user tries to save an invalid record" do
