@@ -12,6 +12,12 @@ feature "user management" do
     sign_in_admin
     visit users_path
     expect(page).to have_content "Password confirmation"
+    fill_in "user_email", with: "test@test.com"
+    pw = "11111111"
+    fill_in "user_password", with: pw
+    fill_in "user_password_confirmation", with: pw
+    click_button "Create user"
+    expect(page).to have_content "test@test.com"
   end
 
   scenario "a non-admin user cannot create additional users" do
