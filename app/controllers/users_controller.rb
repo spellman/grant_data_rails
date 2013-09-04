@@ -31,7 +31,6 @@ class UsersController < ApplicationController
       user = User.find params[:id]
       authorize user
       user.destroy
-      delete_succeeded
     rescue ActiveRecord::RecordNotFound
       delete_failed
     end
@@ -44,7 +43,6 @@ class UsersController < ApplicationController
   end
 
   def save_succeeded
-    flash[:success] = "Saved #{@user.email}"
     redirect_after_save
   end
 
@@ -59,10 +57,6 @@ class UsersController < ApplicationController
 
   def present_authorization_error_to_non_admin_users
     raise Pundit::NotAuthorizedError unless current_user.admin?
-  end
-
-  def delete_succeeded
-    flash[:success] = "User deleted"
   end
 
   def delete_failed
