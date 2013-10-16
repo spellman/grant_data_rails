@@ -9,8 +9,8 @@ feature "home page" do
 
   scenario "displays the correct title and heading" do
     visit records_path
-    expect(page).to have_title "Grant Data Capture App | Home"
-    expect(page).to have_content "Grant Data Capture App"
+    expect(page).to have_title "Waivers Grant Data | Home"
+    expect(page).to have_content "Waivers Grant Data"
   end
 
   # Save the creating user's email in the record so that the data is not relational.

@@ -1,4 +1,4 @@
-GrantDataRails::Application.routes.draw do
+WaiversGrantDataRails::Application.routes.draw do
   resources :users,    except: [:new, :edit]
   resources :sessions, only:   [:new, :create, :destroy]
   resources :records,  except: [:new, :edit]

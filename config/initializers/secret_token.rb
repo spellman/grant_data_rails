@@ -24,4 +24,4 @@ def secure_token
   end
 end
 
-GrantDataRails::Application.config.secret_key_base = secure_token
+WaiversGrantDataRails::Application.config.secret_key_base = secure_token
