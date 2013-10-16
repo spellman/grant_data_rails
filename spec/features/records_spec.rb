@@ -20,6 +20,7 @@ feature "home page" do
     visit records_path
     within "#new_record" do
       fill_in "record_name", with: "foo"
+      fill_in "record_diagnosis", with: "bar"
       click_button "Save"
     end
     record = Record.find_by_name("foo")
@@ -30,6 +31,7 @@ feature "home page" do
     visit records_path
     within "#new_record" do
       fill_in "record_name", with: "foo"
+      fill_in "record_diagnosis", with: "bar"
       click_button "Save"
     end
     expect(page).to have_content "foo"
@@ -44,7 +46,7 @@ feature "home page" do
   end
 
   scenario "displays the saved records with pagination" do
-    31.times { |i| Record.create name: "foo_#{i}" }
+    31.times { |i| Record.create name: "foo_#{i}", diagnosis: "bar_#{i}" }
     visit records_path
     expect(page).to have_content "foo_30"
     expect(page).to have_content "foo_1"
@@ -53,7 +55,7 @@ feature "home page" do
   end
 
   scenario "allows a user to update records" do
-    Record.create name: "foo"
+    Record.create name: "foo", diagnosis: "bar"
     visit records_path
     click_link "edit"
     fill_in "record_name", with: "bar"
@@ -63,7 +65,7 @@ feature "home page" do
   end
 
   scenario "provides cancelation of update" do
-    Record.create name: "foo"
+    Record.create name: "foo", diagnosis: "bar"
     visit records_path
     click_link "edit"
     click_link "Cancel"
@@ -71,7 +73,7 @@ feature "home page" do
   end
 
   scenario "allows a user to delete records" do
-    Record.create name: "foo"
+    Record.create name: "foo", diagnosis: "bar"
     visit records_path
     click_link "delete"
     expect(page).to_not have_content "foo deleted"
@@ -81,7 +83,7 @@ feature "home page" do
   end
 
   scenario "exports all saved records to csv" do
-    31.times { |i| Record.create name: "foo_#{i}" }
+    31.times { |i| Record.create name: "foo_#{i}", diagnosis: "bar_#{i}" }
     visit records_path
     expect(page).to have_link "Export all records to CSV", href: "/records.csv"
   end

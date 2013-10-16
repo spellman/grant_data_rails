@@ -1,5 +1,4 @@
 class RecordsController < ApplicationController
-
   def index
     @record  = Record.new
     @records = Record.all
@@ -62,5 +61,4 @@ class RecordsController < ApplicationController
   def csv_filename
     "records-#{DateTime.now.to_s}"
   end
-
 end

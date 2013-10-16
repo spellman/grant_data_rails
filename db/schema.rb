@@ -11,13 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130823002440) do
+ActiveRecord::Schema.define(version: 20131016034539) do
 
   create_table "records", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "created_by"
+    t.string   "diagnosis",           null: false
+    t.decimal  "bmi"
+    t.datetime "bmi_date"
+    t.datetime "eye_exam_date"
+    t.datetime "foot_exam_date"
+    t.decimal  "a1c"
+    t.datetime "a1c_date"
+    t.integer  "tc"
+    t.integer  "tg"
+    t.integer  "hdl"
+    t.integer  "ldl"
+    t.datetime "cholesterol_date"
+    t.integer  "acr"
+    t.datetime "acr_date"
+    t.integer  "bun"
+    t.integer  "creatinine"
+    t.datetime "bun_creatinine_date"
+    t.integer  "ckd_stage"
+    t.datetime "ckd_stage_date"
+    t.integer  "ast"
+    t.integer  "alt"
+    t.datetime "ast_alt_date"
+    t.datetime "flu_date"
+    t.datetime "pneumonia"
   end
 
   create_table "users", force: true do |t|
