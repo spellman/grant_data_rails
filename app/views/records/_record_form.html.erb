@@ -3,6 +3,139 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
+  <div>
+    <%= f.label :diagnosis %><br />
+    <%= f.text_field :diagnosis %>
+  </div>
+  <fieldset>
+    <div id="bmi" class="row">
+      <div class="col-sm-5, col-md-5, col-lg-5">
+        <%= f.label :bmi %><br />
+        <%= f.text_field :bmi %>
+      </div>
+      <div class="col-sm-7, col-md-7, col-lg-7">
+        <%= f.label :bmi_date, "Date" %><br />
+        <%= f.date_field :bmi_date %>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div>
+      <%= f.label :eye_exam_date %><br />
+      <%= f.date_field :eye_exam_date %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div>
+      <%= f.label :foot_exam_date %><br />
+      <%= f.date_field :foot_exam_date %>
+    </div>
+  </fieldset>
+  </fieldset>
+  <fieldset>
+    <div id="a1c" class="row">
+      <div class="col-sm-5, col-md-5, col-lg-5">
+        <%= f.label :a1c, "A1c (%)" %><br />
+        <%= f.text_field :a1c %>
+      </div>
+      <div class="col-sm-7, col-md-7, col-lg-7">
+        <%= f.label :a1c_date, "Date" %><br />
+        <%= f.date_field :a1c_date %>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div id="cholesterol" class="row">
+      <div class="col-sm-3, col-md-3, col-lg-3">
+        <%= f.label :tc, "TC (mg/dl)" %><br />
+        <%= f.text_field :tc %>
+      </div>
+      <div class="col-sm-3, col-md-3, col-lg-3">
+        <%= f.label :tg, "TG (mg/dl)" %><br />
+        <%= f.text_field :tg %>
+      </div>
+      <div class="col-sm-3, col-md-3, col-lg-3">
+        <%= f.label :hdl, "HDL (mg/dl)" %><br />
+        <%= f.text_field :hdl %>
+      </div>
+      <div class="col-sm-3, col-md-3, col-lg-3">
+        <%= f.label :ldl, "LDL (mg/dl)" %><br />
+        <%= f.text_field :ldl %>
+      </div>
+    </div>
+    <div>
+      <%= f.label :cholesterol_date, "Date" %><br />
+      <%= f.date_field :cholesterol_date %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div id="acr" class="row">
+      <div class="col-sm-5, col-md-5, col-lg-5">
+        <%= f.label :acr, "ACR (mcg/mg)" %><br />
+        <%= f.text_field :acr %>
+      </div>
+      <div class="col-sm-7, col-md-7, col-lg-7">
+        <%= f.label :acr_date, "Date" %><br />
+        <%= f.date_field :acr_date %>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div id="bun-creatinine" class="row">
+      <div class="col-sm-6, col-md-6, col-lg-6">
+        <%= f.label :bun, "BUN (mg/dl)" %><br />
+        <%= f.text_field :bun %>
+      </div>
+      <div class="col-sm-6, col-md-6, col-lg-6">
+        <%= f.label :creatinine, "Creatinine (mg/dl)" %><br />
+        <%= f.text_field :creatinine %>
+      </div>
+    </div>
+    <div>
+      <%= f.label :bun_creatinine_date, "Date" %><br />
+      <%= f.date_field :bun_creatinine_date %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div id="ckd-stage" class="row">
+      <div class="col-sm-5, col-md-5, col-lg-5">
+        <%= f.label :ckd_stage %><br />
+        <%= f.text_field :ckd_stage %>
+      </div>
+      <div class="col-sm-7, col-md-7, col-lg-7">
+        <%= f.label :ckd_stage_date, "Date" %><br />
+        <%= f.date_field :ckd_stage_date %>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div id="ast-alt" class="row">
+      <div class="col-sm-6, col-md-6, col-lg-6">
+        <%= f.label :ast, "AST (mg/dl)" %><br />
+        <%= f.text_field :ast %>
+      </div>
+      <div class="col-sm-6, col-md-6, col-lg-6">
+        <%= f.label :alt, "ALT (mg/dl)" %><br />
+        <%= f.text_field :alt %>
+      </div>
+    </div>
+    <div>
+      <%= f.label :ast_alt_date, "Date" %><br />
+      <%= f.date_field :ast_alt_date %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div>
+      <%= f.label :flu_date %><br />
+      <%= f.date_field :flu_date %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div>
+      <%= f.label :pneumonia_date %><br />
+      <%= f.date_field :pneumonia_date %>
+    </div>
+  </fieldset>
 
   <%= f.submit button_text, class: "btn btn-primary" %>
 <% end %>

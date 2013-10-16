@@ -13,6 +13,10 @@ body {
   margin-top: 14px;
 }
 
+#form-panel label {
+  font-size: smaller;
+}
+
 #cancel-update {
   position: relative;
   top: -34px;
@@ -23,10 +27,6 @@ body {
   border-left-style: solid;
   border-left-width: 1px;
   border-left-color: #dddddd;
-}
-
-#resource-display-panel #table-container {
-  min-height: 518px;
 }
 
 .pagination {

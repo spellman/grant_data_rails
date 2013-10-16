@@ -9,7 +9,7 @@ class RecordsController < ApplicationController
   end
 
   def create
-    @record = Record.new record_params.merge({ created_by: current_user.email })
+    @record = Record.new record_params
     @record.save ? save_succeeded : save_failed
   end
 
@@ -34,7 +34,31 @@ class RecordsController < ApplicationController
 
   # private
   def record_params
-    params.require(:record).permit(:name)
+    params.require(:record).permit(:name,
+                                   :diagnosis,
+                                   :bmi,
+                                   :bmi_date,
+                                   :eye_exam_date,
+                                   :foot_exam_date,
+                                   :a1c,
+                                   :a1c_date,
+                                   :tc,
+                                   :tg,
+                                   :hdl,
+                                   :ldl,
+                                   :cholesterol_date,
+                                   :acr,
+                                   :acr_date,
+                                   :bun,
+                                   :creatinine,
+                                   :bun_creatinine_date,
+                                   :ckd_stage,
+                                   :ckd_stage_date,
+                                   :ast,
+                                   :alt,
+                                   :ast_alt_date,
+                                   :flu_date,
+                                   :pneumonia_date)
   end
 
   def save_succeeded

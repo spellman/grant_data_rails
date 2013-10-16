@@ -1,7 +1,6 @@
 require "spec_helper"
 
 describe Record do
-
   before :each do
     @user = User.create email: "user@temp.com", password: "11111111"
     @valid_name      = { name: "foo" }
@@ -19,12 +18,4 @@ describe Record do
     expect(Record.new @valid_diagnosis.merge(@valid_name)).to be_valid
     expect(Record.new @no_diagnosis.merge(@valid_name)).not_to be_valid
   end
-
-  it "does not destroy records created by a user if the user is destroyed" do
-    Record.create({ name: "foo", diagnosis: "bar", created_by: @user.email })
-    expect(Record.all).to have(1).record
-    @user.destroy
-    expect(Record.all).to have(1).record
-  end
-
 end

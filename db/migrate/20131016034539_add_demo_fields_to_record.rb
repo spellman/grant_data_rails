@@ -23,6 +23,6 @@ class AddDemoFieldsToRecord < ActiveRecord::Migration
     add_column :records, :alt,                 :integer
     add_column :records, :ast_alt_date,        :datetime
     add_column :records, :flu_date,            :datetime
-    add_column :records, :pneumonia,           :datetime
+    add_column :records, :pneumonia_date,      :datetime
   end
 end

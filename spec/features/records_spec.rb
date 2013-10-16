@@ -13,20 +13,6 @@ feature "home page" do
     expect(page).to have_content "Waivers Grant Data"
   end
 
-  # Save the creating user's email in the record so that the data is not relational.
-  # Records are independent of the user who creates them;
-  # it simply may be useful to know who created which records.
-  scenario "saves a record with the email of the user who created it" do
-    visit records_path
-    within "#new_record" do
-      fill_in "record_name", with: "foo"
-      fill_in "record_diagnosis", with: "bar"
-      click_button "Save"
-    end
-    record = Record.find_by_name("foo")
-    expect(record.created_by).to eq "user@test.com"
-  end
-
   scenario "displays a success message when the user saves a valid record" do
     visit records_path
     within "#new_record" do
