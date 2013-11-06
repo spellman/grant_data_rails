@@ -15,9 +15,19 @@
   padding-left: 7px;
 }
 
-#attributes, .record {
-  float: left;
+#records {
   position: relative;
+}
+
+#records .attribute, #records .value {
+  float: left;
+  margin-right: 14px;
+  position: relative;
+  width: 112px;
+}
+
+#records .attribute {
+  clear: left;
 }
 
 #export {

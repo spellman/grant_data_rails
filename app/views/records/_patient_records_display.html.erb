@@ -1,20 +1,17 @@
-<div id="attributes">
-<% @records.first.attributes.keys.each do |attr| %>
+<div id="records">
+<% @view_model.each do |attr_name, attr_values| %>
   <div>
-    <%= attr %>
+    <div class="attribute">
+      <p><%= attr_name %></p>
+    </div>
+  <% attr_values.each do |value| %>
+    <div class="value">
+      <p><%= value %></p>
+    </div>
+  <% end %>
   </div>
 <% end %>
 </div>
-
-<% @records.each do |record| %>
-<div class="record">
-<% record.attributes.each do |k, v| %>
-  <div>
-    <%= "#{v}" %>
-  </div>
-<% end %>
-</div>
-<% end %>
 
 <div id="export" class="row">
   <div class="col-sm-8 col-md-8 col-lg-8">

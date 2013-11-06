@@ -14,9 +14,9 @@ class RecordsController < ApplicationController
   end
 
   def show
-    @record  = Record.find params[:id]
-    name     = @record.name
-    @records = Record.where("name = ?", name).order(created_at: :asc)
+    @record     = Record.find params[:id]
+    records     = Record.where "name = ?", @record.name
+    @view_model = PatientRecordsPresenter.new(records).show
   end
 
   def update
