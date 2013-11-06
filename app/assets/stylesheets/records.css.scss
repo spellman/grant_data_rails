@@ -14,3 +14,12 @@
 #cholesterol > div:last-child {
   padding-left: 7px;
 }
+
+#attributes, .record {
+  float: left;
+  position: relative;
+}
+
+#export {
+  clear: both;
+}

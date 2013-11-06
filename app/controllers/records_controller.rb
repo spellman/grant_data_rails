@@ -15,7 +15,8 @@ class RecordsController < ApplicationController
 
   def show
     @record  = Record.find params[:id]
-    paginate_records
+    name     = @record.name
+    @records = Record.where("name = ?", name).order(created_at: :asc)
   end
 
   def update
