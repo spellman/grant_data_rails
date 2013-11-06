@@ -1,7 +1,16 @@
-form .row input {
-  width: 100%;
+.form-group {
+  margin-bottom: 30px;
 }
 
-fieldset {
-  padding-bottom: 14px;
+#cholesterol > div:not(:first-child):not(:last-child) {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+#cholesterol > div:first-child {
+  padding-right: 7px;
+}
+
+#cholesterol > div:last-child {
+  padding-left: 7px;
 }
