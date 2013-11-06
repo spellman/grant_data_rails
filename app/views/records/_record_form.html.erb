@@ -1,6 +1,6 @@
 <%= form_for @record do |f| %>
   <div class="form-group">
-    <%= f.label :name, "Patient name" %><br />
+    <%= f.label :name, "Patient Name" %><br />
     <%= f.text_field :name, class: "form-control" %>
   </div>
   <div class="form-group">
@@ -20,11 +20,11 @@
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :eye_exam_date %><br />
+    <%= f.label :eye_exam_date, "Eye Exam Date" %><br />
     <%= f.date_field :eye_exam_date, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :foot_exam_date %><br />
+    <%= f.label :foot_exam_date, "Foot Exam Date" %><br />
     <%= f.date_field :foot_exam_date, class: "form-control" %>
   </div>
   <div class="form-group">
@@ -94,7 +94,7 @@
   <div class="form-group">
     <div id="ckd-stage" class="row">
       <div class="col-sm-5, col-md-5, col-lg-5">
-        <%= f.label :ckd_stage, "CKD stage" %><br />
+        <%= f.label :ckd_stage, "CKD Stage" %><br />
         <%= f.text_field :ckd_stage, class: "form-control" %>
       </div>
       <div class="col-sm-7, col-md-7, col-lg-7">
@@ -121,13 +121,13 @@
   </div>
   <div class="form-group">
     <div>
-      <%= f.label :flu_date %><br />
+      <%= f.label :flu_date, "Flu Date" %><br />
       <%= f.date_field :flu_date, class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
     <div>
-      <%= f.label :pneumonia_date %><br />
+      <%= f.label :pneumonia_date, "Pneumonia Date" %><br />
       <%= f.date_field :pneumonia_date, class: "form-control" %>
     </div>
   </div>
