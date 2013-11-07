@@ -7,7 +7,8 @@ class PatientRecordsPresenter
 
   def show
     data_by_attribute = group_data_by_attribute_from records
-    Hash[sort_attr_values_by_timestamp_in data_by_attribute]
+    data_hash         = sort_attr_values_by_timestamp_in data_by_attribute
+    format_dates_in data_hash
   end
 
   # private
@@ -29,13 +30,27 @@ class PatientRecordsPresenter
   end
 
   def sort_attr_values_by_timestamp_in data_by_attribute
-    data_by_attribute.map do |attribute, timestamp_value_hash|
+    sorted = data_by_attribute.map do |attribute, timestamp_value_hash|
       sorted = timestamp_value_hash.sort_by { |ts, val| ts }.map(&:last)
       [attribute, sorted]
     end
+    Hash[sorted]
   end
 
   def no_display? attr_name
     ["id", "created_at", "updated_at"].include? attr_name.downcase
+  end
+
+  def format_dates_in data_hash
+    formated_dates = data_hash.select { |k, v| k =~ /^.*Date$/ }
+                              .map do |name, dates|
+                                [name, dates.map { |date| format_date date }]
+                              end
+    data_hash.merge Hash[formated_dates]
+  end
+
+  def format_date date
+    return nil unless date
+    date.in_time_zone("Central Time (US & Canada)").strftime("%_m/%d/%Y")
   end
 end
