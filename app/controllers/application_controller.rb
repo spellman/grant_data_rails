@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
       flash[:danger] = "You can't delete yourself."
     else
       log_unauthorized_access_attempt
-      flash[:danger] = "Whoa, there. You aren't authorized to perform that action."
+      flash[:danger] = "Sorry, you aren't authorized to perform that action."
       redirect_to :patients
     end
   end

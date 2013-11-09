@@ -23,7 +23,7 @@ feature "user management" do
   scenario "a non-admin user cannot create additional users" do
     sign_in_user
     visit users_path
-    expect(page).to have_content "You aren't authorized to perform that action."
+    expect(page).to have_content "you aren't authorized to perform that action."
   end
 
   scenario "an admin can view all users" do
@@ -36,7 +36,7 @@ feature "user management" do
   scenario "a non-admin user cannot view all users" do
     sign_in_user
     visit users_path
-    expect(page).to have_content "You aren't authorized to perform that action."
+    expect(page).to have_content "you aren't authorized to perform that action."
   end
 
   scenario "an admin can delete other users" do
@@ -78,10 +78,10 @@ feature "user management" do
   scenario "a non-admin user cannot update other users" do
     sign_in_user
     visit user_path(1)
-    expect(page).to have_content "You aren't authorized to perform that action."
+    expect(page).to have_content "you aren't authorized to perform that action."
 
     visit user_path(-1)
-    expect(page).to have_content "You aren't authorized to perform that action."
+    expect(page).to have_content "you aren't authorized to perform that action."
   end
 
   scenario "an admin can update himself" do
