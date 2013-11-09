@@ -1,16 +1,15 @@
 require "spec_helper"
 include UserManagement
 
-feature "home page" do
-
+feature "patient records page" do
   before :each do
     sign_in_user
     @patient = Patient.create name: "name", diagnosis: "diagnosis"
   end
 
   scenario "displays the correct title and heading" do
-    visit patients_path
-    expect(page).to have_title "Waivers Grant Data | Patients"
+    visit patient_records_path(@patient.id)
+    expect(page).to have_title "Waivers Grant Data | Records"
     expect(page).to have_content "Waivers Grant Data"
   end
 
@@ -77,5 +76,4 @@ feature "home page" do
   after :each do
     sign_out
   end
-
 end
