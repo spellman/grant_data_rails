@@ -1,0 +1,33 @@
+<div id="table-container">
+  <table id="records" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Diagnosis</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @patients.each do |patient| %>
+      <tr>
+        <td><%= patient.name %></td>
+        <td><%= patient.diagnosis %></td>
+        <td><%= link_to "patient records", patient_records_path(patient) %></td>
+        <td><%= link_to "edit patient", patient_path(patient) %></td>
+        <td><%= link_to "delete patient", patient, method: :delete, data: { confirm: "Delete #{patient.name}?\nDeleting this patient will delete all of this patient's records.\nThere's no going back." } %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <div class="col-sm-8 col-md-8 col-lg-8">
+    <%= paginate @patients %>
+  </div>
+  <div id="export-records" class="col-sm-4 col-md-4 col-lg-4">
+    <%= link_to "Export all records to CSV", "/records.csv" %>
+  </div>
+</div>

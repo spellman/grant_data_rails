@@ -3,16 +3,18 @@ require "spec_helper"
 describe PatientRecordsPresenter do
   describe "show" do
     before :each do
+      @patient = Patient.create name: "name", diagnosis: "diagnosis"
       Time.zone = "Central Time (US & Canada)"
       3.times do |i|
-        Record.create name:      "foo",
-                      diagnosis: "bar",
-                      a1c:       i,
-                      a1c_date:  Time.zone.local(2000, 1, i + 1)
+        valid_day = (i % 27) + 1
+        date = Time.zone.local(2000, 1, valid_day)
+        @patient.records.create bmi:      i,
+                                bmi_date: date,
+                                a1c:      i,
+                                a1c_date: date
       end
-      @records    = Record.where "name = ?", "foo"
-      presenter   = PatientRecordsPresenter.new @records
-      @view_model = presenter.show
+      @records    = @patient.records
+      @view_model = PatientRecordsPresenter.new(@records).show
     end
 
     it "creates a hash of record attributes from a collection of records" do
@@ -20,7 +22,7 @@ describe PatientRecordsPresenter do
     end
 
     specify "hash keys are title-cased record attribute names" do
-      expect(@view_model["Name"]).to be_an Array
+      expect(@view_model["Bmi"]).to be_an Array
       expect(@view_model["A1c"]).to be_an Array
     end
 

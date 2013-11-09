@@ -1,0 +1,6 @@
+<%= form_tag patients_path, method: "get" do %>
+  <div class="form-group">
+    <%= text_field_tag "search[name]", "", class: "form-control", placeholder: "Patient name" %>
+  </div>
+  <%= submit_tag button_text, name: nil, class: "btn btn-primary" %>
+<% end %>

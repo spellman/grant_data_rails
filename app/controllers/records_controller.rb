@@ -1,15 +1,17 @@
 class RecordsController < ApplicationController
   def index
-    @record  = Record.new
-    @records = Record.all
+    @record     = Record.new
+    @patient    = Patient.find params[:patient_id]
+    @view_model = PatientRecordsPresenter.new(@patient.records).show
     respond_to do |format|
-      format.html { paginate_records }
+      format.html {}
       format.csv  { csv_download }
     end
   end
 
   def create
-    @record = Record.new record_params
+    @patient = Patient.find params[:patient_id]
+    @record  = @patient.records.build record_params
     @record.save ? save_succeeded : save_failed
   end
 
@@ -35,8 +37,7 @@ class RecordsController < ApplicationController
 
   # private
   def record_params
-    params.require(:record).permit(:name,
-                                   :diagnosis,
+    params.require(:record).permit(:patient_id,
                                    :bmi,
                                    :bmi_date,
                                    :eye_exam_date,
@@ -63,11 +64,10 @@ class RecordsController < ApplicationController
   end
 
   def save_succeeded
-    redirect_to :records
+    redirect_to patient_records_path(params[:patient_id])
   end
 
   def save_failed
-    paginate_records
     render "index"
   end
 

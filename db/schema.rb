@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131107220731) do
+ActiveRecord::Schema.define(version: 20131107230617) do
 
   create_table "patients", force: true do |t|
     t.string "name",      null: false
@@ -19,10 +19,8 @@ ActiveRecord::Schema.define(version: 20131107220731) do
   end
 
   create_table "records", force: true do |t|
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "diagnosis",           null: false
     t.decimal  "bmi"
     t.datetime "bmi_date"
     t.datetime "eye_exam_date"
@@ -46,6 +44,7 @@ ActiveRecord::Schema.define(version: 20131107220731) do
     t.datetime "ast_alt_date"
     t.datetime "flu_date"
     t.datetime "pneumonia_date"
+    t.integer  "patient_id",          null: false
   end
 
   create_table "users", force: true do |t|

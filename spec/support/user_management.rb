@@ -1,5 +1,4 @@
 module UserManagement
-
   def sign_in_user
     sign_in email:    "user@test.com",
             password: "password!"
@@ -20,8 +19,7 @@ module UserManagement
   end
 
   def sign_out
-    visit records_path
+    visit patients_path
     click_link "Sign out"
   end
-
 end

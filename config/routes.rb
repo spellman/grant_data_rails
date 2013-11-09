@@ -1,7 +1,9 @@
 WaiversGrantDataRails::Application.routes.draw do
   resources :users,    except: [:new, :edit]
   resources :sessions, only:   [:new, :create, :destroy]
-  resources :records,  except: [:new, :edit]
+  resources :patients do
+    resources :records,  except: [:new, :edit]
+  end
   
   root to: "sessions#new"
   match "/signin",  to: "sessions#new",     via: :get,    as: "signin"

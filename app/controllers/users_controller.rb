@@ -55,16 +55,8 @@ class UsersController < ApplicationController
     render "index"
   end
 
-  def present_authorization_error_to_non_admin_users
-    raise Pundit::NotAuthorizedError unless current_user.admin?
-  end
-
   def delete_failed
     flash[:warning] = "User to be deleted did not exist. The browser's \"back\" button may have been used to display a user that had already been deleted."
-  end
-
-  def paginate_users
-    @users = User.page(params[:page]).per(13).order("created_at ASC")
   end
 
   def display_user_if_authorized
@@ -86,4 +78,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def present_authorization_error_to_non_admin_users
+    raise Pundit::NotAuthorizedError unless current_user.admin?
+  end
+
+  def paginate_users
+    @users = User.page(params[:page]).per(13).order("created_at ASC")
+  end
 end

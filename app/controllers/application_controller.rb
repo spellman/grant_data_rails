@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
     else
       log_unauthorized_access_attempt
       flash[:danger] = "Whoa, there. You aren't authorized to perform that action."
-      redirect_to :records
+      redirect_to :patients
     end
   end
 

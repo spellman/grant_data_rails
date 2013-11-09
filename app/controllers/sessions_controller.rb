@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     user = User.find_by_email params[:email]
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to :records
+      redirect_to :patients
     else
       flash.now[:danger] = "Invalid email or password"
       render "new"

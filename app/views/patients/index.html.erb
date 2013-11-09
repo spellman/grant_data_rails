@@ -1,0 +1,12 @@
+<% provide :title, "Patients" %>
+
+<% provide :resource_form do %>
+  <%= render "shared/error_messages", resource: @patient %>
+  <%= render "patients/patient_search_form", button_text: "Find patient(s)" %>
+<% end %>
+
+<% provide :resource_display do %>
+  <%= render "patients/patients_display" %>
+<% end %>
+
+<%= render template: "layouts/form_and_display_page" %>
