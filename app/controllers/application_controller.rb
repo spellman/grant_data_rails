@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def refuse_entry_and_request_sign_in
-    flash[:warning] = "Please sign in"
+    flash[:warning] = "Please sign in."
     redirect_to signin_path
   end
 
@@ -32,7 +32,6 @@ class ApplicationController < ActionController::Base
       redirect_to :users
       flash[:danger] = "You can't delete yourself."
     else
-      log_unauthorized_access_attempt
       flash[:danger] = "Sorry, you aren't authorized to perform that action."
       redirect_to :patients
     end
@@ -41,9 +40,5 @@ class ApplicationController < ActionController::Base
   def attempt_to_delete_self?
     request.request_method.downcase == "delete" &&
       request.filtered_parameters["id"] == current_user.id.to_s
-  end
-
-  def log_unauthorized_access_attempt
-    p "USER #{current_user.email} (USER ID #{current_user.id}) ATTEMPTED TO ACCESS #{request.env["REQUEST_URI"]} via #{request.request_method}"
   end
 end
