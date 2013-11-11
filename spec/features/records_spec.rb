@@ -13,7 +13,7 @@ feature "patient records page" do
     expect(page).to have_content "Waivers Grant Data"
   end
 
-  scenario "displays the errors when the user tries to save an invalid record" do
+  scenario "displays errors when user tries to save an invalid record" do
     visit patient_records_path(@patient.id)
     within "#new_record" do
       fill_in "BMI", with: "non-numeric value"
@@ -24,6 +24,12 @@ feature "patient records page" do
     expect(page).to have_content "Bmi must be a non-negative number"
     expect(page).to have_content "A1c must be a non-negative number"
     expect(page).to have_content "Tc must be a non-negative, whole number"
+  end
+
+  scenario "does not allow saving a record with all fields blank" do
+    visit patient_records_path(@patient.id)
+    expect { click_button "Save" }.not_to change{ @patient.records.count }
+    expect(page).to have_content "Please enter some patient data"
   end
 
   xscenario "allows a user to update records" do
