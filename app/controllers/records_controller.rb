@@ -81,7 +81,7 @@ class RecordsController < ApplicationController
   end
 
   def csv_download
-    send_data @records.to_csv, filename: csv_filename, type: "text/csv"
+    send_data @patient.records.to_csv, filename: csv_filename, type: "text/csv"
   end
 
   def csv_filename
