@@ -1,4 +1,7 @@
 <% provide :title, "Patients" %>
+<% provide :nav_export_link do %>
+  <%= link_to "Export all patient data to CSV", patients_path %>
+<% end %>
 
 <% provide :resource_form do %>
   <%= render "shared/error_messages", resource: @patient %>

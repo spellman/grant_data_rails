@@ -1,11 +1,13 @@
 module UserManagement
   def sign_in_user
-    sign_in email:    "user@test.com",
+    @user = User.find_by email: "user@test.com"
+    sign_in email:    @user.email,
             password: "password!"
   end
   
   def sign_in_admin
-    sign_in email:    "admin@test.com",
+    @admin = User.find_by email: "admin@test.com"
+    sign_in email:    @admin.email,
             password: "password!"
   end
 
