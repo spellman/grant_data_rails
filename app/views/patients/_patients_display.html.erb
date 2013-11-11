@@ -16,7 +16,7 @@
         <td><%= patient.diagnosis %></td>
         <td><%= link_to "patient records", patient_records_path(patient) %></td>
         <td><%= link_to "edit patient", patient_path(patient), remote: true %></td>
-        <td><%= link_to "delete patient", patient, method: :delete, data: { confirm: "Delete #{patient.name}?\nDeleting this patient will delete all of this patient's records.\nThere's no going back." } %></td>
+        <td><%= link_to "delete patient", patient, method: :delete, data: { confirm: "Delete #{patient.name}?\nNote that deleting this patient will also delete this patient's records.\nThere's no going back." } %></td>
       </tr>
     <% end %>
     </tbody>
