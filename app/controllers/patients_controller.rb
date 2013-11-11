@@ -6,20 +6,20 @@ class PatientsController < ApplicationController
 
   def create
     @patient = Patient.new patient_params
-    @patient.save ? save_succeeded : save_failed
+    @patient.save ? save_succeeded : create_failed
   end
 
   def show
     @patient = Patient.find params[:id]
     respond_to do |format|
-      format.html
+      format.html { paginate_patients }
       format.js
     end
   end
 
   def update
     @patient = Patient.find params[:id]
-    @patient.update_attributes(patient_params) ? save_succeeded : render("show")
+    @patient.update_attributes(patient_params) ? save_succeeded : update_failed
   end
 
   def destroy
@@ -47,9 +47,14 @@ class PatientsController < ApplicationController
     redirect_to patients_path
   end
 
-  def save_failed
+  def create_failed
     paginate_patients
     render "index"
+  end
+
+  def update_failed
+    paginate_patients
+    render "show"
   end
 
   def delete_failed
