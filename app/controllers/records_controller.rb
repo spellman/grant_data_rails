@@ -4,15 +4,14 @@ class RecordsController < ApplicationController
     @patient    = Patient.find params[:patient_id]
     @view_model = PatientRecordsPresenter.new(@patient.records).show
     respond_to do |format|
-      format.html {}
+      format.html
       format.csv  { csv_download }
     end
   end
 
   def create
-    @patient = Patient.find params[:patient_id]
-    @record  = @patient.records.build record_params
-    @record.save ? save_succeeded : save_failed
+    patient = Patient.find params[:patient_id]
+    patient.records.create(record_params) ? save_succeeded : save_failed
   end
 
   def show
@@ -22,8 +21,8 @@ class RecordsController < ApplicationController
   end
 
   def update
-    @record = Record.find params[:id]
-    @record.update_attributes(record_params) ? save_succeeded : render("show")
+    record = Record.find params[:id]
+    record.update_attributes(record_params) ? save_succeeded : render("show")
   end
 
   def destroy
