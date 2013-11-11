@@ -31,15 +31,6 @@ class Record < ActiveRecord::Base
 
   validate :some_domain_fields_non_empty?
 
-  def some_domain_fields_non_empty?
-    errors.add(:base, "Please enter some patient data") if domain_fields_empty?
-  end
-
-  def domain_fields_empty?
-    non_domain_fields = ["id", "patient_id", "created_at", "updated_at"]
-    attributes.reject { |k, v| non_domain_fields.include?(k) || v.blank? }.empty?
-  end
-
   def self.to_csv
     CSV.generate do |csv|
       csv << column_names
@@ -47,5 +38,18 @@ class Record < ActiveRecord::Base
         csv << record.attributes.values_at(*column_names)
       end
     end
+  end
+
+  # private
+  def some_domain_fields_non_empty?
+    errors.add(:base, "Please enter some patient data") if domain_fields_empty?
+  end
+
+  def domain_fields_empty?
+    attributes.reject { |k, v| Record.non_domain_fields.include?(k) || v.blank? }.empty?
+  end
+
+  def self.non_domain_fields
+    ["id", "patient_id", "created_at", "updated_at"]
   end
 end

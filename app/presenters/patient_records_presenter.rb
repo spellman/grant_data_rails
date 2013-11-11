@@ -38,7 +38,7 @@ class PatientRecordsPresenter
   end
 
   def no_display? attr_name
-    ["id", "created_at", "updated_at", "patient_id"].include? attr_name.downcase
+    Record.non_domain_fields.include? attr_name.downcase
   end
 
   def format_dates_in data_hash
