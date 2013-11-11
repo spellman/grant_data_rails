@@ -13,6 +13,18 @@ feature "patient records page" do
     expect(page).to have_content "Waivers Grant Data"
   end
 
+  scenario "allows user to add a record" do
+    previous_count = @patient.records.count
+    visit patient_records_path(@patient.id)
+    expect do
+      within "#new_record" do
+        fill_in "A1c", with: 101
+        click_button "Save"
+      end
+    end.to change{ @patient.records.count }.from(previous_count).to(previous_count + 1)
+    expect(page).to have_content "101"
+  end
+
   scenario "displays errors when user tries to save an invalid record" do
     visit patient_records_path(@patient.id)
     within "#new_record" do
@@ -26,10 +38,17 @@ feature "patient records page" do
     expect(page).to have_content "Tc must be a non-negative, whole number"
   end
 
-  scenario "does not allow saving a record with all fields blank" do
+  scenario "displays errors when user tries to save an invalid record" do
+    visit patient_records_path(@patient.id)
+    within "#new_record" do
+      click_button "Save"
+    end
+    expect(page).to have_content "Please enter some patient data"
+  end
+
+  scenario "does not allow saving an invalid record" do
     visit patient_records_path(@patient.id)
     expect { click_button "Save" }.not_to change{ @patient.records.count }
-    expect(page).to have_content "Please enter some patient data"
   end
 
   xscenario "allows a user to update records" do
