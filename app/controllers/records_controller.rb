@@ -10,9 +10,7 @@ class RecordsController < ApplicationController
   end
 
   def create
-    @patient    = Patient.find params[:patient_id]
-    @view_model = PatientRecordsPresenter.new(@patient.records).index
-    @record     = Record.new record_params
+    @record = Record.new record_params
     @record.save ? save_succeeded : save_failed
   end
 
@@ -69,6 +67,8 @@ class RecordsController < ApplicationController
   end
 
   def save_failed
+    @patient    = Patient.find params[:patient_id]
+    @view_model = PatientRecordsPresenter.new(@patient.records).index
     render "index"
   end
 
