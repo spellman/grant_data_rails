@@ -2,7 +2,8 @@
 
 <% provide :resource_form do %>
   <%= render "shared/error_messages", resource: @patient %>
-  <%= render "patients/patient_search_form", button_text: "Find patient(s)" %>
+  <%= render "patients/patient_add", button_text: "Add new patient" %>
+  <%= render "patients/patient_search" %>
 <% end %>
 
 <% provide :resource_display do %>

@@ -4,6 +4,10 @@ class PatientsController < ApplicationController
     patient_search? ? paginate_search_results : paginate_patients
   end
 
+  def create
+    Patient.create(patient_params) ? save_succeeded : save_failed
+  end
+
   def show
     @patient = Patient.find params[:id]
     respond_to do |format|
@@ -40,6 +44,10 @@ class PatientsController < ApplicationController
 
   def save_succeeded
     redirect_to patients_path
+  end
+
+  def save_failed
+    render "index"
   end
 
   def delete_failed

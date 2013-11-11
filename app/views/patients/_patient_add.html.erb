@@ -1,0 +1,15 @@
+<div id="add-patient">
+  <%= form_for @patient do |f| %>
+    <div class="form-group">
+      <%= f.label :name %><br />
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :diagnosis %><br />
+      <%= f.text_field :diagnosis, class: "form-control" %>
+    </div>
+
+    <%= f.submit button_text, class: "btn btn-primary" %>
+  <% end %>
+</div>
