@@ -14,7 +14,7 @@ describe PatientRecordsPresenter do
                                 a1c_date: date
       end
       @records    = @patient.records
-      @view_model = PatientRecordsPresenter.new(@records).show
+      @view_model = PatientRecordsPresenter.new(@records).index
     end
 
     it "creates a hash of record attributes from a collection of records" do
