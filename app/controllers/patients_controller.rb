@@ -6,7 +6,10 @@ class PatientsController < ApplicationController
 
   def show
     @patient = Patient.find params[:id]
-    paginate_patients
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def update
