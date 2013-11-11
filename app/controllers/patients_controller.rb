@@ -1,7 +1,7 @@
 class PatientsController < ApplicationController
   def index
     @patient = Patient.new
-     patient_search? ? paginate_search_results : paginate_patients
+    patient_search? ? paginate_search_results : paginate_patients
   end
 
   def show
