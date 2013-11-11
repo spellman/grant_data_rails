@@ -7,7 +7,10 @@ class Record < ActiveRecord::Base
 
   validates :bmi,
             :a1c,
-    numericality: { greater_than_or_equal_to: 0 },
+    numericality: {
+      greater_than_or_equal_to: 0,
+      message:                  "must be a non-negative number"
+    },
     allow_blank:  true
   validates :tc,
             :tg,
@@ -19,7 +22,11 @@ class Record < ActiveRecord::Base
             :ckd_stage,
             :ast,
             :alt,
-    numericality: { integer_only: true, greater_than_or_equal_to: 0 },
+    numericality: {
+      only_integer:             true,
+      greater_than_or_equal_to: 0,
+      message:                  "must be a non-negative, whole number"
+    },
     allow_blank:  true
 
   def self.to_csv

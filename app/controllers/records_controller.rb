@@ -2,7 +2,7 @@ class RecordsController < ApplicationController
   def index
     @record     = Record.new
     @patient    = Patient.find params[:patient_id]
-    @view_model = PatientRecordsPresenter.new(@patient.records).show
+    @view_model = PatientRecordsPresenter.new(@patient.records).index
     respond_to do |format|
       format.html
       format.csv  { csv_download }
@@ -10,8 +10,10 @@ class RecordsController < ApplicationController
   end
 
   def create
-    patient = Patient.find params[:patient_id]
-    patient.records.create(record_params) ? save_succeeded : save_failed
+    @patient    = Patient.find params[:patient_id]
+    @view_model = PatientRecordsPresenter.new(@patient.records).index
+    @record     = Record.new record_params
+    @record.save ? save_succeeded : save_failed
   end
 
   def show

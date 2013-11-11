@@ -5,7 +5,7 @@ class PatientRecordsPresenter
     @records = records
   end
 
-  def show
+  def index
     data_by_attribute = group_data_by_attribute_from records
     data_hash         = sort_attr_values_by_timestamp_in data_by_attribute
     format_dates_in data_hash
