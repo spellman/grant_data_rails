@@ -5,7 +5,8 @@ class PatientsController < ApplicationController
   end
 
   def create
-    Patient.create(patient_params) ? save_succeeded : save_failed
+    @patient = Patient.new patient_params
+    @patient.save ? save_succeeded : save_failed
   end
 
   def show
@@ -47,6 +48,7 @@ class PatientsController < ApplicationController
   end
 
   def save_failed
+    paginate_patients
     render "index"
   end
 
