@@ -48,9 +48,7 @@ feature "patient records page" do
       fill_in "TC", with: 1.5
       click_button "Save"
     end
-    expect(page).to have_content "Bmi must be a non-negative number"
-    expect(page).to have_content "A1c must be a non-negative number"
-    expect(page).to have_content "Tc must be a non-negative, whole number"
+    expect(all("#error_explanation > ul > li").length).to eq 3
   end
 
   scenario "displays errors when user tries to save an invalid record" do
@@ -58,7 +56,7 @@ feature "patient records page" do
     within "#new_record" do
       click_button "Save"
     end
-    expect(page).to have_content "Please enter some patient data"
+    expect(all("#error_explanation > ul > li").length).to eq 1
   end
 
   scenario "does not allow saving an invalid record" do

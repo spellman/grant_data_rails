@@ -25,7 +25,7 @@ class Record < ActiveRecord::Base
     numericality: {
       only_integer:             true,
       greater_than_or_equal_to: 0,
-      message:                  "must be a non-negative, whole number"
+      message:                  "must be a non-negative number with no decimal places"
     },
     allow_blank:  true
 
