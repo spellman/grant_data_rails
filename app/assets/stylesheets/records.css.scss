@@ -25,18 +25,21 @@
 }
 
 .records-row {
-  border-top: 1px solid #ddd;
   position: relative;
+}
+
+#records > .records-row:not(:first-child) {
+  border-top: 1px solid #ddd;
+}
+
+#records > .records-row:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
 .records-row > div {
   float: left;
   padding-bottom: 8px;
   padding-top: 8px;
-}
-
-#records > .records-row:nth-child(odd) {
-  background-color: #f9f9f9;
 }
 
 .data-label {
