@@ -3,6 +3,14 @@
   <%= link_to "Export data for #{@patient.name} to CSV", patient_records_path(@patient.id, format: "csv") %>
 <% end %>
 
+<% provide :full_width_top do %>
+  <div class="container">
+    <div class="patient-records-header page-header">
+      <h1><%= @patient.name %><small><%= @patient.diagnosis %></small></h1>
+    </div>
+  </div>
+<% end %>
+
 <% provide :resource_form do %>
   <%= render "shared/error_messages", resource: @record %>
   <%= render "records/record_form", button_text: "Save" %>

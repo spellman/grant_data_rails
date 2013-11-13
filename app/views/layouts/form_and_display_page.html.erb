@@ -1,5 +1,8 @@
 <% provide :content do %>
   <div class="row">
+    <%= yield(:full_width_top) if content_for?(:full_width_top) %>
+  </div>
+  <div class="row">
     <div id="form-panel" class="col-sm-3 col-md-3 col-lg-3">
       <%= yield :resource_form %>
     </div>

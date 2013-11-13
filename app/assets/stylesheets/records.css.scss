@@ -1,3 +1,12 @@
+.page-header.patient-records-header {
+  border-bottom: none;
+  margin-top: 0;
+}
+
+.patient-records-header > h1 > small {
+  margin-left: 2em;
+}
+
 .form-group {
   margin-bottom: 30px;
 }

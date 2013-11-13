@@ -7,10 +7,24 @@ feature "patient records page" do
     @patient = Patient.create name: "name", diagnosis: "diagnosis"
   end
 
-  scenario "displays the correct title and heading" do
+  scenario "displays the correct title" do
     visit patient_records_path(@patient.id)
     expect(page).to have_title "Waivers Grant Data | Records"
+  end
+
+  scenario "displays the correct heading" do
+    visit patient_records_path(@patient.id)
     expect(page).to have_content "Waivers Grant Data"
+  end
+
+  scenario "displays the patient's name" do
+    visit patient_records_path(@patient.id)
+    expect(find("div.patient-records-header")).to have_content @patient.name
+  end
+
+  scenario "displays the patient's diagnosis" do
+    visit patient_records_path(@patient.id)
+    expect(find("div.patient-records-header")).to have_content @patient.diagnosis
   end
 
   scenario "allows user to add a record" do
