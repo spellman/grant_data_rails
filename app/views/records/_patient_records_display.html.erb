@@ -1,22 +1,139 @@
 <div id="records">
-<% @view_model.each do |attr_name, attr_values| %>
-  <div>
-    <div class="attribute">
-      <p><%= attr_name %></p>
+  <div id="bmi-records" class="records-row clearfix">
+    <div class="data-label">
+      <span>BMI</span>
     </div>
-  <% attr_values.each do |value| %>
-    <div class="value">
-      <p><%= value %></p>
+  <% @view_model[:bmi].each do |o| %>
+    <div class="data-point">
+      <span class="value"><%= o[:value] %></span>
+      <span class="date"><%= o[:date] %></span>
     </div>
   <% end %>
   </div>
-<% end %>
-</div>
 
-<div id="export" class="row">
-  <div class="col-sm-8 col-md-8 col-lg-8">
+  <div id="eye-exam-records" class="records-row clearfix">
+    <div class="data-label">
+      <span>Eye exam date</span>
+    </div>
+  <% @view_model[:eye_exam_date].each do |o| %>
+    <div class="data-point">
+      <span class="date"><%= o[:date] %></span>
+    </div>
+  <% end %>
   </div>
-  <div id="export-records" class="col-sm-4 col-md-4 col-lg-4">
-    <%= link_to "Export all records to CSV", "/records.csv" %>
+
+  <div id="foot-exam-records" class="records-row clearfix">
+    <div class="data-label">
+      <span>Foot exam date</span>
+    </div>
+  <% @view_model[:foot_exam_date].each do |o| %>
+    <div class="data-point">
+      <span class="date"><%= o[:date] %></span>
+    </div>
+  <% end %>
+  </div>
+
+  <div id="a1c-records" class="records-row clearfix">
+    <div class="data-label">
+      <span>A1c</span>
+    </div>
+  <% @view_model[:a1c].each do |o| %>
+    <div class="data-point">
+      <span class="value"><%= o[:value] %></span>
+      <span class="date"><%= o[:date] %></span>
+    </div>
+  <% end %>
+  </div>
+
+  <div id="cholesterol-records" class="records-row clearfix">
+    <div class="data-label">
+      <span>TC</span>
+      <span>TG</span>
+      <span>HDL</span>
+      <span>LDL</span>
+    </div>
+  <% @view_model[:cholesterol].each do |o| %>
+    <div class="data-point">
+      <span class="value tc"><%= o[:value][:tc] %></span>
+      <span class="value tg"><%= o[:value][:tg] %></span>
+      <span class="value hdl"><%= o[:value][:hdl] %></span>
+      <span class="value ldl"><%= o[:value][:ldl] %></span>
+      <span class="date"><%= o[:date] %></span>
+    </div>
+  <% end %>
+  </div>
+
+  <div id="acr-records" class="records-row clearfix">
+    <div class="data-label">
+      <span>ACR</span>
+    </div>
+  <% @view_model[:acr].each do |o| %>
+    <div class="data-point">
+      <span class="value"><%= o[:value] %></span>
+      <span class="date"><%= o[:date] %></span>
+    </div>
+  <% end %>
+  </div>
+
+  <div id="renal-records" class="records-row clearfix">
+    <div class="data-label">
+      <span>BUN</span>
+      <span>Creatinine</span>
+    </div>
+  <% @view_model[:renal].each do |o| %>
+    <div class="data-point">
+      <span class="value bun"><%= o[:value][:bun] %></span>
+      <span class="value creatinine"><%= o[:value][:creatinine] %></span>
+      <span class="date"><%= o[:date] %></span>
+    </div>
+  <% end %>
+  </div>
+
+  <div id="ckd-stage-records" class="records-row clearfix">
+    <div class="data-label">
+      <span>CKD</span>
+    </div>
+  <% @view_model[:ckd_stage].each do |o| %>
+    <div class="data-point">
+      <span class="value"><%= o[:value] %></span>
+      <span class="date"><%= o[:date] %></span>
+    </div>
+  <% end %>
+  </div>
+
+  <div id="liver-records" class="records-row clearfix">
+    <div class="data-label">
+      <span>AST</span>
+      <span>ALT</span>
+    </div>
+  <% @view_model[:liver].each do |o| %>
+    <div class="data-point">
+      <span class="value ast"><%= o[:value][:ast] %></span>
+      <span class="value alt"><%= o[:value][:alt] %></span>
+      <span class="date"><%= o[:date] %></span>
+    </div>
+  <% end %>
+  </div>
+
+  <div id="flu-records" class="records-row clearfix">
+    <div class="data-label">
+      <span>Flu date</span>
+    </div>
+  <% @view_model[:flu_date].each do |o| %>
+    <div class="data-point">
+      <span class="date"><%= o[:date] %></span>
+    </div>
+  <% end %>
+  </div>
+
+  <div id="pneumonia-records" class="records-row clearfix">
+    <div class="data-label">
+      <span>Pneumonia date</span>
+    </div>
+  <% @view_model[:pneumonia_date].each do |o| %>
+    <div class="data-point">
+      <span class="date"><%= o[:date] %></span>
+    </div>
+  <% end %>
   </div>
 </div>

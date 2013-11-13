@@ -19,6 +19,7 @@ feature "patient records page" do
     expect do
       within "#new_record" do
         fill_in "A1c", with: 101
+        fill_in "record_a1c_date", with: Time.zone.now
         click_button "Save"
       end
     end.to change{ @patient.records.count }.from(previous_count).to(previous_count + 1)
@@ -77,12 +78,6 @@ feature "patient records page" do
     within "#records" do
       expect(page).to_not have_content "foo"
     end
-  end
-
-  scenario "exports all saved records to csv" do
-    31.times { |i| @patient.records.create bmi: "#{i}" }
-    visit patient_records_path(@patient.id)
-    expect(page).to have_link "Export all records to CSV", href: "/records.csv"
   end
 
   after :each do

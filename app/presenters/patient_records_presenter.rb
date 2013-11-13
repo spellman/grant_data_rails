@@ -6,47 +6,102 @@ class PatientRecordsPresenter
   end
 
   def index
-    data_by_attribute = group_data_by_attribute_from records
-    data_hash         = sort_attr_values_by_timestamp_in data_by_attribute
-    format_dates_in data_hash
+    format_dates_in sort_records_by_date_in records_hash
   end
 
   # private
-  def group_data_by_attribute_from records
-    merge_record_hashes records.map { |record| build_hash_from record }
-  end
+  def records_hash
+    records_hash = {
+      bmi:            [],
+      eye_exam_date:  [],
+      foot_exam_date: [],
+      a1c:            [],
+      cholesterol:    [],
+      acr:            [],
+      renal:          [],
+      ckd_stage:      [],
+      liver:          [],
+      flu_date:       [],
+      pneumonia_date: []
+    }
 
-  def build_hash_from record
-    hash_pairs = record.attributes.map do |name, val|
-      [name.titlecase, { record.created_at => val }] unless no_display?(name)
-    end.compact
-    Hash[hash_pairs]
-  end
-
-  def merge_record_hashes record_hashes
-    record_hashes.each_with_object({}) do |record_hash, memo|
-      memo.merge!(record_hash) { |key, old_val, new_val| old_val.merge new_val }
+    records.each do |record|
+      records_hash[:bmi] << {
+        value: record.bmi,
+        date:  record.bmi_date
+      } if record.bmi_date
+      records_hash[:eye_exam_date] << {
+        date: record.eye_exam_date
+      } if record.eye_exam_date
+      records_hash[:foot_exam_date] << {
+        date: record.foot_exam_date
+      } if record.foot_exam_date
+      records_hash[:a1c] << {
+        value: record.a1c,
+        date:  record.a1c_date
+      } if record.a1c_date
+      records_hash[:cholesterol] << {
+        value: {
+          tc:  record.tc,
+          tg:  record.tg,
+          hdl: record.hdl,
+          ldl: record.ldl
+        },
+        date: record.cholesterol_date
+      } if record.cholesterol_date
+      records_hash[:acr] << {
+        value: record.acr,
+        date:  record.acr_date
+      } if record.acr_date
+      records_hash[:renal] << {
+        value: {
+          bun:        record.bun,
+          creatinine: record.creatinine
+        },
+        date: record.bun_creatinine_date
+      } if record.bun_creatinine_date
+      records_hash[:ckd_stage] << {
+        value: record.ckd_stage,
+        date:  record.ckd_stage_date
+      } if record.ckd_stage_date
+      records_hash[:liver] << {
+        value: {
+          ast: record.ast,
+          alt: record.alt
+        },
+        date: record.ast_alt_date
+      } if record.ast_alt_date
+      records_hash[:flu_date] << {
+        date: record.flu_date
+      } if record.flu_date
+      records_hash[:pneumonia_date] << {
+        date: record.pneumonia_date
+      } if record.pneumonia_date
     end
+
+    records_hash
   end
 
-  def sort_attr_values_by_timestamp_in data_by_attribute
-    sorted = data_by_attribute.map do |attribute, timestamp_value_hash|
-      sorted = timestamp_value_hash.sort_by { |ts, val| ts }.map(&:last)
-      [attribute, sorted]
+  def sort_records_by_date_in hash
+    sorted = hash.map do |data_point_type, data_points|
+      [data_point_type, data_points.sort { |a, b| a[:date] <=> b[:date] }]
     end
     Hash[sorted]
   end
 
-  def no_display? attr_name
-    Record.non_domain_fields.include? attr_name.downcase
+  def format_dates_in hash
+    formatted = hash.map do |data_point_type, data_points|
+      [data_point_type, format_dates_in_data_points(data_points)]
+    end
+    Hash[formatted]
   end
 
-  def format_dates_in data_hash
-    formated_dates = data_hash.select { |k, v| k =~ /^.*Date$/ }
-                              .map do |name, dates|
-                                [name, dates.map { |date| format_date date }]
-                              end
-    data_hash.merge Hash[formated_dates]
+  def format_dates_in_data_points data_points
+    data_points.map do |h|
+      h[:value] ?
+        { value: h[:value], date: format_date(h[:date]) } :
+        { date: format_date(h[:date]) }
+    end
   end
 
   def format_date date
