@@ -4,17 +4,13 @@ ruby "2.0.0"
 gem "rails",                       "~> 4.0.0"
 gem "turbolinks"
 gem "sprockets-rails",             "~> 2.0"
-
 gem "jquery-rails"
 gem "uglifier",                    ">= 1.3.0"
 gem "sass-rails", "~> 4.0.0"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 #gem "jbuilder", "~> 1.2"
-
 gem "pg",                          "~> 0.16"
-
 gem "pundit",                      "~> 0.2"
-
 gem "kaminari",                    "~> 0.14.1"
 
 group :doc do
@@ -43,8 +39,6 @@ end
 # Use ActiveModel has_secure_password
 # Update to ~> 3.1.0 soon, when ActiveSupport updates, updates its dependency.
 gem "bcrypt-ruby",                 "~> 3.0.0"
-
-# Use unicorn as the app server
 gem "unicorn"
 gem "rack-timeout"
 

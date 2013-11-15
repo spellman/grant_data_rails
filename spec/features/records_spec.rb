@@ -28,7 +28,7 @@ feature "patient records page" do
   end
 
   scenario "allows user to add a record" do
-    previous_count = @patient.records.count
+    prev_count = @patient.a1cs.count
     visit patient_records_path(@patient.id)
     expect do
       within "#new_record" do
@@ -36,7 +36,7 @@ feature "patient records page" do
         fill_in "record_a1c_date", with: Time.zone.now
         click_button "Save"
       end
-    end.to change{ @patient.records.count }.from(previous_count).to(previous_count + 1)
+    end.to change{ @patient.a1cs.count }.from(prev_count).to(prev_count + 1)
     expect(page).to have_content "101"
   end
 
@@ -61,35 +61,17 @@ feature "patient records page" do
 
   scenario "does not allow saving an invalid record" do
     visit patient_records_path(@patient.id)
-    expect { click_button "Save" }.not_to change{ @patient.records.count }
-  end
-
-  xscenario "allows a user to update records" do
-    Record.create name: "foo", diagnosis: "bar"
-    visit records_path
-    click_link "edit"
-    fill_in "record_name", with: "bar"
-    click_button "Update"
-    expect(page).to have_content "bar"
-    expect(page).to_not have_content "foo"
-  end
-
-  xscenario "provides cancelation of update" do
-    Record.create name: "foo", diagnosis: "bar"
-    visit records_path
-    click_link "edit"
-    click_link "Cancel"
-    expect(page).not_to have_content "Update"
-  end
-
-  xscenario "allows a user to delete records" do
-    Record.create name: "foo", diagnosis: "bar"
-    visit records_path
-    click_link "delete"
-    expect(page).to_not have_content "foo deleted"
-    within "#records" do
-      expect(page).to_not have_content "foo"
-    end
+    expect { click_button "Save" }.not_to change{ @patient.a1cs.count }
+    expect { click_button "Save" }.not_to change{ @patient.acrs.count }
+    expect { click_button "Save" }.not_to change{ @patient.bmis.count }
+    expect { click_button "Save" }.not_to change{ @patient.cholesterols.count }
+    expect { click_button "Save" }.not_to change{ @patient.ckd_stages.count }
+    expect { click_button "Save" }.not_to change{ @patient.eye_exams.count }
+    expect { click_button "Save" }.not_to change{ @patient.flus.count }
+    expect { click_button "Save" }.not_to change{ @patient.foot_exams.count }
+    expect { click_button "Save" }.not_to change{ @patient.livers.count }
+    expect { click_button "Save" }.not_to change{ @patient.pneumonias.count }
+    expect { click_button "Save" }.not_to change{ @patient.renals.count }
   end
 
   after :each do

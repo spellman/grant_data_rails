@@ -11,41 +11,123 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131107230617) do
+ActiveRecord::Schema.define(version: 20131113222318) do
+
+  create_table "a1cs", force: true do |t|
+    t.integer  "patient_id"
+    t.datetime "date",       null: false
+    t.decimal  "a1c"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "a1cs", ["patient_id"], name: "index_a1cs_on_patient_id", using: :btree
+
+  create_table "acrs", force: true do |t|
+    t.integer  "patient_id"
+    t.datetime "date",       null: false
+    t.integer  "acr"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "acrs", ["patient_id"], name: "index_acrs_on_patient_id", using: :btree
+
+  create_table "bmis", force: true do |t|
+    t.integer  "patient_id"
+    t.datetime "date",       null: false
+    t.decimal  "bmi"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bmis", ["patient_id"], name: "index_bmis_on_patient_id", using: :btree
+
+  create_table "cholesterols", force: true do |t|
+    t.integer  "patient_id"
+    t.datetime "date",       null: false
+    t.integer  "tc"
+    t.integer  "tg"
+    t.integer  "hdl"
+    t.integer  "ldl"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cholesterols", ["patient_id"], name: "index_cholesterols_on_patient_id", using: :btree
+
+  create_table "ckd_stages", force: true do |t|
+    t.integer  "patient_id"
+    t.datetime "date",       null: false
+    t.integer  "ckd_stage"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ckd_stages", ["patient_id"], name: "index_ckd_stages_on_patient_id", using: :btree
+
+  create_table "eye_exams", force: true do |t|
+    t.integer  "patient_id"
+    t.datetime "date",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "eye_exams", ["patient_id"], name: "index_eye_exams_on_patient_id", using: :btree
+
+  create_table "flus", force: true do |t|
+    t.integer  "patient_id"
+    t.datetime "date",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "flus", ["patient_id"], name: "index_flus_on_patient_id", using: :btree
+
+  create_table "foot_exams", force: true do |t|
+    t.integer  "patient_id"
+    t.datetime "date",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "foot_exams", ["patient_id"], name: "index_foot_exams_on_patient_id", using: :btree
+
+  create_table "livers", force: true do |t|
+    t.integer  "patient_id"
+    t.datetime "date",       null: false
+    t.integer  "ast"
+    t.integer  "alt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "livers", ["patient_id"], name: "index_livers_on_patient_id", using: :btree
 
   create_table "patients", force: true do |t|
     t.string "name",      null: false
     t.string "diagnosis", null: false
   end
 
-  create_table "records", force: true do |t|
+  create_table "pneumonias", force: true do |t|
+    t.integer  "patient_id"
+    t.datetime "date",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "bmi"
-    t.datetime "bmi_date"
-    t.datetime "eye_exam_date"
-    t.datetime "foot_exam_date"
-    t.decimal  "a1c"
-    t.datetime "a1c_date"
-    t.integer  "tc"
-    t.integer  "tg"
-    t.integer  "hdl"
-    t.integer  "ldl"
-    t.datetime "cholesterol_date"
-    t.integer  "acr"
-    t.datetime "acr_date"
+  end
+
+  add_index "pneumonias", ["patient_id"], name: "index_pneumonias_on_patient_id", using: :btree
+
+  create_table "renals", force: true do |t|
+    t.integer  "patient_id"
+    t.datetime "date",       null: false
     t.integer  "bun"
     t.integer  "creatinine"
-    t.datetime "bun_creatinine_date"
-    t.integer  "ckd_stage"
-    t.datetime "ckd_stage_date"
-    t.integer  "ast"
-    t.integer  "alt"
-    t.datetime "ast_alt_date"
-    t.datetime "flu_date"
-    t.datetime "pneumonia_date"
-    t.integer  "patient_id",          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "renals", ["patient_id"], name: "index_renals_on_patient_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",           default: "",    null: false

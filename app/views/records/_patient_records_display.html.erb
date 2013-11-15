@@ -3,10 +3,10 @@
     <div class="data-label">
       <span>BMI</span>
     </div>
-  <% @view_model[:bmi].each do |o| %>
+  <% @bmis.each do |o| %>
     <div class="data-point">
-      <span class="value"><%= o[:value] %></span>
-      <span class="date"><%= o[:date] %></span>
+      <span class="value"><%= o.bmi %></span>
+      <span class="date"><%= o.date %></span>
     </div>
   <% end %>
   </div>
@@ -15,9 +15,9 @@
     <div class="data-label">
       <span>Eye exam date</span>
     </div>
-  <% @view_model[:eye_exam_date].each do |o| %>
+  <% @eye_exams.each do |o| %>
     <div class="data-point">
-      <span class="date"><%= o[:date] %></span>
+      <span class="date"><%= o.date %></span>
     </div>
   <% end %>
   </div>
@@ -26,9 +26,9 @@
     <div class="data-label">
       <span>Foot exam date</span>
     </div>
-  <% @view_model[:foot_exam_date].each do |o| %>
+  <% @foot_exams.each do |o| %>
     <div class="data-point">
-      <span class="date"><%= o[:date] %></span>
+      <span class="date"><%= o.date %></span>
     </div>
   <% end %>
   </div>
@@ -37,10 +37,10 @@
     <div class="data-label">
       <span>A1c</span>
     </div>
-  <% @view_model[:a1c].each do |o| %>
+  <% @a1cs.each do |o| %>
     <div class="data-point">
-      <span class="value"><%= o[:value] %></span>
-      <span class="date"><%= o[:date] %></span>
+      <span class="value"><%= o.a1c %></span>
+      <span class="date"><%= o.date %></span>
     </div>
   <% end %>
   </div>
@@ -52,13 +52,13 @@
       <span>HDL</span>
       <span>LDL</span>
     </div>
-  <% @view_model[:cholesterol].each do |o| %>
+  <% @cholesterols.each do |o| %>
     <div class="data-point">
-      <span class="value tc"><%= o[:value][:tc] %></span>
-      <span class="value tg"><%= o[:value][:tg] %></span>
-      <span class="value hdl"><%= o[:value][:hdl] %></span>
-      <span class="value ldl"><%= o[:value][:ldl] %></span>
-      <span class="date"><%= o[:date] %></span>
+      <span class="value tc"><%= o.tc %></span>
+      <span class="value tg"><%= o.tg %></span>
+      <span class="value hdl"><%= o.hdl %></span>
+      <span class="value ldl"><%= o.ldl %></span>
+      <span class="date"><%= o.date %></span>
     </div>
   <% end %>
   </div>
@@ -67,10 +67,10 @@
     <div class="data-label">
       <span>ACR</span>
     </div>
-  <% @view_model[:acr].each do |o| %>
+  <% @acrs.each do |o| %>
     <div class="data-point">
-      <span class="value"><%= o[:value] %></span>
-      <span class="date"><%= o[:date] %></span>
+      <span class="value"><%= o.acr %></span>
+      <span class="date"><%= o.date %></span>
     </div>
   <% end %>
   </div>
@@ -80,11 +80,11 @@
       <span>BUN</span>
       <span>Creatinine</span>
     </div>
-  <% @view_model[:renal].each do |o| %>
+  <% @renals.each do |o| %>
     <div class="data-point">
-      <span class="value bun"><%= o[:value][:bun] %></span>
-      <span class="value creatinine"><%= o[:value][:creatinine] %></span>
-      <span class="date"><%= o[:date] %></span>
+      <span class="value bun"><%= o.bun %></span>
+      <span class="value creatinine"><%= o.creatinine %></span>
+      <span class="date"><%= o.date %></span>
     </div>
   <% end %>
   </div>
@@ -93,10 +93,10 @@
     <div class="data-label">
       <span>CKD</span>
     </div>
-  <% @view_model[:ckd_stage].each do |o| %>
+  <% @ckd_stages.each do |o| %>
     <div class="data-point">
-      <span class="value"><%= o[:value] %></span>
-      <span class="date"><%= o[:date] %></span>
+      <span class="value"><%= o.ckd_stage %></span>
+      <span class="date"><%= o.date %></span>
     </div>
   <% end %>
   </div>
@@ -106,11 +106,11 @@
       <span>AST</span>
       <span>ALT</span>
     </div>
-  <% @view_model[:liver].each do |o| %>
+  <% @livers.each do |o| %>
     <div class="data-point">
-      <span class="value ast"><%= o[:value][:ast] %></span>
-      <span class="value alt"><%= o[:value][:alt] %></span>
-      <span class="date"><%= o[:date] %></span>
+      <span class="value ast"><%= o.ast %></span>
+      <span class="value alt"><%= o.alt %></span>
+      <span class="date"><%= o.date %></span>
     </div>
   <% end %>
   </div>
@@ -119,9 +119,9 @@
     <div class="data-label">
       <span>Flu date</span>
     </div>
-  <% @view_model[:flu_date].each do |o| %>
+  <% @flus.each do |o| %>
     <div class="data-point">
-      <span class="date"><%= o[:date] %></span>
+      <span class="date"><%= o.date %></span>
     </div>
   <% end %>
   </div>
@@ -130,9 +130,9 @@
     <div class="data-label">
       <span>Pneumonia date</span>
     </div>
-  <% @view_model[:pneumonia_date].each do |o| %>
+  <% @pneumonias.each do |o| %>
     <div class="data-point">
-      <span class="date"><%= o[:date] %></span>
+      <span class="date"><%= o.date %></span>
     </div>
   <% end %>
   </div>

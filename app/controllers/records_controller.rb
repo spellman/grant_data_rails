@@ -1,8 +1,29 @@
 class RecordsController < ApplicationController
   def index
-    @record     = Record.new
-    @patient    = Patient.find params[:patient_id]
-    @view_model = PatientRecordsPresenter.new(@patient.records).index
+    @a1c         = A1c.new
+    @acr         = Acr.new
+    @bmi         = Bmi.new
+    @cholesterol = Cholesterol.new
+    @ckd_stage   = CkdStage.new
+    @eye_exam    = EyeExam.new
+    @flu         = Flu.new
+    @foot_exam   = FootExam.new
+    @liver       = Liver.new
+    @pneumonia   = Pneumonia.new
+    @renal       = Renal.new
+    
+    @patient      = Patient.find params[:patient_id]
+    @a1cs         = @patient.a1cs.order(:date, :asc)
+    @acrs         = @patient.acrs.order(:date, :asc)
+    @bmis         = @patient.bmis.order(:date, :asc)
+    @cholesterols = @patient.cholesterols.order(:date, :asc)
+    @ckd_stages   = @patient.ckd_stages.order(:date, :asc)
+    @eye_exams    = @patient.eye_exams.order(:date, :asc)
+    @flus         = @patient.flus.order(:date, :asc)
+    @foot_exams   = @patient.foot_exams.order(:date, :asc)
+    @livers       = @patient.livers.order(:date, :asc)
+    @pneumonias   = @patient.pneumonias.order(:date, :asc)
+    @renals       = @patient.renals.order(:date, :asc)
     respond_to do |format|
       format.html
       format.csv  { csv_download }
@@ -10,56 +31,103 @@ class RecordsController < ApplicationController
   end
 
   def create
-    @record = Record.new record_params
-    @record.save ? save_succeeded : save_failed
-  end
+    @a1c         = A1c.new a1c_params
+    @acr         = Acr.new acr_params
+    @bmi         = Bmi.new bmi_params
+    @cholesterol = Cholesterol.new cholesterol_params
+    @ckd_stage   = CkdStage.new ckd_stage_params
+    @eye_exam    = EyeExam.new eye_exam_params
+    @flu         = Flu.new flu_params
+    @foot_exam   = FootExam.new foot_exam_params
+    @liver       = Liver.new liver_params
+    @pneumonia   = Pneumonia.new pneumonia_params
+    @renal       = Renal.new renal_params
 
-  def show
-    @record     = Record.find params[:id]
-    records     = Record.where "name = ?", @record.name
-    @view_model = PatientRecordsPresenter.new(records).show
-  end
-
-  def update
-    record = Record.find params[:id]
-    record.update_attributes(record_params) ? save_succeeded : render("show")
-  end
-
-  def destroy
-    begin
-      Record.find(params[:id]).destroy
-    rescue ActiveRecord::RecordNotFound
-      delete_failed
-    end
-    redirect_to :records
+    save_models ? save_succeeded : save_failed
   end
 
   # private
-  def record_params
-    params.require(:record).permit(:patient_id,
-                                   :bmi,
-                                   :bmi_date,
-                                   :eye_exam_date,
-                                   :foot_exam_date,
-                                   :a1c,
-                                   :a1c_date,
-                                   :tc,
-                                   :tg,
-                                   :hdl,
-                                   :ldl,
-                                   :cholesterol_date,
-                                   :acr,
-                                   :acr_date,
-                                   :bun,
-                                   :creatinine,
-                                   :bun_creatinine_date,
-                                   :ckd_stage,
-                                   :ckd_stage_date,
-                                   :ast,
-                                   :alt,
-                                   :ast_alt_date,
-                                   :flu_date,
-                                   :pneumonia_date)
+  def a1c_params
+    params.require(:a1c).permit(:patient_id,
+                                :a1c,
+                                :date)
+  end
+
+  def acr_params
+    params.require(:acr).permit(:patient_id,
+                                :acr,
+                                :date)
+  end
+
+  def bmi_params
+    params.require(:bmi).permit(:patient_id,
+                                :bmi,
+                                :date)
+  end
+
+  def cholesterol_params
+    params.require(:cholesterol).permit(:patient_id,
+                                        :tc,
+                                        :tg,
+                                        :hdl,
+                                        :ldl,
+                                        :date)
+  end
+
+  def ckd_stage_params
+    params.require(:ckd_stage).permit(:patient_id,
+                                      :ckd_stage,
+                                      :date)
+  end
+
+  def eye_exam_params
+    params.require(:eye_exam).permit(:patient_id,
+                                     :date)
+  end
+
+  def flu_params
+    params.require(:flu).permit(:patient_id,
+                                :date)
+  end
+
+  def foot_exam_params
+    params.require(:foot_exam).permit(:patient_id,
+                                      :date)
+  end
+
+  def liver_params
+    params.require(:liver).permit(:patient_id,
+                                  :ast,
+                                  :alt,
+                                  :date)
+  end
+
+  def pneumonia_params
+    params.require(:pneumonia).permit(:patient_id,
+                                      :date)
+  end
+
+  def renal_params
+    params.require(:renal).permit(:patient_id,
+                                  :bun,
+                                  :creatinine,
+                                  :date)
+  end
+
+  def save_models
+    ActiveRecord::Base.transaction do
+      @a1c.save
+      @acr.save
+      @bmi.save
+      @cholesterol.save
+      @ckd_stage.save
+      @eye_exam.save
+      @flu.save
+      @foot_exam.save
+      @liver.save
+      @pneumonia.save
+      @renal.save
+    end
   end
 
   def save_succeeded
@@ -67,8 +135,18 @@ class RecordsController < ApplicationController
   end
 
   def save_failed
-    @patient    = Patient.find params[:patient_id]
-    @view_model = PatientRecordsPresenter.new(@patient.records).index
+    @patient      = Patient.find params[:patient_id]
+    @a1cs         = @patient.a1cs.order(:date, :asc)
+    @acrs         = @patient.acrs.order(:date, :asc)
+    @bmis         = @patient.bmis.order(:date, :asc)
+    @cholesterols = @patient.cholesterols.order(:date, :asc)
+    @ckd_stages   = @patient.ckd_stages.order(:date, :asc)
+    @eye_exams    = @patient.eye_exams.order(:date, :asc)
+    @flus         = @patient.flus.order(:date, :asc)
+    @foot_exams   = @patient.foot_exams.order(:date, :asc)
+    @livers       = @patient.livers.order(:date, :asc)
+    @pneumonias   = @patient.pneumonias.order(:date, :asc)
+    @renals       = @patient.renals.order(:date, :asc)
     render "index"
   end
 
