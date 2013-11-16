@@ -1,5 +1,4 @@
 class Patient < ActiveRecord::Base
-  has_many :records
   has_many :a1cs
   has_many :acrs
   has_many :bmis

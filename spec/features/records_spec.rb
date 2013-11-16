@@ -31,9 +31,9 @@ feature "patient records page" do
     prev_count = @patient.a1cs.count
     visit patient_records_path(@patient.id)
     expect do
-      within "#new_record" do
+      within "form" do
         fill_in "A1c", with: 101
-        fill_in "record_a1c_date", with: Time.zone.now
+        fill_in "a1c_date", with: Time.zone.now
         click_button "Save"
       end
     end.to change{ @patient.a1cs.count }.from(prev_count).to(prev_count + 1)
@@ -42,7 +42,7 @@ feature "patient records page" do
 
   scenario "displays errors when user tries to save an invalid record" do
     visit patient_records_path(@patient.id)
-    within "#new_record" do
+    within "form" do
       fill_in "BMI", with: "non-numeric value"
       fill_in "A1c", with: -1
       fill_in "TC", with: 1.5
@@ -53,7 +53,7 @@ feature "patient records page" do
 
   scenario "displays errors when user tries to save an invalid record" do
     visit patient_records_path(@patient.id)
-    within "#new_record" do
+    within "form" do
       click_button "Save"
     end
     expect(all("#error_explanation > ul > li").length).to eq 1

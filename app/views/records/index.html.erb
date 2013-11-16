@@ -12,7 +12,7 @@
 <% end %>
 
 <% provide :resource_form do %>
-  <%= render "shared/error_messages", resource: @patient %>
+  <%= render "shared/error_messages", resource: @error_aggregator %>
   <%= render "records/record_form", button_text: "Save" %>
 <% end %>
 
