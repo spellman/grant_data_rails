@@ -13,8 +13,13 @@ describe Renal do
     no_patient      = Renal.new                                bun: @valid_bun, date: @valid_date
     invalid_patient = Renal.new patient_id: -1,                bun: @valid_bun, date: @valid_date
     expect(valid_patient).to be_valid
+
     expect(no_patient).to be_invalid
+    expect(no_patient.errors.messages[:patient_id]).to include "can't be blank"
+    expect(no_patient.errors.messages[:patient_id]).to include "must be valid"
+
     expect(invalid_patient).to be_invalid
+    expect(invalid_patient.errors.messages[:patient_id]).to include "must be valid"
   end
 
   it "requires a valid date" do
@@ -26,7 +31,7 @@ describe Renal do
     expect(invalid_date).to be_invalid
   end
 
-  it "requires at lebun one of bun, creatinine" do
+  it "requires at least one of bun, creatinine" do
     valid_values      = @valid_patient.renals.build bun:  @valid_bun,
                                                     date: @valid_date
     all_values        = @valid_patient.renals.build bun:         @valid_bun,

@@ -12,8 +12,13 @@ describe A1c do
     no_patient      = A1c.new                                a1c: @valid_a1c, date: @valid_date
     invalid_patient = A1c.new patient_id: -1,                a1c: @valid_a1c, date: @valid_date
     expect(valid_patient).to be_valid
+
     expect(no_patient).to be_invalid
+    expect(no_patient.errors.messages[:patient_id]).to include "can't be blank"
+    expect(no_patient.errors.messages[:patient_id]).to include "must be valid"
+
     expect(invalid_patient).to be_invalid
+    expect(invalid_patient.errors.messages[:patient_id]).to include "must be valid"
   end
 
   it "requires a valid date" do
