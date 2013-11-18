@@ -70,7 +70,6 @@ feature "add patient" do
   end
 
   scenario "allows user to create a new patient" do
-    previous_count = Patient.count
     visit patients_path
     expect do
       within "#add-patient" do
@@ -78,7 +77,7 @@ feature "add patient" do
         fill_in "Diagnosis", with: "new diagnosis"
         click_button "Add new patient"
       end
-    end.to change{ Patient.count }.from(previous_count).to(previous_count + 1)
+    end.to change{ Patient.count }.by(1)
     expect(page).to have_content "new name"
     expect(page).to have_content "new diagnosis"
   end

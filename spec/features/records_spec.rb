@@ -28,7 +28,6 @@ feature "patient records page" do
   end
 
   scenario "allows user to add a record" do
-    prev_count = @patient.a1cs.count
     visit patient_records_path(@patient.id)
     expect do
       within "form" do
@@ -36,7 +35,7 @@ feature "patient records page" do
         fill_in "a1c_date", with: Time.zone.now
         click_button "Save"
       end
-    end.to change{ @patient.a1cs.count }.from(prev_count).to(prev_count + 1)
+    end.to change{ @patient.a1cs.count }.by(1)
     expect(page).to have_content "101"
   end
 
