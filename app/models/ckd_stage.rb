@@ -10,13 +10,13 @@ class CkdStage < ActiveRecord::Base
       greater_than_or_equal_to: 0,
       only_integer: true
     }
+  validates :date,
+    presence:        true,
+    date_timeliness: true
   validates :ckd_stage,
     numericality: {
       only_integer:             true,
       greater_than_or_equal_to: 0,
       message:                  "must be a non-negative number with no decimal places"
     }
-  validates :date,
-    presence:        true,
-    date_timeliness: true
 end

@@ -11,6 +11,11 @@ class Cholesterol < ActiveRecord::Base
       greater_than_or_equal_to: 0,
       only_integer: true
     }
+  validates :date,
+    presence:        true,
+    date_timeliness: true
+  validates_with NotAllDomainFieldsBlankValidator,
+    domain_fields: ["tc", "tg", "hdl", "ldl"]
   validates :tc,
             :tg,
             :hdl,
@@ -20,11 +25,5 @@ class Cholesterol < ActiveRecord::Base
       greater_than_or_equal_to: 0,
       message:                  "must be a non-negative number with no decimal places"
     },
-    allow_blank:  true,
-    not_all_domain_fields_blank: {
-      domain_fields: ["tc", "tg", "hdl", "ldl"]
-    }
-  validates :date,
-    presence:        true,
-    date_timeliness: true
+    allow_blank: true
 end

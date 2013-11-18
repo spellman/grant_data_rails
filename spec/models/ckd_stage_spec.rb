@@ -37,7 +37,7 @@ describe CkdStage do
     expect(invalid_date).to be_invalid
   end
 
-  it "requires a value" do
+  it "requires a non-negative integer value" do
     valid_ckd_stage       = @valid_patient.ckd_stages.build ckd_stage: @valid_ckd_stage,
                                                             date:      @valid_date
     no_ckd_stage          = @valid_patient.ckd_stages.build date:      @valid_date

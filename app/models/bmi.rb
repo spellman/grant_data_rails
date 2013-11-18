@@ -10,13 +10,13 @@ class Bmi < ActiveRecord::Base
       greater_than_or_equal_to: 0,
       only_integer: true
     }
+  validates :date,
+    presence:        true,
+    date_timeliness: true
   validates :bmi,
     presence:     true,
     numericality: {
       greater_than_or_equal_to: 0,
       message:                  "must be a non-negative number"
     }
-  validates :date,
-    presence:        true,
-    date_timeliness: true
 end
