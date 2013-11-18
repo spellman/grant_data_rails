@@ -49,4 +49,10 @@ describe ErrorAggregator do
     expect(no_name_2.errors.full_messages.count).to eq 1
     expect(aggregator.full_messages).to eq Set.new(expected)
   end
+
+  it "allows adding full messages directly" do
+    aggregator = ErrorAggregator.new
+    aggregator.add_full_error_message "foo"
+    expect(aggregator.full_messages).to eq Set.new(["foo"])
+  end
 end

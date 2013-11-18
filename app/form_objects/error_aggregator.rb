@@ -14,4 +14,8 @@ class ErrorAggregator
     end
     self
   end
+
+  def add_full_error_message message
+    full_messages.add message
+  end
 end
