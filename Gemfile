@@ -20,6 +20,8 @@ end
 
 group :development do
   gem "bundler",                   "~> 1.3"
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 group :test do
@@ -36,9 +38,7 @@ group :production do
   gem "rails_12factor",            "0.0.2"
 end
 
-# Use ActiveModel has_secure_password
-# Update to ~> 3.1.0 soon, when ActiveSupport updates, updates its dependency.
-gem "bcrypt-ruby",                 "~> 3.0.0"
+gem "bcrypt-ruby",                 "~> 3.1.2"
 gem "unicorn"
 gem "rack-timeout"
 
