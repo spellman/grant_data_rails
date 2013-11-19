@@ -63,6 +63,6 @@ class PatientRecordsPresenter
 
   def format_date date
     return nil unless date
-    date.in_time_zone("Central Time (US & Canada)").strftime("%_m/%d/%Y")
+    date.strftime("%_m/%d/%Y")
   end
 end
