@@ -2,25 +2,12 @@ class Record
   class CouldNotSaveAllModels < StandardError
   end
 
-  attr_accessor :patient_id, :models, :errors, :a1c, :acr, :bmi, :cholesterol,
-    :eye_exam, :ckd_stage, :flu, :foot_exam, :liver, :pneumonia, :renal
+  attr_accessor :patient_id, :models, :errors
 
-  def initialize params = {
-                            "a1c"         => {},
-                            "acr"         => {},
-                            "bmi"         => {},
-                            "cholesterol" => {},
-                            "ckd_stage"   => {},
-                            "eye_exam"    => {},
-                            "flu"         => {},
-                            "foot_exam"   => {},
-                            "liver"       => {},
-                            "pneumonia"   => {},
-                            "renal"       => {}
-                          }
+  def initialize params = default_attributes
     params      = Hash[params.map { |k, v| [k.to_s, v] }]
     @patient_id = params.delete "patient_id"
-    @models     = {}
+    @models     = []
     @errors     = ErrorAggregator.new
     initialize_models params
   end
@@ -34,12 +21,29 @@ class Record
       save_models!
       true
     rescue CouldNotSaveAllModels
-      errors.aggregate_errors_from models.values
+      errors.aggregate_errors_from models
       false
     end
   end
 
   # private
+  def default_attributes
+    attr_names = [
+      "a1c",
+      "acr",
+      "bmi",
+      "cholesterol",
+      "ckd_stage",
+      "eye_exam",
+      "flu",
+      "foot_exam",
+      "liver",
+      "pneumonia",
+      "renal"
+    ]
+    Hash[attr_names.map { |attr_name| [attr_name, {}] }]
+  end
+
   def initialize_models params
     params.each do |model_name, model_attrs|
       initialize_model name:       model_name,
@@ -50,14 +54,24 @@ class Record
   def initialize_model name: nil, attributes: nil
     model_class = name.titlecase.gsub("\s", "").constantize
     model       = model_class.send :new, attributes
-    send "#{name}=", model
-    models[name] = model
+    models << model
+    define_attr_reader name: name, model: model
+  end
+
+  def define_attr_reader name: nil, model: nil
+    return unless name && model
+    instance_variable_set "@#{name}", model
+    class_eval <<-EOS
+      def #{name}
+        @#{name}
+      end
+    EOS
   end
 
   def save_models!
     ActiveRecord::Base.transaction do
       save_results = []
-      models.values.each do |model|
+      models.each do |model|
         save_results << model.save unless all_input_fields_blank_in?(model)
       end
       raise CouldNotSaveAllModels unless save_results.all?
@@ -74,7 +88,7 @@ class Record
   end
 
   def all_models_blank?
-    models.values.all? { |model| all_input_fields_blank_in? model }
+    models.all? { |model| all_input_fields_blank_in? model }
   end
 
   def all_input_fields_blank_in? model
