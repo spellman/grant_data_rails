@@ -1,55 +1,83 @@
-require "csv"
+class Record
+  class CouldNotSaveAllModels < StandardError
+  end
 
-class Record < ActiveRecord::Base
-  belongs_to :patient
-  validates :patient,
-    presence: true
+  attr_accessor :patient_id, :models, :errors, :a1c, :acr, :bmi, :cholesterol,
+    :eye_exam, :ckd_stage, :flu, :foot_exam, :liver, :pneumonia, :renal
 
-  validates :bmi,
-            :a1c,
-    numericality: {
-      greater_than_or_equal_to: 0,
-      message:                  "must be a non-negative number"
-    },
-    allow_blank:  true
-  validates :tc,
-            :tg,
-            :hdl,
-            :ldl,
-            :acr,
-            :bun,
-            :creatinine,
-            :ckd_stage,
-            :ast,
-            :alt,
-    numericality: {
-      only_integer:             true,
-      greater_than_or_equal_to: 0,
-      message:                  "must be a non-negative number with no decimal places"
-    },
-    allow_blank:  true
+  def initialize params = {
+                            "a1c"         => {},
+                            "acr"         => {},
+                            "bmi"         => {},
+                            "cholesterol" => {},
+                            "ckd_stage"   => {},
+                            "eye_exam"    => {},
+                            "flu"         => {},
+                            "foot_exam"   => {},
+                            "liver"       => {},
+                            "pneumonia"   => {},
+                            "renal"       => {}
+                          }
+    params      = Hash[params.map { |k, v| [k.to_s, v] }]
+    @patient_id = params.delete "patient_id"
+    @models     = {}
+    @errors     = ErrorAggregator.new
+    initialize_models params
+  end
 
-  validate :some_domain_fields_non_empty?
+  def save
+    validate_some_model_not_blank && try_save
+  end
 
-  def self.to_csv
-    CSV.generate do |csv|
-      csv << column_names
-      all.each do |record|
-        csv << record.attributes.values_at(*column_names)
-      end
+  def try_save
+    begin
+      save_models!
+      true
+    rescue CouldNotSaveAllModels
+      errors.aggregate_errors_from models.values
+      false
     end
   end
 
   # private
-  def some_domain_fields_non_empty?
-    errors.add(:base, "Please enter some patient data") if domain_fields_empty?
+  def initialize_models params
+    params.each do |model_name, model_attrs|
+      initialize_model name:       model_name,
+                       attributes: model_attrs.merge({ "patient_id" => patient_id })
+    end
   end
 
-  def domain_fields_empty?
-    attributes.reject { |k, v| Record.non_domain_fields.include?(k) || v.blank? }.empty?
+  def initialize_model name: nil, attributes: nil
+    model_class = name.titlecase.gsub("\s", "").constantize
+    model       = model_class.send :new, attributes
+    send "#{name}=", model
+    models[name] = model
   end
 
-  def self.non_domain_fields
-    ["id", "patient_id", "created_at", "updated_at"]
+  def save_models!
+    ActiveRecord::Base.transaction do
+      save_results = []
+      models.values.each do |model|
+        save_results << model.save unless all_input_fields_blank_in?(model)
+      end
+      raise CouldNotSaveAllModels unless save_results.all?
+    end
+  end
+
+  def validate_some_model_not_blank
+    if all_models_blank?
+      errors.add_full_error_message "Please enter some patient data" 
+      false
+    else
+      true
+    end
+  end
+
+  def all_models_blank?
+    models.values.all? { |model| all_input_fields_blank_in? model }
+  end
+
+  def all_input_fields_blank_in? model
+    model.attributes.reject { |k, v| k == "patient_id" }.all? { |k, v| v.blank? }
   end
 end
