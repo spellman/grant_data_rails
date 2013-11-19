@@ -14,7 +14,8 @@ class NotAllDomainFieldsBlankValidator < ActiveModel::Validator
 
   # private
   def all_domain_fields_blank? record
-    record.attributes.reject { |k, v| !(domain_fields.include?(k)) || v.blank? }.empty?
+    record.attributes.select { |k, v| domain_fields.include? k }
+                     .all?{ |k, v| v.blank? }
   end
 
   def error_message
