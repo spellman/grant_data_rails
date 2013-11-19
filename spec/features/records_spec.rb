@@ -50,7 +50,7 @@ feature "patient records page" do
     expect(all("#error_explanation > ul > li").length).to be > 0
   end
 
-  scenario "displays errors when user tries to save an invalid record" do
+  scenario "displays errors when user tries to save an invalid (blank) record" do
     visit patient_records_path(@patient.id)
     within "form" do
       click_button "Save"

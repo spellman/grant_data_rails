@@ -1,34 +1,10 @@
 class Record
+  include ActiveModel::Model
   class CouldNotSaveAllModels < StandardError
   end
 
-  attr_accessor :patient_id, :models, :errors
-
-  def initialize params = default_attributes
-    params      = Hash[params.map { |k, v| [k.to_s, v] }]
-    @patient_id = params.delete "patient_id"
-    @models     = []
-    @errors     = ErrorAggregator.new
-    initialize_models params
-  end
-
-  def save
-    validate_some_model_not_blank && try_save
-  end
-
-  def try_save
-    begin
-      save_models!
-      true
-    rescue CouldNotSaveAllModels
-      errors.aggregate_errors_from models
-      false
-    end
-  end
-
-  # private
-  def default_attributes
-    attr_names = [
+  def self.domain_fields
+    [
       "a1c",
       "acr",
       "bmi",
@@ -41,7 +17,30 @@ class Record
       "pneumonia",
       "renal"
     ]
-    Hash[attr_names.map { |attr_name| [attr_name, {}] }]
+  end
+
+  attr_accessor :attributes, :patient_id, :models, *self.domain_fields.map(&:to_sym)
+
+  def initialize attrs = default_attributes
+    attrs       = Hash[attrs.map { |k, v| [k.to_s, v] }]
+    @patient_id = attrs.delete "patient_id"
+    @models     = []
+    @attributes = { "patient_id" => patient_id }
+    initialize_models attrs
+  end
+
+  validate :some_model_not_blank
+  validate :aggregate_model_errors
+
+  def save
+    if valid?
+      try_save_models
+    end
+  end
+
+  # private
+  def default_attributes
+    Hash[self.class.domain_fields.map { |domain_field| [domain_field, {}] }]
   end
 
   def initialize_models params
@@ -55,43 +54,47 @@ class Record
     model_class = name.titlecase.gsub("\s", "").constantize
     model       = model_class.send :new, attributes
     models << model
-    define_attr_reader name: name, model: model
+    send "#{name}=", model
+    self.attributes[name] = model.attributes.reject { |k, v| k == "patient_id" }
   end
 
-  def define_attr_reader name: nil, model: nil
-    return unless name && model
-    instance_variable_set "@#{name}", model
-    class_eval <<-EOS
-      def #{name}
-        @#{name}
-      end
-    EOS
+  def try_save_models
+    begin
+      save_models!
+      true
+    rescue CouldNotSaveAllModels
+      aggregate_model_errors
+      false
+    end
   end
 
   def save_models!
     ActiveRecord::Base.transaction do
       save_results = []
-      models.each do |model|
-        save_results << model.save unless all_input_fields_blank_in?(model)
-      end
+      non_blank_models.each { |model| save_results << model.save }
       raise CouldNotSaveAllModels unless save_results.all?
     end
   end
 
-  def validate_some_model_not_blank
-    if all_models_blank?
-      errors.add_full_error_message "Please enter some patient data" 
-      false
-    else
-      true
+  def some_model_not_blank
+    errors.add :base, "Please enter some patient data." if non_blank_models.empty?
+  end
+
+  def aggregate_model_errors
+    non_blank_models.reverse.each do |model|
+      unless model.valid?
+        model.errors.each do |key, values|
+          errors[key] = values
+        end
+      end
     end
   end
 
-  def all_models_blank?
-    models.all? { |model| all_input_fields_blank_in? model }
+  def non_blank_models
+    models.reject { |model| blank_model? model }
   end
 
-  def all_input_fields_blank_in? model
+  def blank_model? model
     model.attributes.reject { |k, v| k == "patient_id" }.all? { |k, v| v.blank? }
   end
 end

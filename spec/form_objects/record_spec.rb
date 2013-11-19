@@ -10,15 +10,49 @@ describe Record do
 
   it "initializes child models" do
     record       = Record.new "patient_id" => @valid_patient.id,
-                              "a1c"        => @valid_a1c
+                              "a1c"        => @valid_a1c,
+                              "flu"        => @valid_flu
     expected_a1c = @valid_patient.a1cs.build @valid_a1c
+    expected_flu = @valid_patient.flus.build @valid_flu
     expect(record.a1c).to be_an A1c
-    expect(record.a1c.patient_id).to eq expected_a1c.patient_id
-    expect(record.a1c.a1c).to eq expected_a1c.a1c
-    expect(record.a1c.date).to eq expected_a1c.date
+    expect(record.flu).to be_an Flu
+    expect(record.a1c.attributes).to eq expected_a1c.attributes
+    expect(record.flu.attributes).to eq expected_flu.attributes
   end
 
-  specify "save validates each child model" do
+  it "defaults to a full set of child models if no params are given" do
+    default_record = Record.new
+    expect(default_record.models.length).to eq Record.domain_fields.length
+    expect(default_record.attributes.length).to eq Record.domain_fields.length + 1
+  end
+
+  it "defaults to blank child models if no params are given" do
+    default_record = Record.new
+    expect(default_record).to be_invalid
+    expect(default_record.errors.any?).to eq true
+  end
+
+  specify "validates that some child model has non-blank fields" do
+    non_blank = Record.new "patient_id" => @valid_patient.id,
+                           "a1c"        => @valid_a1c
+    blank     = Record.new "patient_id" => @valid_patient.id,
+                           "a1c"        => A1c.new.attributes
+    expect(non_blank).to be_valid
+    expect(blank).to be_invalid
+  end
+
+  specify "validates on save" do
+    valid   = Record.new "patient_id" => @valid_patient.id,
+                         "a1c"        => @valid_a1c
+    invalid = Record.new "patient_id" => @valid_patient.id,
+                         "a1c"        => A1c.new.attributes
+    valid.save
+    invalid.save
+    expect(valid.errors.any?).to eq false
+    expect(invalid.errors.any?).to eq true
+  end
+
+  specify "validates each child model on save" do
     valid_record      = Record.new "patient_id" => @valid_patient.id,
                                    "a1c"        => @valid_a1c,
                                    "flu"        => @valid_flu
@@ -37,12 +71,6 @@ describe Record do
     expect(incomplete_models.renal.errors).not_to be_empty
   end
 
-  specify "save validates that some child model has non-blank fields" do
-    blank_record = Record.new "patient_id" => @valid_patient.id
-    expect(blank_record.save).to be_false
-    expect(blank_record.errors.full_messages).not_to be_empty
-  end
-
   it "aggregates errors from all models on save" do
     a1c_no_date       = { a1c: -3 }
     ckd_stage_no_date = { ckd_stage: 1 }
@@ -56,7 +84,7 @@ describe Record do
     a1c.valid?
     ckd_stage.valid?
     expected_messages = a1c.errors.full_messages + ckd_stage.errors.full_messages
-    expect(invalid.errors.full_messages).to eq Set.new(expected_messages)
+    expect(invalid.errors.full_messages).to match_array expected_messages
   end
 
   specify "save saves all models with non-blank fields if all such models can be saved" do
