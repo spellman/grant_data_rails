@@ -52,7 +52,7 @@ describe PatientRecordsPresenter do
 
     specify "dates are US Central time, mm/dd/yyyy, months blank-padded, days 0-padded" do
       actual_dates = @view_model[:a1c].map { |o| o[:date] }
-      expect(actual_dates).to eq [" 1/01/2000", " 1/02/2001", " 1/03/2002"]
+      expect(actual_dates).to eq ["1/01/2000", "1/02/2001", "1/03/2002"]
     end
   end
 end

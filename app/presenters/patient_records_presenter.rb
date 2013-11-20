@@ -63,6 +63,6 @@ class PatientRecordsPresenter
 
   def format_date date
     return nil unless date
-    date.strftime("%_m/%d/%Y")
+    date.strftime("%-m/%d/%Y")
   end
 end
