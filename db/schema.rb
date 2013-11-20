@@ -11,11 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131113222318) do
+ActiveRecord::Schema.define(version: 20131120201509) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "a1cs", force: true do |t|
     t.integer  "patient_id"
-    t.datetime "date",       null: false
+    t.date     "date",       null: false
     t.decimal  "a1c"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -25,7 +28,7 @@ ActiveRecord::Schema.define(version: 20131113222318) do
 
   create_table "acrs", force: true do |t|
     t.integer  "patient_id"
-    t.datetime "date",       null: false
+    t.date     "date",       null: false
     t.integer  "acr"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -35,7 +38,7 @@ ActiveRecord::Schema.define(version: 20131113222318) do
 
   create_table "bmis", force: true do |t|
     t.integer  "patient_id"
-    t.datetime "date",       null: false
+    t.date     "date",       null: false
     t.decimal  "bmi"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -45,7 +48,7 @@ ActiveRecord::Schema.define(version: 20131113222318) do
 
   create_table "cholesterols", force: true do |t|
     t.integer  "patient_id"
-    t.datetime "date",       null: false
+    t.date     "date",       null: false
     t.integer  "tc"
     t.integer  "tg"
     t.integer  "hdl"
@@ -58,7 +61,7 @@ ActiveRecord::Schema.define(version: 20131113222318) do
 
   create_table "ckd_stages", force: true do |t|
     t.integer  "patient_id"
-    t.datetime "date",       null: false
+    t.date     "date",       null: false
     t.integer  "ckd_stage"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -68,7 +71,7 @@ ActiveRecord::Schema.define(version: 20131113222318) do
 
   create_table "eye_exams", force: true do |t|
     t.integer  "patient_id"
-    t.datetime "date",       null: false
+    t.date     "date",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -77,7 +80,7 @@ ActiveRecord::Schema.define(version: 20131113222318) do
 
   create_table "flus", force: true do |t|
     t.integer  "patient_id"
-    t.datetime "date",       null: false
+    t.date     "date",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -86,7 +89,7 @@ ActiveRecord::Schema.define(version: 20131113222318) do
 
   create_table "foot_exams", force: true do |t|
     t.integer  "patient_id"
-    t.datetime "date",       null: false
+    t.date     "date",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -95,7 +98,7 @@ ActiveRecord::Schema.define(version: 20131113222318) do
 
   create_table "livers", force: true do |t|
     t.integer  "patient_id"
-    t.datetime "date",       null: false
+    t.date     "date",       null: false
     t.integer  "ast"
     t.integer  "alt"
     t.datetime "created_at"
@@ -111,7 +114,7 @@ ActiveRecord::Schema.define(version: 20131113222318) do
 
   create_table "pneumonias", force: true do |t|
     t.integer  "patient_id"
-    t.datetime "date",       null: false
+    t.date     "date",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -120,7 +123,7 @@ ActiveRecord::Schema.define(version: 20131113222318) do
 
   create_table "renals", force: true do |t|
     t.integer  "patient_id"
-    t.datetime "date",       null: false
+    t.date     "date",       null: false
     t.integer  "bun"
     t.integer  "creatinine"
     t.datetime "created_at"
