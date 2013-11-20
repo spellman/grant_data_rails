@@ -1,5 +1,5 @@
 require "id_validator"
-require "date_timeliness_validator"
+require "time_with_zone_validator"
 
 class EyeExam < ActiveRecord::Base
   belongs_to :patient
@@ -15,6 +15,6 @@ class EyeExam < ActiveRecord::Base
       only_integer: true
     }
   validates :date,
-    presence:        true,
-    date_timeliness: true
+    presence:       true,
+    time_with_zone: true
 end

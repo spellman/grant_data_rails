@@ -1,5 +1,5 @@
 require "id_validator"
-require "date_timeliness_validator"
+require "time_with_zone_validator"
 require "not_all_domain_fields_blank_validator"
 
 class Liver < ActiveRecord::Base
@@ -16,8 +16,8 @@ class Liver < ActiveRecord::Base
       only_integer: true
     }
   validates :date,
-    presence:        true,
-    date_timeliness: true
+    presence:       true,
+    time_with_zone: true
   validates_with NotAllDomainFieldsBlankValidator,
     domain_fields: ["ast", "alt"]
   validates :ast,

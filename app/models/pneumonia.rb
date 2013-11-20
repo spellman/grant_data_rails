@@ -1,5 +1,5 @@
 require "id_validator"
-require "date_timeliness_validator"
+require "time_with_zone_validator"
 
 class Pneumonia < ActiveRecord::Base
   self.table_name = "pneumonias"
@@ -16,6 +16,6 @@ class Pneumonia < ActiveRecord::Base
       only_integer: true
     }
   validates :date,
-    presence:        true,
-    date_timeliness: true
+    presence:       true,
+    time_with_zone: true
 end
