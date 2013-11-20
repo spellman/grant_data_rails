@@ -2,9 +2,10 @@ require "spec_helper"
 
 describe CkdStage do
   before :each do
-    @valid_patient   = Patient.create name: "name", diagnosis: "diagnosis"
-    @valid_date      = Time.zone.local 2013, 1, 1
-    @valid_ckd_stage = 1
+    @valid_patient    = Patient.create name: "name", diagnosis: "diagnosis"
+    @valid_date       = Time.zone.local 2013, 1, 25
+    @valid_ckd_stage  = 1
+    @us_date_format   = "%-m/%d/%Y"
   end
 
   it "requires a valid patient" do
@@ -28,13 +29,20 @@ describe CkdStage do
 
   it "requires a valid date" do
     valid_date   = @valid_patient.ckd_stages.build ckd_stage: @valid_ckd_stage,
-                                                   date:      Time.zone.local(2013, 1, 1)
+                                                   date:      @valid_date
     no_date      = @valid_patient.ckd_stages.build ckd_stage: @valid_ckd_stage
     invalid_date = @valid_patient.ckd_stages.build ckd_stage: @valid_ckd_stage,
                                                    date:      "foo"
     expect(valid_date).to be_valid
     expect(no_date).to be_invalid
     expect(invalid_date).to be_invalid
+  end
+
+  specify "i18n_alchemy-localized proxy accepts mm/dd/yyyy date string under en locale" do
+    ckd_stage = @valid_patient.ckd_stages.build ckd_stage: @valid_ckd_stage
+    expect{ ckd_stage.localized.date = @valid_date.strftime(@us_date_format) }.not_to raise_error
+    expect(ckd_stage.date).to eq @valid_date
+    expect(ckd_stage).to be_valid
   end
 
   it "requires a non-negative integer value" do

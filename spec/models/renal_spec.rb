@@ -3,9 +3,10 @@ require "spec_helper"
 describe Renal do
   before :each do
     @valid_patient    = Patient.create name: "name", diagnosis: "diagnosis"
-    @valid_date       = Time.zone.local 2013, 1, 1
+    @valid_date       = Time.zone.local 2013, 1, 25
     @valid_bun        = 1
     @valid_creatinine = 1
+    @us_date_format   = "%-m/%d/%Y"
   end
 
   it "requires a valid patient" do
@@ -29,13 +30,20 @@ describe Renal do
 
   it "requires a valid date" do
     valid_date   = @valid_patient.renals.build bun:  @valid_bun,
-                                               date: Time.zone.local(2013, 1, 1)
+                                               date: @valid_date
     no_date      = @valid_patient.renals.build bun:  @valid_bun
     invalid_date = @valid_patient.renals.build bun:  @valid_bun,
                                                date: "foo"
     expect(valid_date).to be_valid
     expect(no_date).to be_invalid
     expect(invalid_date).to be_invalid
+  end
+
+  specify "i18n_alchemy-localized proxy accepts mm/dd/yyyy date string under en locale" do
+    renal = @valid_patient.renals.build bun: @valid_bun
+    expect{ renal.localized.date = @valid_date.strftime(@us_date_format) }.not_to raise_error
+    expect(renal.date).to eq @valid_date
+    expect(renal).to be_valid
   end
 
   it "requires at least one of bun, creatinine" do

@@ -2,20 +2,30 @@ require "spec_helper"
 
 describe Record do
   before :each do
-    @valid_patient = Patient.create name: "name", diagnosis: "diagnosis"
-    @valid_date    = Time.zone.local 2013, 1, 1
-    @valid_a1c     = { a1c: 1.5, date: @valid_date }
-    @valid_flu     = { date: @valid_date }
+    @valid_patient  = Patient.create name: "name", diagnosis: "diagnosis"
+    @us_date_format = "%-m/%d/%Y"
+    @valid_date     = Time.zone.local(2013, 1, 25).strftime @us_date_format
+    @valid_a1c      = { a1c: 1.5, date: @valid_date }
+    @valid_flu      = { date: @valid_date }
   end
 
-  it "initializes child models" do
+  def blank_model model_class
+    attributes = model_class.new.attributes.map do |k, v|
+      [k, v.nil? ? "" : v]
+    end
+    Hash[attributes]
+  end
+
+  it "initializes i18n_alchemy proxies of child models" do
     record       = Record.new "patient_id" => @valid_patient.id,
                               "a1c"        => @valid_a1c,
                               "flu"        => @valid_flu
-    expected_a1c = @valid_patient.a1cs.build @valid_a1c
-    expected_flu = @valid_patient.flus.build @valid_flu
+    expected_a1c = @valid_patient.a1cs.build
+    expected_a1c.localized.assign_attributes @valid_a1c
+    expected_flu = @valid_patient.flus.build
+    expected_flu.localized.assign_attributes @valid_flu
     expect(record.a1c).to be_an A1c
-    expect(record.flu).to be_an Flu
+    expect(record.flu).to be_a Flu
     expect(record.a1c.attributes).to eq expected_a1c.attributes
     expect(record.flu.attributes).to eq expected_flu.attributes
   end
@@ -36,7 +46,7 @@ describe Record do
     non_blank = Record.new "patient_id" => @valid_patient.id,
                            "a1c"        => @valid_a1c
     blank     = Record.new "patient_id" => @valid_patient.id,
-                           "a1c"        => A1c.new.attributes
+                           "a1c"        => blank_model(A1c)
     expect(non_blank).to be_valid
     expect(blank).to be_invalid
   end
@@ -45,7 +55,7 @@ describe Record do
     valid   = Record.new "patient_id" => @valid_patient.id,
                          "a1c"        => @valid_a1c
     invalid = Record.new "patient_id" => @valid_patient.id,
-                         "a1c"        => A1c.new.attributes
+                         "a1c"        => blank_model(A1c)
     valid.save
     invalid.save
     expect(valid.errors.any?).to eq false

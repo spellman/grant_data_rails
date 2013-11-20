@@ -4,21 +4,20 @@ describe PatientRecordsPresenter do
   describe "Index View Model" do
     before :each do
       @patient = Patient.create name: "name", diagnosis: "diagnosis"
-      Time.zone = "Central Time (US & Canada)"
       3.times do |i|
         valid_day_asc  = (i % 27) + 1
         valid_day_desc = 28 - valid_day_asc
         r = Record.new patient_id: @patient.id,
                        a1c: {
                          a1c:  i,
-                         date: Time.zone.local(2000 + i, 1, valid_day_asc),
+                         date: Time.zone.local(2000 + i, 1, valid_day_asc).to_s,
                        },
                        cholesterol: {
                          tc:   i,
                          tg:   i,
                          hdl:  i,
                          ldl:  i,
-                         date: Time.zone.local(2000 + i, 1, valid_day_desc)
+                         date: Time.zone.local(2000 + i, 1, valid_day_desc).to_s
                        }
         r.save
       end

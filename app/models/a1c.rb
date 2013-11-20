@@ -3,6 +3,10 @@ require "date_timeliness_validator"
 
 class A1c < ActiveRecord::Base
   belongs_to :patient
+
+  include I18n::Alchemy
+  localize :date, using: :date
+
   validates :patient_id,
     id:       true,
     presence: true,

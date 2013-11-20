@@ -2,12 +2,13 @@ require "spec_helper"
 
 describe Cholesterol do
   before :each do
-    @valid_patient = Patient.create name: "name", diagnosis: "diagnosis"
-    @valid_date    = Time.zone.local 2013, 1, 1
-    @valid_tc      = 1
-    @valid_tg      = 1
-    @valid_hdl     = 1
-    @valid_ldl     = 1
+    @valid_patient  = Patient.create name: "name", diagnosis: "diagnosis"
+    @valid_date     = Time.zone.local 2013, 1, 25
+    @valid_tc       = 1
+    @valid_tg       = 1
+    @valid_hdl      = 1
+    @valid_ldl      = 1
+    @us_date_format = "%-m/%d/%Y"
   end
 
   it "requires a valid patient" do
@@ -31,13 +32,20 @@ describe Cholesterol do
 
   it "requires a valid date" do
     valid_date   = @valid_patient.cholesterols.build tc:   @valid_tc,
-                                                     date: Time.zone.local(2013, 1, 1)
+                                                     date: @valid_date
     no_date      = @valid_patient.cholesterols.build tc:   @valid_tc
     invalid_date = @valid_patient.cholesterols.build tc:   @valid_tc,
                                                      date: "foo"
     expect(valid_date).to be_valid
     expect(no_date).to be_invalid
     expect(invalid_date).to be_invalid
+  end
+
+  specify "i18n_alchemy-localized proxy accepts mm/dd/yyyy date string under en locale" do
+    cholesterol = @valid_patient.cholesterols.build tc: @valid_tc
+    expect{ cholesterol.localized.date = @valid_date.strftime(@us_date_format) }.not_to raise_error
+    expect(cholesterol.date).to eq @valid_date
+    expect(cholesterol).to be_valid
   end
 
   it "requires at least one of tc, tg, hdl, ldl" do

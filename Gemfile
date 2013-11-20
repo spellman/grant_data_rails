@@ -12,6 +12,7 @@ gem "sass-rails", "~> 4.0.0"
 gem "pg",                          "~> 0.16"
 gem "pundit",                      "~> 0.2"
 gem "kaminari",                    "~> 0.14.1"
+gem "i18n_alchemy",                "~> 0.1", github: "carlosantoniodasilva/i18n_alchemy"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

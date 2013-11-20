@@ -2,10 +2,11 @@ require "spec_helper"
 
 describe Liver do
   before :each do
-    @valid_patient = Patient.create name: "name", diagnosis: "diagnosis"
-    @valid_date    = Time.zone.local 2013, 1, 1
-    @valid_ast     = 1
-    @valid_alt     = 1
+    @valid_patient  = Patient.create name: "name", diagnosis: "diagnosis"
+    @valid_date     = Time.zone.local 2013, 1, 25
+    @valid_ast      = 1
+    @valid_alt      = 1
+    @us_date_format = "%-m/%d/%Y"
   end
 
   it "requires a valid patient" do
@@ -29,13 +30,20 @@ describe Liver do
 
   it "requires a valid date" do
     valid_date   = @valid_patient.livers.build ast:  @valid_ast,
-                                               date: Time.zone.local(2013, 1, 1)
+                                               date: @valid_date
     no_date      = @valid_patient.livers.build ast:  @valid_ast
     invalid_date = @valid_patient.livers.build ast:  @valid_ast,
                                                date: "foo"
     expect(valid_date).to be_valid
     expect(no_date).to be_invalid
     expect(invalid_date).to be_invalid
+  end
+
+  specify "i18n_alchemy-localized proxy accepts mm/dd/yyyy date string under en locale" do
+    liver = @valid_patient.livers.build ast: @valid_ast
+    expect{ liver.localized.date = @valid_date.strftime(@us_date_format) }.not_to raise_error
+    expect(liver.date).to eq @valid_date
+    expect(liver).to be_valid
   end
 
   it "requires at least one of ast, alt" do

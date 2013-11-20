@@ -24,8 +24,8 @@ class Record
   def initialize attrs = default_attributes
     attrs       = Hash[attrs.map { |k, v| [k.to_s, v] }]
     @patient_id = attrs.delete "patient_id"
-    @models     = []
     @attributes = { "patient_id" => patient_id }
+    @models     = []
     initialize_models attrs
   end
 
@@ -52,7 +52,8 @@ class Record
 
   def initialize_model name: nil, attributes: nil
     model_class = name.titlecase.gsub("\s", "").constantize
-    model       = model_class.send :new, attributes
+    model       = model_class.new
+    model.localized.assign_attributes attributes
     models << model
     send "#{name}=", model
     self.attributes[name] = model.attributes.reject { |k, v| k == "patient_id" }
