@@ -3,7 +3,7 @@ require "spec_helper"
 describe A1c do
   before :each do
     @valid_patient  = Patient.create name: "name", diagnosis: "diagnosis"
-    @valid_date     = Time.zone.local 2013, 1, 25
+    @valid_date     = Date.new 2013, 1, 25
     @valid_a1c      = 1.5
     @us_date_format = "%-m/%d/%Y"
   end

@@ -1,5 +1,5 @@
 require "id_validator"
-require "time_with_zone_validator"
+require "date_validator"
 
 class Pneumonia < ActiveRecord::Base
   self.table_name = "pneumonias"
@@ -9,13 +9,13 @@ class Pneumonia < ActiveRecord::Base
   localize :date, using: :date
 
   validates :patient_id,
-    id:       true,
+    id: true,
     presence: true,
     numericality: {
       greater_than_or_equal_to: 0,
       only_integer: true
     }
   validates :date,
-    presence:       true,
-    time_with_zone: true
+    presence: true,
+    date: true
 end

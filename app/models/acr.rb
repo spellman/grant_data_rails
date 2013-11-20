@@ -1,5 +1,5 @@
 require "id_validator"
-require "time_with_zone_validator"
+require "date_validator"
 
 class Acr < ActiveRecord::Base
   belongs_to :patient
@@ -8,20 +8,20 @@ class Acr < ActiveRecord::Base
   localize :date, using: :date
 
   validates :patient_id,
-    id:       true,
+    id: true,
     presence: true,
     numericality: {
       greater_than_or_equal_to: 0,
       only_integer: true
     }
   validates :date,
-    presence:       true,
-    time_with_zone: true
+    presence: true,
+    date: true
   validates :acr,
-    presence:     true,
+    presence: true,
     numericality: {
-      only_integer:             true,
+      only_integer: true,
       greater_than_or_equal_to: 0,
-      message:                  "must be a non-negative number with no decimal places"
+      message: "must be a non-negative number with no decimal places"
     }
 end

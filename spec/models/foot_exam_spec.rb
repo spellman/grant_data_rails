@@ -3,7 +3,7 @@ require "spec_helper"
 describe FootExam do
   before :each do
     @valid_patient  = Patient.create name: "name", diagnosis: "diagnosis"
-    @valid_date     = Time.zone.local 2013, 1, 25
+    @valid_date     = Date.new 2013, 1, 25
     @us_date_format = "%-m/%d/%Y"
   end
 
