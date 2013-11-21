@@ -1,14 +1,19 @@
 module UserManagement
   def sign_in_user
-    @user = User.find_by email: "user@test.com"
+    initialize_test_users
     sign_in email:    @user.email,
             password: "password!"
   end
   
   def sign_in_admin
-    @admin = User.find_by email: "admin@test.com"
+    initialize_test_users
     sign_in email:    @admin.email,
             password: "password!"
+  end
+
+  def initialize_test_users
+    @user  = User.find_by email: "user@test.com"
+    @admin = User.find_by email: "admin@test.com"
   end
 
   def sign_in email: nil, password: nil
