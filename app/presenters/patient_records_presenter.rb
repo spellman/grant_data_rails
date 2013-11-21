@@ -19,50 +19,28 @@ class PatientRecordsPresenter
   end
 
   def index
-    format_dates_in data_hash
-  end
-  
-  # private
-  def data_hash
-    data_hash = {}
+    data = {}
     model_names.each do |model_name|
-      data_hash[model_name] = []
-      records = patient_records_of_type model_name
-      add_data_from_records records: records, to: data_hash[model_name]
+      data[model_name.to_sym] = data_from_records patient_records_of_type model_name
     end
-    data_hash.symbolize_keys
+    data
   end
 
+  # private
   def patient_records_of_type model_name
     patient.send (model_name + "s").to_sym
   end
 
-  def add_data_from_records records: nil, to: nil
-    records.each { |record| to << record.attributes.symbolize_keys }
+  def data_from_records records
+    records.map { |record| data_from_record record }
   end
 
-  def format_dates_in hash
-    formatted = hash.map do |model_name, records|
-      [model_name, formatted_records(records)]
+  def data_from_record record
+    data = {}
+    record.attributes.keys.each do |attr_name|
+      r = attr_name == "date" ? record.localized : record
+      data[attr_name.to_sym] = r.send(attr_name.to_sym).to_s
     end
-    Hash[formatted]
-  end
-
-  def formatted_records records
-    records.map { |record| format_record record }
-  end
-
-  def format_record record
-    formatted = record.map do |attr_name, attr_value|
-      attr_name == :date ?
-        [attr_name, format_date(attr_value)] :
-        [attr_name, attr_value]
-    end
-    Hash[formatted]
-  end
-
-  def format_date date
-    return nil unless date
-    date.strftime("%-m/%d/%Y")
+    data
   end
 end

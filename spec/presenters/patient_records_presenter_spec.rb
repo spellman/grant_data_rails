@@ -42,16 +42,18 @@ describe PatientRecordsPresenter do
       expected_a1cs      = @patient.a1cs
                                    .order(date: :asc)
                                    .pluck(:a1c)
+                                   .map(&:to_s)
       expected_chol_tcs  = @patient.cholesterols
                                    .order(date: :asc)
                                    .pluck(:tc)
+                                   .map(&:to_s)
       expect(actual_a1cs).to eq expected_a1cs
       expect(actual_chol_tcs).to eq expected_chol_tcs
     end
 
     specify "dates are US Central time, mm/dd/yyyy, months blank-padded, days 0-padded" do
       actual_dates = @view_model[:a1c].map { |o| o[:date] }
-      expect(actual_dates).to eq ["1/01/2000", "1/02/2001", "1/03/2002"]
+      expect(actual_dates).to eq ["01/01/2000", "01/02/2001", "01/03/2002"]
     end
   end
 end
