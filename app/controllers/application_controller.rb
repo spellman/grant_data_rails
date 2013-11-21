@@ -9,12 +9,14 @@ class ApplicationController < ActionController::Base
 
   private
   def authenticate_user
-    refuse_entry_and_request_sign_in unless signed_in?
+    unless signed_in?
+      request_sign_in
+      redirect_to signin_path
+    end
   end
 
-  def refuse_entry_and_request_sign_in
+  def request_sign_in
     flash[:warning] = "Please sign in."
-    redirect_to signin_path
   end
 
   def signed_in?
@@ -29,8 +31,8 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized exception
     if attempt_to_delete_self?
-      redirect_to :users
       flash[:danger] = "You can't delete yourself."
+      redirect_to :users
     else
       flash[:danger] = "Sorry, you aren't authorized to perform that action."
       redirect_to :patients
