@@ -33,7 +33,6 @@ describe Record do
   it "defaults to a full set of child models if no params are given" do
     default_record = Record.new
     expect(default_record.models.length).to eq Record.domain_fields.length
-    expect(default_record.attributes.length).to eq Record.domain_fields.length + 1
   end
 
   it "defaults to blank child models if no params are given" do

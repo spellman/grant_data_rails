@@ -19,12 +19,11 @@ class Record
     ]
   end
 
-  attr_accessor :attributes, :patient_id, :models, *self.domain_fields.map(&:to_sym)
+  attr_accessor :patient_id, :models, *self.domain_fields.map(&:to_sym)
 
   def initialize attrs = default_attributes
     attrs       = Hash[attrs.map { |k, v| [k.to_s, v] }]
     @patient_id = attrs.delete "patient_id"
-    @attributes = { "patient_id" => patient_id }
     @models     = []
     initialize_models attrs
   end
@@ -56,7 +55,6 @@ class Record
     model.localized.assign_attributes attributes
     models << model
     send "#{name}=", model
-    self.attributes[name] = model.attributes.reject { |k, v| k == "patient_id" }
   end
 
   def try_save_models
