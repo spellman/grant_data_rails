@@ -15,7 +15,7 @@ feature "user management" do
     pw = "11111111"
     fill_in "user_password", with: pw
     fill_in "user_password_confirmation", with: pw
-    click_button "Create user"
+    click_button "Add new user"
     expect(page).to have_content "test@test.com"
   end
 
