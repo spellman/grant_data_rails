@@ -1,12 +1,12 @@
 source "https://rubygems.org"
-ruby "2.0.0"
+ruby "2.1.0"
 
 gem "rails",                       "~> 4.0.0"
 gem "turbolinks"
 gem "sprockets-rails",             "~> 2.0"
 gem "jquery-rails"
 gem "uglifier",                    ">= 1.3.0"
-gem "sass-rails", "~> 4.0.0"
+gem "sass-rails",                  "~> 4.0.0"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 #gem "jbuilder", "~> 1.2"
 gem "pg",                          "~> 0.16"
