@@ -1,6 +1,5 @@
 require "id_validator"
 require "date_validator"
-require "not_all_domain_fields_blank_validator"
 
 class Cholesterol < ActiveRecord::Base
   belongs_to :patient
@@ -15,19 +14,18 @@ class Cholesterol < ActiveRecord::Base
       greater_than_or_equal_to: 0,
       only_integer: true
     }
+#    uniqueness: {
+#      scope: :date,
+#      message: "patient already has an A1c for this date"
+#    }
   validates :date,
     presence: true,
     date: true
-  validates_with NotAllDomainFieldsBlankValidator,
-    domain_fields: ["tc", "tg", "hdl", "ldl"]
-  validates :tc,
-            :tg,
-            :hdl,
-            :ldl,
+  validates :ldl_in_mg_per_dl,
+    presence: true,
     numericality: {
-      only_integer: true,
       greater_than_or_equal_to: 0,
+      only_integer: true,
       message: "must be a non-negative number with no decimal places"
-    },
-    allow_blank: true
+    }
 end

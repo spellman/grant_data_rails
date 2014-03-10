@@ -1,12 +1,22 @@
 <%= form_for @patient do |f| %>
   <div class="form-group">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, class: "form-control" %>
+    <%= f.label :study_assigned_id, "Patient ID #" %><br />
+    <%= f.text_field :study_assigned_id, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :diagnosis %><br />
-    <%= f.text_field :diagnosis, class: "form-control" %>
+    <%= f.label :birthdate, "Date of Birth" %><br />
+    <%= f.date_field :birthdate, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :smoker, "Smoker?" %><br />
+    <%= f.select :smoker, [["no", false], ["yes", true]], { include_blank: true}, { class: "form-control" } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :etoh, "ETOH?" %><br />
+    <%= f.select :etoh, [["no", false], ["yes", true]], { include_blank: true}, { class: "form-control" } %>
   </div>
 
   <%= f.submit button_text, class: "btn btn-primary" %>

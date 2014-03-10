@@ -1,6 +1,6 @@
 <% provide :title, "Edit record" %>
 <% provide :nav_export_link do %>
-  <%= link_to "Export data for #{@patient.name} to CSV", patient_records_path(@patient.id, format: "csv") %>
+  <%= link_to "Export data for patient ##{@patient.study_assigned_id} to CSV", patient_records_path(@patient.id, format: "csv") %>
 <% end %>
 
 <% provide :resource_form do %>

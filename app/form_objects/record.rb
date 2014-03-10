@@ -1,25 +1,23 @@
 class Record
   include ActiveModel::Model
-  class CouldNotSaveAllModels < StandardError
-  end
+  class CouldNotSaveAllModels < StandardError; end
 
-  def self.domain_fields
+  def self.model_names
     [
       "a1c",
       "acr",
-      "bmi",
+      "blood_pressure",
+      "bun_and_creatinine",
       "cholesterol",
       "ckd_stage",
       "eye_exam",
-      "flu",
       "foot_exam",
-      "liver",
-      "pneumonia",
-      "renal"
+      "measurements",
+      "testosterone"
     ]
   end
 
-  attr_accessor :patient_id, :models, *self.domain_fields.map(&:to_sym)
+  attr_accessor :patient_id, :models, *self.model_names.map(&:to_sym)
 
   def initialize attrs = default_attributes
     attrs       = Hash[attrs.map { |k, v| [k.to_s, v] }]
@@ -39,7 +37,7 @@ class Record
 
   # private
   def default_attributes
-    Hash[self.class.domain_fields.map { |domain_field| [domain_field, {}] }]
+    Hash[self.class.model_names.map { |model_name| [model_name, {}] }]
   end
 
   def initialize_models params
@@ -76,7 +74,7 @@ class Record
   end
 
   def some_model_not_blank
-    errors.add :base, "Please enter some patient data." if non_blank_models.empty?
+    errors.add :base, "Nothing to save! Please enter some patient data." if non_blank_models.empty?
   end
 
   def aggregate_model_errors

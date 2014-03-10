@@ -2,8 +2,7 @@
   <table id="patients" class="table table-striped">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Diagnosis</th>
+        <th>Patient Id #</th>
         <th></th>
         <th></th>
         <th></th>
@@ -12,11 +11,10 @@
     <tbody>
     <% @patients.each do |patient| %>
       <tr>
-        <td><%= patient.name %></td>
-        <td><%= patient.diagnosis %></td>
+        <td><%= patient.study_assigned_id %></td>
         <td><%= link_to "patient records", patient_records_path(patient) %></td>
         <td><%= link_to "edit patient", patient_path(patient), remote: true %></td>
-        <td><%= link_to "delete patient", patient, method: :delete, data: { confirm: "Delete #{patient.name}?\nNote that deleting this patient will also delete this patient's records.\nThere's no going back." } %></td>
+        <td><%= link_to "delete patient", patient, method: :delete, data: { confirm: "Delete patient ##{patient.study_assigned_id}?\nDeleting this patient will also delete all of this patient's records.\nBe sure that's what you want &mdash; there's no going back.".html_safe } %></td>
       </tr>
     <% end %>
     </tbody>

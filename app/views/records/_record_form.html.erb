@@ -4,11 +4,94 @@
   <%= f.hidden_field :patient_id, value: params[:patient_id] %>
 
   <div class="form-group">
-  <%= f.fields_for @record.bmi do |o| %>
-    <div id="bmi" class="row">
+  <%= f.fields_for @record.a1c do |o| %>
+    <div id="a1c" class="row">
       <div class="col-sm-5, col-md-5, col-lg-5">
-        <%= o.label :bmi, "BMI" %><br />
-        <%= o.text_field :bmi, class: "form-control" %>
+        <%= o.label :a1c, "A1c (%)" %><br />
+        <%= o.text_field :a1c, class: "form-control" %>
+      </div>
+      <div class="col-sm-7, col-md-7, col-lg-7">
+        <%= o.label :date, "Date" %><br />
+        <%= o.date_field :date, class: "form-control" %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+
+  <div class="form-group">
+  <%= f.fields_for @record.acr do |o| %>
+    <div id="acr" class="row">
+      <div class="col-sm-5, col-md-5, col-lg-5">
+        <%= o.label :acr_in_mcg_alb_per_mg_cr, "ACR (mcg/mg)" %><br />
+        <%= o.text_field :acr_in_mcg_alb_per_mg_cr, class: "form-control" %>
+      </div>
+      <div class="col-sm-7, col-md-7, col-lg-7">
+        <%= o.label :date, "Date" %><br />
+        <%= o.date_field :date, class: "form-control" %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+
+  <div class="form-group">
+  <%= f.fields_for @record.blood_pressure do |o| %>
+    <div id="blood-pressure" class="row">
+      <div class="col-sm-6, col-md-6, col-lg-6">
+        <%= o.label :systolic_in_mmhg, "Systolic (mm Hg)" %><br />
+        <%= o.text_field :systolic_in_mmhg, class: "form-control" %>
+      </div>
+      <div class="col-sm-6, col-md-6, col-lg-6">
+        <%= o.label :diastolic_in_mmhg, "Diastolic (mm Hg)" %><br />
+        <%= o.text_field :diastolic_in_mmhg, class: "form-control" %>
+      </div>
+    </div>
+    <div>
+      <%= o.label :date, "Date" %><br />
+      <%= o.date_field :date, class: "form-control" %>
+    </div>
+  <% end %>
+  </div>
+
+  <div class="form-group">
+  <%= f.fields_for @record.bun_and_creatinine do |o| %>
+    <div id="bun-creatinine" class="row">
+      <div class="col-sm-6, col-md-6, col-lg-6">
+        <%= o.label :bun_in_mg_per_dl, "BUN (mg/dl)" %><br />
+        <%= o.text_field :bun_in_mg_per_dl, class: "form-control" %>
+      </div>
+      <div class="col-sm-6, col-md-6, col-lg-6">
+        <%= o.label :creatinine_in_mg_per_dl, "Creatinine (mg/dl)" %><br />
+        <%= o.text_field :creatinine_in_mg_per_dl, class: "form-control" %>
+      </div>
+    </div>
+    <div>
+      <%= o.label :date, "Date" %><br />
+      <%= o.date_field :date, class: "form-control" %>
+    </div>
+  <% end %>
+  </div>
+
+  <div class="form-group">
+  <%= f.fields_for @record.cholesterol do |o| %>
+    <div id="cholesterol" class="row">
+      <div class="col-sm-5, col-md-5, col-lg-5">
+        <%= o.label :ldl_in_mg_per_dl, "LDL(mg/dl)" %><br />
+        <%= o.text_field :ldl_in_mg_per_dl, class: "form-control" %>
+      </div>
+      <div class="col-sm-5, col-md-7, col-lg-7">
+        <%= o.label :date, "Date" %><br />
+        <%= o.date_field :date, class: "form-control" %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+
+  <div class="form-group">
+  <%= f.fields_for @record.ckd_stage do |o| %>
+    <div id="ckd-stage" class="row">
+      <div class="col-sm-5, col-md-5, col-lg-5">
+        <%= o.label :ckd_stage, "CKD Stage" %><br />
+        <%= o.text_field :ckd_stage, class: "form-control" %>
       </div>
       <div class="col-sm-7, col-md-7, col-lg-7">
         <%= o.label :date, "Date" %><br />
@@ -33,11 +116,21 @@
   </div>
 
   <div class="form-group">
-  <%= f.fields_for @record.a1c do |o| %>
-    <div id="a1c" class="row">
+  <%= f.fields_for @record.measurements do |o| %>
+    <div class="row">
+      <div class="col-sm-6, col-md-6, col-lg-6">
+        <%= o.label :height_in_inches, "Height (in)" %><br />
+        <%= o.text_field :height_in_inches, class: "form-control" %>
+      </div>
+      <div class="col-sm-6, col-md-6, col-lg-6">
+        <%= o.label :waist_circumference_in_inches, "Waist (in)" %><br />
+        <%= o.text_field :waist_circumference_in_inches, class: "form-control" %>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-sm-5, col-md-5, col-lg-5">
-        <%= o.label :a1c, "A1c (%)" %><br />
-        <%= o.text_field :a1c, class: "form-control" %>
+        <%= o.label :weight_in_pounds, "Weight (lb)" %><br />
+        <%= o.text_field :weight_in_pounds, class: "form-control" %>
       </div>
       <div class="col-sm-7, col-md-7, col-lg-7">
         <%= o.label :date, "Date" %><br />
@@ -48,114 +141,16 @@
   </div>
 
   <div class="form-group">
-  <%= f.fields_for @record.cholesterol do |o| %>
-    <div id="cholesterol" class="row">
-      <div class="col-sm-3, col-md-3, col-lg-3">
-        <%= o.label :tc, "TC<br />(mg/dl)".html_safe %><br />
-        <%= o.text_field :tc, class: "form-control" %>
-      </div>
-      <div class="col-sm-3, col-md-3, col-lg-3">
-        <%= o.label :tg, "TG<br />(mg/dl)".html_safe %><br />
-        <%= o.text_field :tg, class: "form-control" %>
-      </div>
-      <div class="col-sm-3, col-md-3, col-lg-3">
-        <%= o.label :hdl, "HDL<br />(mg/dl)".html_safe %><br />
-        <%= o.text_field :hdl, class: "form-control" %>
-      </div>
-      <div class="col-sm-3, col-md-3, col-lg-3">
-        <%= o.label :ldl, "LDL<br />(mg/dl)".html_safe %><br />
-        <%= o.text_field :ldl, class: "form-control" %>
-      </div>
-    </div>
-    <div>
-      <%= o.label :date, "Date" %><br />
-      <%= o.date_field :date, class: "form-control" %>
-    </div>
-  <% end %>
-  </div>
-
-  <div class="form-group">
-  <%= f.fields_for @record.acr do |o| %>
-    <div id="acr" class="row">
+  <%= f.fields_for @record.testosterone do |o| %>
+    <div id="testosterone" class="row">
       <div class="col-sm-5, col-md-5, col-lg-5">
-        <%= o.label :acr, "ACR (mcg/mg)" %><br />
-        <%= o.text_field :acr, class: "form-control" %>
+        <%= o.label :testosterone_in_ng_per_dl, "Testosterone (ng/dL)" %><br />
+        <%= o.text_field :testosterone_in_ng_per_dl, class: "form-control" %>
       </div>
       <div class="col-sm-7, col-md-7, col-lg-7">
         <%= o.label :date, "Date" %><br />
         <%= o.date_field :date, class: "form-control" %>
       </div>
-    </div>
-  <% end %>
-  </div>
-
-  <div class="form-group">
-  <%= f.fields_for @record.renal do |o| %>
-    <div id="bun-creatinine" class="row">
-      <div class="col-sm-6, col-md-6, col-lg-6">
-        <%= o.label :bun, "BUN (mg/dl)" %><br />
-        <%= o.text_field :bun, class: "form-control" %>
-      </div>
-      <div class="col-sm-6, col-md-6, col-lg-6">
-        <%= o.label :creatinine, "Creatinine (mg/dl)" %><br />
-        <%= o.text_field :creatinine, class: "form-control" %>
-      </div>
-    </div>
-    <div>
-      <%= o.label :date, "Date" %><br />
-      <%= o.date_field :date, class: "form-control" %>
-    </div>
-  <% end %>
-  </div>
-
-  <div class="form-group">
-  <%= f.fields_for @record.ckd_stage do |o| %>
-    <div id="ckd-stage" class="row">
-      <div class="col-sm-5, col-md-5, col-lg-5">
-        <%= o.label :ckd_stage, "CKD Stage" %><br />
-        <%= o.text_field :ckd_stage, class: "form-control" %>
-      </div>
-      <div class="col-sm-7, col-md-7, col-lg-7">
-        <%= o.label :date, "Date" %><br />
-        <%= o.date_field :date, class: "form-control" %>
-      </div>
-    </div>
-  <% end %>
-  </div>
-
-  <div class="form-group">
-  <%= f.fields_for @record.liver do |o| %>
-    <div id="ast-alt" class="row">
-      <div class="col-sm-6, col-md-6, col-lg-6">
-        <%= o.label :ast, "AST (mg/dl)" %><br />
-        <%= o.text_field :ast, class: "form-control" %>
-      </div>
-      <div class="col-sm-6, col-md-6, col-lg-6">
-        <%= o.label :alt, "ALT (mg/dl)" %><br />
-        <%= o.text_field :alt, class: "form-control" %>
-      </div>
-    </div>
-    <div>
-      <%= o.label :date, "Date" %><br />
-      <%= o.date_field :date, class: "form-control" %>
-    </div>
-  <% end %>
-  </div>
-
-  <div class="form-group">
-  <%= f.fields_for @record.flu do |o| %>
-    <div>
-      <%= o.label :date, "Flu Date" %><br />
-      <%= o.date_field :date, class: "form-control" %>
-    </div>
-  <% end %>
-  </div>
-
-  <div class="form-group">
-  <%= f.fields_for @record.pneumonia do |o| %>
-    <div>
-      <%= o.label :date, "Pneumonia Date" %><br />
-      <%= o.date_field :date, class: "form-control" %>
     </div>
   <% end %>
   </div>

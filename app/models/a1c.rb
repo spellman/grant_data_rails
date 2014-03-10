@@ -14,6 +14,10 @@ class A1c < ActiveRecord::Base
       greater_than_or_equal_to: 0,
       only_integer: true
     }
+#    uniqueness: {
+#      scope: :date,
+#      message: "patient already has an A1c for this date"
+#    }
   validates :date,
     presence: true,
     date: true

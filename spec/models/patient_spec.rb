@@ -2,29 +2,101 @@ require "spec_helper"
 
 describe Patient do
   before :each do
-    @with_valid_name        = { name: "string" }
-    @with_invalid_name      = { name: "" }
-    @with_no_name           = {}
-    @with_valid_diagnosis   = { diagnosis: "string" }
-    @with_invalid_diagnosis = { diagnosis: "" }
-    @with_no_diagnosis      = {}
+    @valid_id = 1
+    @valid_birthdate = Date.new 2000, 1, 13
   end
 
-  it "has a name" do
-    with_valid_name   = @with_valid_name.merge @with_valid_diagnosis
-    with_invalid_name = @with_invalid_name.merge @with_valid_diagnosis
-    with_no_name      = @with_no_name.merge @with_valid_diagnosis
-    expect(Patient.new with_valid_name).to be_valid
-    expect(Patient.new with_invalid_name).to be_invalid
-    expect(Patient.new with_no_name).to be_invalid
+  it "is valid with a non-negative, unique integer study-assigned-id" do
+    zero_id = {
+      study_assigned_id: 0,
+      birthdate: @valid_birthdate
+    }
+    one_id = {
+      study_assigned_id: 1,
+      birthdate: @valid_birthdate
+    }
+    two_id = {
+      study_assigned_id: 1,
+      birthdate: @valid_birthdate
+    }
+    expect(Patient.new zero_id).to be_valid
+    expect(Patient.new one_id).to be_valid
+    expect(Patient.new two_id).to be_valid
   end
 
-  it "has a diagnosis" do
-    with_valid_diagnosis   = @with_valid_diagnosis.merge @with_valid_name
-    with_invalid_diagnosis = @with_invalid_diagnosis.merge @with_valid_name
-    with_no_diagnosis      = @with_no_diagnosis.merge @with_valid_name
-    expect(Patient.new with_valid_diagnosis).to be_valid
-    expect(Patient.new with_invalid_diagnosis).to be_invalid
-    expect(Patient.new with_no_diagnosis).to be_invalid
+  specify "study-assigned-id must be unqiue" do
+    valid_id = {
+      study_assigned_id: 1,
+      birthdate: @valid_birthdate
+    }
+    non_unique_id = {
+      study_assigned_id: 1,
+      birthdate: @valid_birthdate
+    }
+    Patient.create valid_id
+    expect(Patient.new non_unique_id).to be_invalid
+  end
+
+  specify "study-assigned-id cannot be negative" do
+    negative_id = {
+      study_assigned_id: -1,
+      birthdate: @valid_birthdate
+    }
+    expect(Patient.new negative_id).to be_invalid
+  end
+
+  specify "study-assigned-id must be an integer" do
+    non_integer_id = {
+      study_assigned_id: 1.5,
+      birthdate: @valid_birthdate
+    }
+    expect(Patient.new non_integer_id).to be_invalid
+  end
+
+  it "must have a study-assigned-id" do
+    no_id = {
+      birthdate: @valid_birthdate
+    }
+    expect(Patient.new no_id).to be_invalid
+  end
+
+  it "is valid with a valid birthdate" do
+    valid_birthdate = {
+      birthdate: Date.new(2000, 1, 13),
+      study_assigned_id: @valid_id
+    }
+    expect(Patient.new valid_birthdate).to be_valid
+  end
+
+  specify "birthdate cannot be in the future" do
+    pending "not yet implemented"
+  end
+
+  specify "birthdate must be a date" do
+    string_birthdate = {
+      birthdate: "1/13/2000",
+      study_assigned_id: @valid_id
+    }
+    number_birthdate = {
+      birthdate: 1,
+      study_assigned_id: @valid_id
+    }
+    expect(Patient.new string_birthdate).to be_invalid
+    expect(Patient.new number_birthdate).to be_invalid
+  end
+
+  specify "birthdate cannot be nil" do
+    no_birthdate = {
+      study_assigned_id: @valid_id
+    }
+    expect(Patient.new no_birthdate).to be_invalid
+  end
+
+  specify "smoker must be bool or nil" do
+    pending "not yet implemented"
+  end
+
+  specify "etoh must be bool or nil" do
+    pending "not yet implemented"
   end
 end

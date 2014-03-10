@@ -6,15 +6,14 @@ class PatientRecordsPresenter
     @model_names = [
       "a1c",
       "acr",
-      "bmi",
+      "blood_pressure",
+      "bun_and_creatinine",
       "cholesterol",
       "ckd_stage",
       "eye_exam",
-      "flu",
       "foot_exam",
-      "liver",
-      "pneumonia",
-      "renal"
+      "measurements",
+      "testosterone"
     ]
   end
 
@@ -28,7 +27,7 @@ class PatientRecordsPresenter
 
   # private
   def patient_records_of_type model_name
-    patient.send (model_name + "s").to_sym
+    patient.send model_name.pluralize
   end
 
   def data_from_records records

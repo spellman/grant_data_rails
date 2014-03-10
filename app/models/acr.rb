@@ -14,14 +14,18 @@ class Acr < ActiveRecord::Base
       greater_than_or_equal_to: 0,
       only_integer: true
     }
+#    uniqueness: {
+#      scope: :date,
+#      message: "patient already has an A1c for this date"
+#    }
   validates :date,
     presence: true,
     date: true
-  validates :acr,
+  validates :acr_in_mcg_alb_per_mg_cr,
     presence: true,
     numericality: {
-      only_integer: true,
       greater_than_or_equal_to: 0,
+      only_integer: true,
       message: "must be a non-negative number with no decimal places"
     }
 end

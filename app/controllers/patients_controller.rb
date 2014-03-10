@@ -35,8 +35,32 @@ class PatientsController < ApplicationController
 
   # private
   def patient_params
-    params.require(:patient).permit(:name,
-                                    :diagnosis)
+    try_convert_true_false_strings_to_values_in params.require(:patient).permit(
+      :study_assigned_id,
+      :birthdate,
+      :smoker,
+      :etoh
+    )
+  end
+
+  def try_convert_true_false_strings_to_values_in params
+    {
+      study_assigned_id: params[:study_assigned_id],
+      birthdate: params[:birthdate],
+      smoker: as_true_false(params[:smoker]),
+      etoh: as_true_false(params[:etoh])
+    }
+  end
+
+  def as_true_false string
+    case string
+    when "true"
+      true
+    when "false"
+      false
+    else
+      string
+    end
   end
 
   def patient_search?
@@ -58,19 +82,20 @@ class PatientsController < ApplicationController
   end
 
   def delete_failed
-    flash[:warning] = "Patient to be deleted did not exist. The browser's \"back\" button may have been used to display a record that had already been deleted."
+    flash[:warning] = "The patient to be deleted did not exist. The browser's \"back\" button may have been used to display a patient that had already been deleted."
   end
 
   def paginate_search_results
-    name = params[:search]["name"]
-    @patients = Patient.where(name: name).page(params[:page])
-                                         .per(13)
-                                         .order("name ASC")
+    @patients = Patient.where(study_assigned_id: params[:search]["study_assigned_id"])
+                       .page(params[:page])
+                       .per(13)
+                       .order("study_assigned_id ASC")
+
   end
 
   def paginate_patients
     @patients = Patient.page(params[:page])
                        .per(13)
-                       .order("name ASC")
+                       .order("study_assigned_id ASC")
   end
 end

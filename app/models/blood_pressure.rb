@@ -1,8 +1,7 @@
 require "id_validator"
 require "date_validator"
-require "not_all_domain_fields_blank_validator"
 
-class Renal < ActiveRecord::Base
+class BloodPressure < ActiveRecord::Base
   belongs_to :patient
 
   include I18n::Alchemy
@@ -15,17 +14,19 @@ class Renal < ActiveRecord::Base
       greater_than_or_equal_to: 0,
       only_integer: true
     }
+#    uniqueness: {
+#      scope: :date,
+#      message: "patient already has an A1c for this date"
+#    }
   validates :date,
     presence: true,
     date: true
-  validates_with NotAllDomainFieldsBlankValidator,
-    domain_fields: ["bun", "creatinine"]
-  validates :bun,
-            :creatinine,
+  validates :systolic_in_mmhg,
+            :diastolic_in_mmhg,
+    presence: true,
     numericality: {
-      only_integer: true,
       greater_than_or_equal_to: 0,
+      only_integer: true,
       message: "must be a non-negative number with no decimal places"
-    },
-    allow_blank: true
+    }
 end

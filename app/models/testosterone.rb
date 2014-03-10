@@ -1,7 +1,7 @@
 require "id_validator"
 require "date_validator"
 
-class CkdStage < ActiveRecord::Base
+class Testosterone < ActiveRecord::Base
   belongs_to :patient
 
   include I18n::Alchemy
@@ -21,7 +21,7 @@ class CkdStage < ActiveRecord::Base
   validates :date,
     presence: true,
     date: true
-  validates :ckd_stage,
+  validates :testosterone_in_ng_per_dl,
     presence: true,
     numericality: {
       greater_than_or_equal_to: 0,
