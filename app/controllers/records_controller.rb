@@ -2,8 +2,8 @@ require "patient_records_presenter"
 
 class RecordsController < ApplicationController
   def index
-    @record     = Record.new
-    @patient    = Patient.find params[:patient_id]
+    @record = Record.new
+    @patient = Patient.find params[:patient_id]
     @view_model = PatientRecordsPresenter.new(@patient).index
     respond_to do |format|
       format.html
@@ -16,7 +16,7 @@ class RecordsController < ApplicationController
     if @record.save
       redirect_to patient_records_path(params[:patient_id])
     else
-      @patient    = Patient.find params[:patient_id]
+      @patient = Patient.find params[:patient_id]
       @view_model = PatientRecordsPresenter.new(@patient).index
       render "index"
     end

@@ -29,8 +29,7 @@ class Measurements < ActiveRecord::Base
             :waist_circumference_in_inches,
     numericality: {
       greater_than_or_equal_to: 0,
-      only_integer: true,
-      message: "must be a non-negative number with no decimal places"
+      message: "must be a non-negative number"
     },
     allow_blank: true
 end

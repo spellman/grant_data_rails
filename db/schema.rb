@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "a1cs", force: true do |t|
+  create_table "a1cs", force: :cascade do |t|
     t.integer  "patient_id", null: false
     t.date     "date",       null: false
     t.decimal  "a1c"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   add_index "a1cs", ["patient_id", "date"], name: "a1cs_unique_patient_id_date", unique: true, using: :btree
   add_index "a1cs", ["patient_id"], name: "index_a1cs_on_patient_id", using: :btree
 
-  create_table "acrs", force: true do |t|
+  create_table "acrs", force: :cascade do |t|
     t.integer  "patient_id",               null: false
     t.date     "date",                     null: false
     t.integer  "acr_in_mcg_alb_per_mg_cr"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   add_index "acrs", ["patient_id", "date"], name: "acrs_unique_patient_id_date", unique: true, using: :btree
   add_index "acrs", ["patient_id"], name: "index_acrs_on_patient_id", using: :btree
 
-  create_table "blood_pressures", force: true do |t|
+  create_table "blood_pressures", force: :cascade do |t|
     t.integer "patient_id"
     t.date    "date",              null: false
     t.integer "systolic_in_mmhg",  null: false
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   add_index "blood_pressures", ["patient_id", "date"], name: "blood_pressures_unique_patient_id_date", unique: true, using: :btree
   add_index "blood_pressures", ["patient_id"], name: "index_blood_pressures_on_patient_id", using: :btree
 
-  create_table "bmis", force: true do |t|
+  create_table "bmis", force: :cascade do |t|
     t.integer  "patient_id", null: false
     t.date     "date",       null: false
     t.decimal  "bmi"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   add_index "bmis", ["patient_id", "date"], name: "bmis_unique_patient_id_date", unique: true, using: :btree
   add_index "bmis", ["patient_id"], name: "index_bmis_on_patient_id", using: :btree
 
-  create_table "bun_and_creatinines", force: true do |t|
+  create_table "bun_and_creatinines", force: :cascade do |t|
     t.integer  "patient_id",              null: false
     t.date     "date",                    null: false
     t.integer  "bun_in_mg_per_dl"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   add_index "bun_and_creatinines", ["patient_id", "date"], name: "renals_unique_patient_id_date", unique: true, using: :btree
   add_index "bun_and_creatinines", ["patient_id"], name: "index_bun_and_creatinines_on_patient_id", using: :btree
 
-  create_table "cholesterols", force: true do |t|
+  create_table "cholesterols", force: :cascade do |t|
     t.integer  "patient_id",                     null: false
     t.date     "date",                           null: false
     t.integer  "total_cholesterol_in_mg_per_dl"
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   add_index "cholesterols", ["patient_id", "date"], name: "cholesterols_unique_patient_id_date", unique: true, using: :btree
   add_index "cholesterols", ["patient_id"], name: "index_cholesterols_on_patient_id", using: :btree
 
-  create_table "ckd_stages", force: true do |t|
+  create_table "ckd_stages", force: :cascade do |t|
     t.integer  "patient_id", null: false
     t.date     "date",       null: false
     t.integer  "ckd_stage"
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   add_index "ckd_stages", ["patient_id", "date"], name: "ckd_stages_unique_patient_id_date", unique: true, using: :btree
   add_index "ckd_stages", ["patient_id"], name: "index_ckd_stages_on_patient_id", using: :btree
 
-  create_table "eye_exams", force: true do |t|
+  create_table "eye_exams", force: :cascade do |t|
     t.integer  "patient_id", null: false
     t.date     "date",       null: false
     t.datetime "created_at"
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   add_index "eye_exams", ["patient_id", "date"], name: "eye_exams_unique_patient_id_date", unique: true, using: :btree
   add_index "eye_exams", ["patient_id"], name: "index_eye_exams_on_patient_id", using: :btree
 
-  create_table "flus", force: true do |t|
+  create_table "flus", force: :cascade do |t|
     t.integer  "patient_id", null: false
     t.date     "date",       null: false
     t.datetime "created_at"
@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   add_index "flus", ["patient_id", "date"], name: "flus_unique_patient_id_date", unique: true, using: :btree
   add_index "flus", ["patient_id"], name: "index_flus_on_patient_id", using: :btree
 
-  create_table "foot_exams", force: true do |t|
+  create_table "foot_exams", force: :cascade do |t|
     t.integer  "patient_id", null: false
     t.date     "date",       null: false
     t.datetime "created_at"
@@ -126,7 +126,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   add_index "foot_exams", ["patient_id", "date"], name: "foot_exams_unique_patient_id_date", unique: true, using: :btree
   add_index "foot_exams", ["patient_id"], name: "index_foot_exams_on_patient_id", using: :btree
 
-  create_table "livers", force: true do |t|
+  create_table "livers", force: :cascade do |t|
     t.integer  "patient_id", null: false
     t.date     "date",       null: false
     t.integer  "ast"
@@ -138,7 +138,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   add_index "livers", ["patient_id", "date"], name: "livers_unique_patient_id_date", unique: true, using: :btree
   add_index "livers", ["patient_id"], name: "index_livers_on_patient_id", using: :btree
 
-  create_table "measurements", force: true do |t|
+  create_table "measurements", force: :cascade do |t|
     t.integer "patient_id"
     t.date    "date",                                                  null: false
     t.decimal "weight_in_pounds",              precision: 5, scale: 2
@@ -149,7 +149,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   add_index "measurements", ["patient_id", "date"], name: "measurements_unique_patient_id_date", unique: true, using: :btree
   add_index "measurements", ["patient_id"], name: "index_measurements_on_patient_id", using: :btree
 
-  create_table "patients", force: true do |t|
+  create_table "patients", force: :cascade do |t|
     t.integer "study_assigned_id", null: false
     t.date    "birthdate"
     t.boolean "smoker"
@@ -158,7 +158,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
 
   add_index "patients", ["study_assigned_id"], name: "patients_study_assigned_id_unique", unique: true, using: :btree
 
-  create_table "pneumonias", force: true do |t|
+  create_table "pneumonias", force: :cascade do |t|
     t.integer  "patient_id", null: false
     t.date     "date",       null: false
     t.datetime "created_at"
@@ -168,7 +168,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   add_index "pneumonias", ["patient_id", "date"], name: "pneumonias_unique_patient_id_date", unique: true, using: :btree
   add_index "pneumonias", ["patient_id"], name: "index_pneumonias_on_patient_id", using: :btree
 
-  create_table "testosterones", force: true do |t|
+  create_table "testosterones", force: :cascade do |t|
     t.integer "patient_id"
     t.date    "date",                      null: false
     t.integer "testosterone_in_ng_per_dl", null: false
@@ -177,7 +177,7 @@ ActiveRecord::Schema.define(version: 20140310040020) do
   add_index "testosterones", ["patient_id", "date"], name: "testosterones_unique_patient_id_date", unique: true, using: :btree
   add_index "testosterones", ["patient_id"], name: "index_testosterones_on_patient_id", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",           default: "",    null: false
     t.string   "password_digest", default: "",    null: false
     t.boolean  "admin",           default: false, null: false
@@ -187,4 +187,18 @@ ActiveRecord::Schema.define(version: 20140310040020) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "a1cs", "patients", name: "a1cs_patient_id_fkey", on_delete: :cascade
+  add_foreign_key "acrs", "patients", name: "acrs_patient_id_fkey", on_delete: :cascade
+  add_foreign_key "blood_pressures", "patients", name: "blood_pressures_patient_id_fkey", on_delete: :cascade
+  add_foreign_key "bmis", "patients", name: "bmis_patient_id_fkey", on_delete: :cascade
+  add_foreign_key "bun_and_creatinines", "patients", name: "renals_patient_id_fkey", on_delete: :cascade
+  add_foreign_key "cholesterols", "patients", name: "cholesterols_patient_id_fkey", on_delete: :cascade
+  add_foreign_key "ckd_stages", "patients", name: "ckd_stages_patient_id_fkey", on_delete: :cascade
+  add_foreign_key "eye_exams", "patients", name: "eye_exams_patient_id_fkey", on_delete: :cascade
+  add_foreign_key "flus", "patients", name: "flus_patient_id_fkey", on_delete: :cascade
+  add_foreign_key "foot_exams", "patients", name: "foot_exams_patient_id_fkey", on_delete: :cascade
+  add_foreign_key "livers", "patients", name: "livers_patient_id_fkey", on_delete: :cascade
+  add_foreign_key "measurements", "patients", name: "measurements_patient_id_fkey", on_delete: :cascade
+  add_foreign_key "pneumonias", "patients", name: "pneumonias_patient_id_fkey", on_delete: :cascade
+  add_foreign_key "testosterones", "patients", name: "testosterones_patient_id_fkey", on_delete: :cascade
 end

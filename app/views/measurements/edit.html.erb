@@ -1,0 +1,33 @@
+<% provide :title, "Edit measurements" %>
+<% provide :nav_export_link do %>
+  <%= link_to "Export data for patient ##{@patient.study_assigned_id} to CSV", "#" %>
+<% end %>
+
+<% provide :full_width_top do %>
+  <div class="container">
+    <div class="patient-records-header page-header">
+      <h1>Patient #<%= @patient.study_assigned_id %></h1>
+    </div>
+  </div>
+<% end %>
+
+<% provide :resource_form do %>
+  <%= render "shared/error_messages", resource: @measurements %>
+  <div id="measurements-form">
+    <div id="edit-measurements">
+      <%= form_for @measurements do |f| %>
+          <div class="form-group">
+            <%= render "measurements/measurements_form", o: f %>
+          </div>
+        <%= f.submit "Update measurements", class: "btn btn-primary" %>
+      <% end %>
+        <%= link_to "Cancel", patient_records_path(@measurements.patient_id), id: "cancel-update", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
+<% provide :resource_display do %>
+  <%= render "records/patient_records_display" %>
+<% end %>
+
+<%= render template: "layouts/form_and_display_page" %>

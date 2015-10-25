@@ -5,12 +5,12 @@ class PatientsController < ApplicationController
   end
 
   def create
-    @patient = Patient.new patient_params
+    @patient = Patient.new(patient_params)
     @patient.save ? save_succeeded : create_failed
   end
 
   def show
-    @patient = Patient.find params[:id]
+    @patient = Patient.find(params[:id])
     respond_to do |format|
       format.html { paginate_patients }
       format.js
@@ -18,13 +18,13 @@ class PatientsController < ApplicationController
   end
 
   def update
-    @patient = Patient.find params[:id]
+    @patient = Patient.find(params[:id])
     @patient.update_attributes(patient_params) ? save_succeeded : update_failed
   end
 
   def destroy
     begin
-      patient = Patient.find params[:id]
+      patient = Patient.find(params[:id])
       patient.records.destroy
       patient.destroy
     rescue ActiveRecord::RecordNotFound
@@ -35,12 +35,12 @@ class PatientsController < ApplicationController
 
   # private
   def patient_params
-    try_convert_true_false_strings_to_values_in params.require(:patient).permit(
+    try_convert_true_false_strings_to_values_in(params.require(:patient).permit(
       :study_assigned_id,
       :birthdate,
       :smoker,
       :etoh
-    )
+    ))
   end
 
   def try_convert_true_false_strings_to_values_in params
@@ -64,7 +64,7 @@ class PatientsController < ApplicationController
   end
 
   def patient_search?
-    !!(params[:search])
+    params[:search]
   end
 
   def save_succeeded
@@ -99,3 +99,25 @@ class PatientsController < ApplicationController
                        .order("study_assigned_id ASC")
   end
 end
+
+
+# class PatientsController < ApplicationController
+#   def index
+#     @patient = Patient.new
+#     @patients = patient_search? ? paginate(search_results) : paginate(patients)
+#   end
+
+#   def paginate patients
+#     patients.page(params[:page])
+#       .per(13)
+#       .order("study_assigned_id ASC")
+#   end
+
+#   def search_results
+#     Patient.where(study_assigned_id: params[:search]["study_assigned_id"])
+#   end
+
+#   def patients
+#     Patient
+#   end
+# end

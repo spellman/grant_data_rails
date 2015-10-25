@@ -1,10 +1,11 @@
 WaiversGrantDataRails::Application.routes.draw do
-  resources :users,    except: [:new, :edit]
-  resources :sessions, only:   [:new, :create, :destroy]
+  resources :users, except: [:new, :edit]
+  resources :sessions, only: [:new, :create, :destroy]
   resources :patients do
-    resources :records,  only: [:index, :create]
+    resources :records, only: [:index, :create]
   end
-  
+  resources :measurements, only: [:edit, :update, :destroy]
+
   root to: "sessions#new"
   match "/signin",  to: "sessions#new",     via: :get,    as: "signin"
   match "/signout", to: "sessions#destroy", via: :delete, as: "signout"
@@ -48,7 +49,7 @@ WaiversGrantDataRails::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

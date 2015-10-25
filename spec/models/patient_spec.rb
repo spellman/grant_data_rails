@@ -24,7 +24,7 @@ describe Patient do
     expect(Patient.new two_id).to be_valid
   end
 
-  specify "study-assigned-id must be unqiue" do
+  specify "study-assigned-id must be unique" do
     valid_id = {
       study_assigned_id: 1,
       birthdate: @valid_birthdate

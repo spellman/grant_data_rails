@@ -1,0 +1,13 @@
+// Place all the styles related to the measurements controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#measurements-form > div {
+    position: relative;
+}
+
+#edit-measurements #cancel-update {
+    position: absolute;
+    bottom: 0;
+    left: 183px;
+}

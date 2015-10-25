@@ -37,14 +37,17 @@
 }
 
 .records-row > div {
-  float: left;
   padding-bottom: 8px;
   padding-top: 8px;
 }
 
 .data-label {
-  clear: left;
   width: 140px;
+  float: left;
+}
+
+.data-points {
+  overflow-x: auto;
 }
 
 .data-point {
@@ -62,4 +65,5 @@
 
 .data-point > span {
   display: block;
+  text-align: right;
 }

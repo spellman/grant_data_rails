@@ -4,7 +4,7 @@ class Patient < ActiveRecord::Base
   has_many :a1cs
   has_many :acrs
   has_many :blood_pressures
-  has_many :bun_and_creatinines 
+  has_many :bun_and_creatinines
   has_many :cholesterols
   has_many :ckd_stages
   has_many :eye_exams

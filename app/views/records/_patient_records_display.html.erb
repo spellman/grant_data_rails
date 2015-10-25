@@ -3,24 +3,28 @@
     <div class="data-label">
       <span>A1c</span>
     </div>
-  <% @view_model[:a1c].each do |o| %>
-    <div class="data-point">
-      <span class="value"><%= o[:a1c] %></span>
-      <span class="date"><%= o[:date] %></span>
+    <div class="data-points">
+      <% @view_model[:a1c].each do |o| %>
+      <div class="data-point">
+        <span class="value"><%= o[:a1c] %></span>
+        <span class="date"><%= o[:date] %></span>
+      </div>
+      <% end %>
     </div>
-  <% end %>
   </div>
 
   <div id="acr-records" class="records-row clearfix">
     <div class="data-label">
       <span>ACR (mcg/mg)</span>
     </div>
-  <% @view_model[:acr].each do |o| %>
-    <div class="data-point">
-      <span class="value"><%= o[:acr_in_mcg_alb_per_mg_cr] %></span>
-      <span class="date"><%= o[:date] %></span>
+    <div class="data-points">
+      <% @view_model[:acr].each do |o| %>
+      <div class="data-point">
+        <span class="value"><%= o[:acr_in_mcg_alb_per_mg_cr] %></span>
+        <span class="date"><%= o[:date] %></span>
+      </div>
+      <% end %>
     </div>
-  <% end %>
   </div>
 
   <div id="blood-pressure-records" class="records-row clearfix">
@@ -28,13 +32,15 @@
       <span>Systolic (mmHg)</span>
       <span>Diastolic (mmHg)</span>
     </div>
-  <% @view_model[:blood_pressure].each do |o| %>
-    <div class="data-point">
-      <span class="value"><%= o[:systolic_in_mmhg] %></span>
-      <span class="value"><%= o[:diastolic_in_mmhg] %></span>
-      <span class="date"><%= o[:date] %></span>
+    <div class="data-points">
+      <% @view_model[:blood_pressure].each do |o| %>
+      <div class="data-point">
+        <span class="value"><%= o[:systolic_in_mmhg] %></span>
+        <span class="value"><%= o[:diastolic_in_mmhg] %></span>
+        <span class="date"><%= o[:date] %></span>
+      </div>
+      <% end %>
     </div>
-  <% end %>
   </div>
 
   <div id="bun-and-creatinine-records" class="records-row clearfix">
@@ -42,59 +48,63 @@
       <span>BUN (mg/dL)</span>
       <span>Creatinine (mg/dL)</span>
     </div>
-  <% @view_model[:bun_and_creatinine].each do |o| %>
-    <div class="data-point">
-      <span class="value bun"><%= o[:bun_in_mg_per_dl] %></span>
-      <span class="value creatinine"><%= o[:creatinine_in_mg_per_dl] %></span>
-      <span class="date"><%= o[:date] %></span>
+    <div class="data-points">
+      <% @view_model[:bun_and_creatinine].each do |o| %>
+      <div class="data-point">
+        <span class="value bun"><%= o[:bun_in_mg_per_dl] %></span>
+        <span class="value creatinine"><%= o[:creatinine_in_mg_per_dl] %></span>
+        <span class="date"><%= o[:date] %></span>
+      </div>
+      <% end %>
     </div>
-  <% end %>
   </div>
 
   <div id="cholesterol-records" class="records-row clearfix">
     <div class="data-label">
       <span>LDL (mg/dL)</span>
     </div>
-  <% @view_model[:cholesterol].each do |o| %>
-    <div class="data-point">
-      <span class="value ldl"><%= o[:ldl_in_mg_per_dl] %></span>
-      <span class="date"><%= o[:date] %></span>
+    <div class="data-points">
+      <% @view_model[:cholesterol].each do |o| %>
+      <div class="data-point">
+        <span class="value ldl"><%= o[:ldl_in_mg_per_dl] %></span>
+        <span class="date"><%= o[:date] %></span>
+      </div>
+      <% end %>
     </div>
-  <% end %>
   </div>
 
   <div id="ckd-stage-records" class="records-row clearfix">
     <div class="data-label">
       <span>CKD stage</span>
     </div>
-  <% @view_model[:ckd_stage].each do |o| %>
+    <% @view_model[:ckd_stage].each do |o| %>
     <div class="data-point">
       <span class="value"><%= o[:ckd_stage] %></span>
       <span class="date"><%= o[:date] %></span>
     </div>
-  <% end %>
+    <% end %>
   </div>
 
   <div id="eye-exam-records" class="records-row clearfix">
     <div class="data-label">
       <span>Eye exam date</span>
     </div>
-  <% @view_model[:eye_exam].each do |o| %>
+    <% @view_model[:eye_exam].each do |o| %>
     <div class="data-point">
       <span class="date"><%= o[:date] %></span>
     </div>
-  <% end %>
+    <% end %>
   </div>
 
   <div id="foot-exam-records" class="records-row clearfix">
     <div class="data-label">
       <span>Foot exam date</span>
     </div>
-  <% @view_model[:foot_exam].each do |o| %>
+    <% @view_model[:foot_exam].each do |o| %>
     <div class="data-point">
       <span class="date"><%= o[:date] %></span>
     </div>
-  <% end %>
+    <% end %>
   </div>
 
   <div id="measurements-records" class="records-row clearfix">
@@ -103,25 +113,37 @@
       <span>Waist (in)</span>
       <span>Weight (lb)</span>
     </div>
-  <% @view_model[:measurements].each do |o| %>
-    <div class="data-point">
-      <span class="value"><%= o[:height_in_inches] %></span>
-      <span class="value"><%= o[:waist_in_inches] %></span>
-      <span class="value"><%= o[:weight_in_pounds] %></span>
-      <span class="date"><%= o[:date] %></span>
+    <div class="data-points">
+      <table>
+        <tr>
+          <% @view_model[:measurements].each do |o| %>
+          <td>
+            <div class="data-point">
+              <span class="value"><%= o[:height_in_inches] %></span>
+              <span class="value"><%= o[:waist_circumference_in_inches] %></span>
+              <span class="value"><%= o[:weight_in_pounds] %></span>
+              <span class="date bg-info"><%= o[:date] %></span>
+              <div class="record-controls">
+                <%= link_to "edit", edit_measurement_path(o[:id]), class: "edit-data-point" %>
+                <%= link_to "delete", measurement_path(o[:id]), method: :delete, data: { confirm: "Confirm delete.".html_safe }, class: "delete-data-point" %>
+              </div>
+            </div>
+          </td>
+          <% end %>
+        </tr>
+      </table>
     </div>
-  <% end %>
   </div>
 
   <div id="testosterone-records" class="records-row clearfix">
     <div class="data-label">
       <span>Testosterone (ng/dL)</span>
     </div>
-  <% @view_model[:testosterone].each do |o| %>
+    <% @view_model[:testosterone].each do |o| %>
     <div class="data-point">
       <span class="value"><%= o[:testosterone_in_ng_per_dl] %></span>
       <span class="date"><%= o[:date] %></span>
     </div>
-  <% end %>
+    <% end %>
   </div>
 </div>
