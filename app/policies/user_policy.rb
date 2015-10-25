@@ -12,6 +12,10 @@ class UserPolicy < ApplicationPolicy
       (object_on_which_to_act.is_a?(User) && user.id == object_on_which_to_act.id)
   end
 
+  def edit?
+    show?
+  end
+
   def update?
     show?
   end

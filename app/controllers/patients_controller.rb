@@ -9,7 +9,7 @@ class PatientsController < ApplicationController
     @patient.save ? save_succeeded : create_failed
   end
 
-  def show
+  def edit
     @patient = Patient.find(params[:id])
     respond_to do |format|
       format.html { paginate_patients }
@@ -23,9 +23,22 @@ class PatientsController < ApplicationController
   end
 
   def destroy
+    model_names = [
+      :a1cs,
+      :acrs,
+      :blood_pressures,
+      :bun_and_creatinines,
+      :cholesterols,
+      :ckd_stages,
+      :eye_exams,
+      :foot_exams,
+      :measurements,
+      :testosterones
+    ]
+
     begin
       patient = Patient.find(params[:id])
-      patient.records.destroy
+      model_names.each do |model_name| patient.send(model_name).destroy end
       patient.destroy
     rescue ActiveRecord::RecordNotFound
       delete_failed
@@ -78,7 +91,7 @@ class PatientsController < ApplicationController
 
   def update_failed
     paginate_patients
-    render "show"
+    render "edit"
   end
 
   def delete_failed

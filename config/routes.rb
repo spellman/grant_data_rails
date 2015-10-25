@@ -1,7 +1,7 @@
 WaiversGrantDataRails::Application.routes.draw do
-  resources :users, except: [:new, :edit]
+  resources :users, except: [:new, :show]
   resources :sessions, only: [:new, :create, :destroy]
-  resources :patients do
+  resources :patients, except: [:new, :show] do
     resources :records, only: [:index, :create]
   end
   resources :measurements, only: [:edit, :update, :destroy]

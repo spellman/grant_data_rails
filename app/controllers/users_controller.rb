@@ -15,15 +15,16 @@ class UsersController < ApplicationController
     @user.save ? save_succeeded : save_failed
   end
 
-  def show
+  def edit
     display_user_if_authorized
     display_all_users_if_authorized
+    @cancel_edit_path = current_user.admin? ? users_path : patients_path
   end
 
   def update
     @user = User.find params[:id]
     authorize @user
-    @user.update_attributes(user_params) ? save_succeeded : render("show")
+    @user.update_attributes(user_params) ? save_succeeded : render("edit")
   end
 
   def destroy
