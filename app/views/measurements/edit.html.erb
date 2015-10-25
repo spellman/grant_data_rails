@@ -17,7 +17,7 @@
     <div id="edit-measurements">
       <%= form_for @measurements do |f| %>
           <div class="form-group">
-            <%= render "measurements/measurements_form", o: f %>
+            <%= render "measurements/measurements_form_fields", o: f %>
           </div>
         <%= f.submit "Update measurements", class: "btn btn-primary" %>
       <% end %>
