@@ -10,7 +10,7 @@ gem "sass-rails",                  "~> 4.0"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 #gem "jbuilder", "~> 1.2"
 gem "pg",                          "~> 0.16"
-gem "pundit",                      "~> 0.2"
+gem "pundit"
 gem "kaminari",                    "~> 0.14.1"
 gem "i18n_alchemy",                "~> 0.1", github: "carlosantoniodasilva/i18n_alchemy"
 

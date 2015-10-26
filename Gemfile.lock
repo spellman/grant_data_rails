@@ -118,7 +118,7 @@ GEM
     pry-stack_explorer (0.4.9.2)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
-    pundit (0.3.0)
+    pundit (1.0.1)
       activesupport (>= 3.0.0)
     rack (1.6.4)
     rack-test (0.6.3)
@@ -229,7 +229,7 @@ DEPENDENCIES
   pry-byebug
   pry-doc
   pry-stack_explorer
-  pundit (~> 0.2)
+  pundit
   rack-timeout
   rails (~> 4.0)
   rails_12factor (= 0.0.2)

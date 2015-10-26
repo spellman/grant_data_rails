@@ -16,9 +16,25 @@ class UsersController < ApplicationController
   end
 
   def edit
-    display_user_if_authorized
-    display_all_users_if_authorized
+    begin
+      @user = User.find(params[:id])
+      authorize @user
+    rescue ActiveRecord::RecordNotFound
+      if current_user.admin?
+        skip_authorization
+        flash[:warning] = "User to be edited does not exist."
+        redirect_to users_path and return
+      else
+        raise Pundit::NotAuthorizedError and return
+      end
+    end
+
     @cancel_edit_path = current_user.admin? ? users_path : patients_path
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def update
@@ -58,29 +74,6 @@ class UsersController < ApplicationController
 
   def delete_failed
     flash[:warning] = "User to be deleted did not exist. The browser's \"back\" button may have been used to display a user that had already been deleted."
-  end
-
-  def display_user_if_authorized
-    begin
-      @user = User.find params[:id]
-    rescue ActiveRecord::RecordNotFound
-      present_authorization_error_to_non_admin_users
-    end
-    authorize @user
-  end
-
-  def display_all_users_if_authorized
-    begin
-      @users = User.all
-      authorize @users
-      paginate_users
-    rescue Pundit::NotAuthorizedError
-      @users = nil
-    end
-  end
-
-  def present_authorization_error_to_non_admin_users
-    raise Pundit::NotAuthorizedError unless current_user.admin?
   end
 
   def paginate_users

@@ -4,7 +4,7 @@ class ApplicationPolicy
   # First parameter, user, refers to current_user.
   def initialize user, object_on_which_to_act
     raise Pundit::NotAuthorizedError, "Must be logged in." unless user
-    @user                   = user
+    @user = user
     @object_on_which_to_act = object_on_which_to_act
   end
 
