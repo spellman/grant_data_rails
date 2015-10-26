@@ -1,9 +1,13 @@
 class MeasurementsController < ApplicationController
-
   def edit
     @measurements = Measurements.find(params[:id])
-    @patient = Patient.find(@measurements.patient_id)
-    @view_model = PatientRecordsPresenter.new(@patient).index
+    respond_to do |format| 
+      format.html {
+        @patient = Patient.find(@measurements.patient_id)
+        @view_model = PatientRecordsPresenter.new(@patient).index
+      }
+      format.js
+    end
   end
 
   def update

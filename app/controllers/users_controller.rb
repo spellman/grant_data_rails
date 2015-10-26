@@ -3,10 +3,16 @@ class UsersController < ApplicationController
 
   def index
     @user  = User.new
-    @users = User.all
     authorize @user
-    authorize @users
-    paginate_users
+
+    respond_to do |format|
+      format.html {
+        @users = User.all
+        authorize @users
+        paginate_users
+      }
+      format.js
+    end
   end
 
   def create
@@ -32,8 +38,8 @@ class UsersController < ApplicationController
     @cancel_edit_path = current_user.admin? ? users_path : patients_path
 
     respond_to do |format|
-      format.html
-      format.js
+      format.html { @cancel_link_remote = false}
+      format.js { @cancel_link_remote = true}
     end
   end
 

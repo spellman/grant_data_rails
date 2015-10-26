@@ -6,7 +6,7 @@
 <% provide :resource_form do %>
   <%= render "shared/error_messages", resource: @patient %>
   <div id="patient-form">
-    <%= render "patients/patient_edit" %>
+    <%= render "patients/patient_edit", cancel_link_remote: false %>
   </div>
   <div id ="patient-search">
     <%= render "patients/patient_search" %>

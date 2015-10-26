@@ -1,4 +1,4 @@
 <div id="edit-patient">
   <%= render "patients/patient_form", button_text: "Update patient info" %>
-  <%= link_to "Cancel", patients_path, id: "cancel-update", class: "btn btn-primary" %>
+  <%= link_to "Cancel", patients_path, remote: cancel_link_remote, id: "cancel-update", class: "btn btn-primary" %>
 </div>

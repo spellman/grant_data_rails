@@ -124,7 +124,7 @@
               <span class="value"><%= o[:weight_in_pounds] %></span>
               <span class="date bg-info"><%= o[:date] %></span>
               <div class="record-controls">
-                <%= link_to "edit", edit_measurement_path(o[:id]), class: "edit-data-point" %>
+                <%= link_to "edit", edit_measurement_path(o[:id]), remote: true, class: "edit-data-point" %>
                 <%= link_to "delete", measurement_path(o[:id]), method: :delete, data: { confirm: "Confirm delete.".html_safe }, class: "delete-data-point" %>
               </div>
             </div>

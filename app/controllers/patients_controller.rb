@@ -1,7 +1,12 @@
 class PatientsController < ApplicationController
   def index
     @patient = Patient.new
-    patient_search? ? paginate_search_results : paginate_patients
+    respond_to do |format| 
+      format.html {
+        patient_search? ? paginate_search_results : paginate_patients
+      }
+      format.js
+    end
   end
 
   def create

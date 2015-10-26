@@ -3,10 +3,12 @@ require "patient_records_presenter"
 class RecordsController < ApplicationController
   def index
     @record = Record.new
-    @patient = Patient.find params[:patient_id]
-    @view_model = PatientRecordsPresenter.new(@patient).index
     respond_to do |format|
-      format.html
+      format.html {
+        @patient = Patient.find params[:patient_id]
+        @view_model = PatientRecordsPresenter.new(@patient).index
+      }
+      format.js
       format.csv  { csv_download }
     end
   end

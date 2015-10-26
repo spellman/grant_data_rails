@@ -14,15 +14,7 @@
 <% provide :resource_form do %>
   <%= render "shared/error_messages", resource: @measurements %>
   <div id="measurements-form">
-    <div id="edit-measurements">
-      <%= form_for @measurements do |f| %>
-          <div class="form-group">
-            <%= render "measurements/measurements_form_fields", o: f %>
-          </div>
-        <%= f.submit "Update measurements", class: "btn btn-primary" %>
-      <% end %>
-        <%= link_to "Cancel", patient_records_path(@measurements.patient_id), id: "cancel-update", class: "btn btn-primary" %>
-    </div>
+    <%= render 'measurements/measurements_edit', cancel_link_remote: false %>
   </div>
 <% end %>
 

@@ -1,4 +1,4 @@
 <div id="edit-user">
   <%= render "users/user_form", button_text: "Update user info" %>
-  <%= link_to "Cancel", @cancel_edit_path, id: "cancel-update", class: "btn btn-primary" %>
+  <%= link_to "Cancel", @cancel_edit_path, remote: @cancel_link_remote, id: "cancel-update", class: "btn btn-primary" %>
 </div>
