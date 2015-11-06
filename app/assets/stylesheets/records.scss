@@ -1,0 +1,185 @@
+.page-header.patient-records-header {
+  border-bottom: none;
+  margin-top: 0;
+}
+
+.records-row:not(:last-child) {
+  border-bottom: 1px solid #dddddd;
+}
+
+.records-row:not(:first-child) {
+  padding-top: 8px;
+}
+
+.records-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.data-label {
+  width: 140px;
+  float: left;
+}
+
+.data-points {
+  overflow-x: auto;
+}
+
+.data-point {
+  margin-left: 30px;
+  width: 84px;
+}
+
+.records-row > div > span {
+  line-height: 1.428571429;
+}
+
+.data-label > span {
+  display: block;
+}
+
+.data-point > span {
+  display: block;
+  text-align: right;
+}
+
+.record-controls a.edit-data-point {
+  display: block;
+  float: left;
+  padding-left: 16px;
+}
+
+.record-controls a.delete-data-point {
+  display: block;
+  float: right;
+}
+
+#a1c-records {
+  /* padding-bottom: 15px; */
+  height: 91px;
+}
+
+#acr-records {
+  /* padding-bottom: 15px; */
+  height: 99px;
+}
+
+#blood-pressure-records {
+  /* padding-bottom: 54px; */
+  height: 158px;
+}
+
+#bun-and-creatinine-records {
+  /* padding-bottom: 54px; */
+  height: 158px;
+}
+
+#cholesterol-records {
+  /* padding-bottom: 15px; */
+  height: 99px;
+}
+
+#ckd-stage-records {
+  /* padding-bottom: 15px; */
+  height: 99px;
+}
+
+#eye-exam-records {
+  /* padding-bottom: 35px; */
+  height: 99px;
+}
+
+#foot-exam-records {
+  /* padding-bottom: 35px; */
+  height: 99px;
+}
+
+#measurements-records {
+  /* padding-bottom: 34px; */
+  height: 158px;
+}
+
+#testosterone-records {
+  /* padding-bottom: 15px; */
+  height: 99px;
+}
+
+// TO HELP WITH POSITIONING
+/// GUIDES
+.guide {
+  display: none;
+  position: absolute;
+  border-top: 1px solid #FF0000 !important;
+  width: 100%;
+  z-index: 1000;
+  top: 0px;
+}
+
+body > .container {
+  position: relative;
+}
+
+$offset: 0px;
+
+#g-a1c {
+  top: $offset + 93px;
+}
+
+#g-acr {
+  top: $offset + 192px;
+}
+
+#g-blood-pressure {
+  top: $offset + 291px;
+}
+
+#g-bun-and-creatinine {
+  top: $offset + 449px;
+}
+
+#g-cholesterol {
+  top: $offset + 607px;
+}
+
+#g-ckd-stage {
+  top: $offset + 706px;
+}
+
+#g-eye-exam {
+  top: $offset + 805px;
+}
+
+#g-foot-exam {
+  top: $offset + 904px;
+}
+
+#g-measurements {
+  top: $offset + 1003px;
+}
+
+#g-testosterone {
+  top: $offset + 1161px;
+}
+
+#g-display-bottom {
+  top: $offset + 1236px;
+}
+
+/* .records-row { */
+/*   border-top: 1px solid #000000 !important; */
+/* } */
+
+/* .records-row:nth-child(even) { */
+/*   background-color: rgba(255, 0, 0, 0.3) !important; */
+/* } */
+
+/* #form-panel label { */
+/*   border-bottom: 1px solid #000000 !important; */
+/* } */
+
+/* .data-label span { */
+/*   border-bottom: 1px solid #000000 !important; */
+/* } */
+
+/* #form-panel .form-group { */
+/*   border-top: 1px solid #000000; */
+/* } */

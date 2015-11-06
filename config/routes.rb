@@ -4,7 +4,16 @@ WaiversGrantDataRails::Application.routes.draw do
   resources :patients, except: [:new, :show] do
     resources :records, only: [:index, :create]
   end
+  resources :a1cs, only: [:edit, :update, :destroy]
+  resources :acrs, only: [:edit, :update, :destroy]
+  resources :blood_pressures, only: [:edit, :update, :destroy]
+  resources :bun_and_creatinines, only: [:edit, :update, :destroy]
+  resources :cholesterols, only: [:edit, :update, :destroy]
+  resources :ckd_stages, only: [:edit, :update, :destroy]
+  resources :eye_exams, only: [:edit, :update, :destroy]
+  resources :foot_exams, only: [:edit, :update, :destroy]
   resources :measurements, only: [:edit, :update, :destroy]
+  resources :testosterones, only: [:edit, :update, :destroy]
 
   root to: "sessions#new"
   match "/signin",  to: "sessions#new",     via: :get,    as: "signin"

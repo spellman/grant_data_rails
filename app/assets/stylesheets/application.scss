@@ -1,0 +1,77 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ * "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+ */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap/variables";
+@import "**/*";
+
+body {
+  padding-top: 70px;
+  overflow-y: scroll;
+}
+
+#form-panel > div {
+  margin-bottom: 64px;
+}
+
+#form-panel label {
+  font-weight: normal;
+}
+
+#resource-display-panel {
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-left-color: #dddddd;
+}
+
+#resource-display-panel > table {
+  margin-top: -8px;
+}
+
+.pagination {
+  margin-bottom: 0px;
+}
+
+#export-records {
+  margin-top: 27px;
+}
+
+#error_explanation {
+  margin-bottom: 0px;
+}
+
+#error_explanation ul {
+  padding-left: 0px;
+}
+
+#error_explanation li {
+  list-style-type: none;
+}
+
+.form-group {
+  margin-bottom: 0px;
+  padding-bottom: 32px;
+}
+
+div.form-group:not(:first-of-type) {
+  padding-top: 8px;
+}
+
+#form-panel .edit-data-point {
+  position: relative;
+}
+
+.edit-data-point #cancel-update {
+  position: absolute;
+  bottom: 0px;
+}

@@ -2,9 +2,7 @@
 
 <% provide :resource_form do %>
   <%= render "shared/error_messages", resource: @user %>
-  <div id="user-form">
-    <%= render "users/user_edit" %>
-  </div>
+  <%= render "users/user_edit" %>
 <% end %>
 
 <%= render template: "layouts/form_and_display_page" %>

@@ -1,23 +1,8 @@
 <% provide :title, "Records" %>
-<% provide :nav_export_link do %>
-  <%= link_to "Export data for patient ##{@patient.study_assigned_id} to CSV", "#" %>
-<% end %>
-
-<% provide :full_width_top do %>
-  <div class="container">
-    <div class="patient-records-header page-header">
-      <h1>Patient #<%= @patient.study_assigned_id %></h1>
-    </div>
-  </div>
-<% end %>
 
 <% provide :resource_form do %>
-  <%= render "shared/error_messages", resource: @record %>
-  <%= render "records/record_form" %>
+  <%= render(partial: "shared/error_messages", locals: { resource: @record }) %>
+  <%= render(partial: "records/record_form") %>
 <% end %>
 
-<% provide :resource_display do %>
-  <%= render "records/patient_records_display" %>
-<% end %>
-
-<%= render template: "layouts/form_and_display_page" %>
+<%= render(partial: "records/records") %>

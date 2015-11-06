@@ -1,7 +1,7 @@
 class PatientsController < ApplicationController
   def index
     @patient = Patient.new
-    respond_to do |format| 
+    respond_to do |format|
       format.html {
         patient_search? ? paginate_search_results : paginate_patients
       }
@@ -117,25 +117,3 @@ class PatientsController < ApplicationController
                        .order("study_assigned_id ASC")
   end
 end
-
-
-# class PatientsController < ApplicationController
-#   def index
-#     @patient = Patient.new
-#     @patients = patient_search? ? paginate(search_results) : paginate(patients)
-#   end
-
-#   def paginate patients
-#     patients.page(params[:page])
-#       .per(13)
-#       .order("study_assigned_id ASC")
-#   end
-
-#   def search_results
-#     Patient.where(study_assigned_id: params[:search]["study_assigned_id"])
-#   end
-
-#   def patients
-#     Patient
-#   end
-# end

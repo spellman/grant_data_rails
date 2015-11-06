@@ -1,0 +1,25 @@
+<% provide :title, "Edit #{display_name}" %>
+
+<% provide :nav_export_link do %>
+  <%= link_to "Export data for patient ##{@patient.study_assigned_id} to CSV", "#" %>
+<% end %>
+
+<% provide :full_width_top do %>
+  <div class="container">
+    <div class="patient-records-header page-header">
+      <h2>Patient #<%= @patient.study_assigned_id %></h2>
+    </div>
+  </div>
+<% end %>
+
+<% provide :resource_form do %>
+  <%= render(partial: "shared/error_messages", locals: {resource: @data_point}) %>
+  <%= render(partial: "shared/edit_data_point_form",
+             locals: {singular_underscored_name: singular_underscored_name,
+                      plural_underscored_name: plural_underscored_name,
+                      display_name: display_name,
+                      cancel_link_remote_p: false}) %>
+
+<% end %>
+
+<%= render(template: "layouts/form_and_display_page") %>

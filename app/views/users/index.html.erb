@@ -2,9 +2,7 @@
 
 <% provide :resource_form do %>
   <%= render "shared/error_messages", resource: @user %>
-  <div id="user-form">
-    <%= render "users/user_add" %>
-  </div>
+  <%= render "users/user_add" %>
 <% end %>
 
 <% provide :resource_display do %>

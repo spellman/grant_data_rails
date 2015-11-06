@@ -1,0 +1,6 @@
+$("#form-panel").html(
+  '<%=j render(partial: "shared/edit_data_point_form",
+               locals: {singular_underscored_name: singular_underscored_name,
+                        plural_underscored_name: plural_underscored_name,
+                        display_name: display_name,
+                        cancel_link_remote_p: true}) %>');

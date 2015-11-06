@@ -3,10 +3,11 @@ ruby "2.1.0"
 
 gem "rails",                       "~> 4.0"
 gem "turbolinks"
-gem "sprockets-rails",             "~> 2.0"
+gem "sprockets-rails"
 gem "jquery-rails"
 gem "uglifier",                    ">= 1.3.0"
-gem "sass-rails",                  "~> 4.0"
+gem 'bootstrap-sass'
+gem "sass-rails"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 #gem "jbuilder", "~> 1.2"
 gem "pg",                          "~> 0.16"

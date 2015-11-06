@@ -1,20 +1,14 @@
 <% provide :title, "Edit patient" %>
+
 <% provide :nav_export_link do %>
   <%= link_to "Export data for all patients to CSV", "#" %>
 <% end %>
 
 <% provide :resource_form do %>
-  <%= render "shared/error_messages", resource: @patient %>
-  <div id="patient-form">
-    <%= render "patients/patient_edit", cancel_link_remote: false %>
-  </div>
-  <div id ="patient-search">
-    <%= render "patients/patient_search" %>
-  </div>
+  <%= render(partial: "shared/error_messages",
+             locals: { resource: @patient }) %>
+  <%= render(partial: "patients/patient_edit",
+             locals: { cancel_link_remote: false }) %>
 <% end %>
 
-<% provide :resource_display do %>
-  <%= render "patients/patients_display" %>
-<% end %>
-
-<%= render template: "layouts/form_and_display_page" %>
+<%= render(template: "layouts/form_and_display_page") %>

@@ -20,9 +20,9 @@ class Record
   attr_accessor :patient_id, :models, *self.model_names.map(&:to_sym)
 
   def initialize attrs = default_attributes
-    attrs       = Hash[attrs.map { |k, v| [k.to_s, v] }]
+    attrs = Hash[attrs.map { |k, v| [k.to_s, v] }]
     @patient_id = attrs.delete "patient_id"
-    @models     = []
+    @models = []
     initialize_models attrs
   end
 
@@ -42,14 +42,14 @@ class Record
 
   def initialize_models params
     params.each do |model_name, model_attrs|
-      initialize_model name:       model_name,
-                       attributes: model_attrs.merge({ "patient_id" => patient_id })
+      initialize_model name: model_name,
+                       attributes: model_attrs.merge({"patient_id" => patient_id})
     end
   end
 
   def initialize_model name: nil, attributes: nil
     model_class = name.titlecase.gsub("\s", "").constantize
-    model       = model_class.new
+    model = model_class.new
     model.localized.assign_attributes attributes
     models << model
     send "#{name}=", model

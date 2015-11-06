@@ -1,0 +1,17 @@
+<% provide :nav_export_link do %>
+  <%= link_to "Export data for patient ##{@patient.study_assigned_id} to CSV", patient_records_path(@patient.id, format: "csv") %>
+<% end %>
+
+<% provide :full_width_top do %>
+  <div class="container">
+    <div class="patient-records-header page-header">
+      <h1>Patient #<%= @patient.study_assigned_id %></h1>
+    </div>
+  </div>
+<% end %>
+
+<% provide :resource_display do %>
+  <%= render(partial: "records/patient_records_display") %>
+<% end %>
+
+<%= render(template: "layouts/form_and_display_page") %>

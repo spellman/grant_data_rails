@@ -1,14 +1,13 @@
-<div id="table-container">
-  <table id="patients" class="table table-striped">
-    <thead>
-      <tr>
-        <th>Patient Id #</th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
+<table id="patients" class="table table-striped">
+  <thead>
+    <tr>
+      <th>Patient Id #</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
     <% @patients.each do |patient| %>
       <tr>
         <td><%= patient.study_assigned_id %></td>
@@ -17,9 +16,8 @@
         <td><%= link_to "delete patient", patient_path(patient.id), method: :delete, data: { confirm: "Delete patient ##{patient.study_assigned_id}?\nDeleting this patient will also delete all of this patient's records.\nBe sure that's what you want &mdash; there's no going back.".html_safe } %></td>
       </tr>
     <% end %>
-    </tbody>
-  </table>
-</div>
+  </tbody>
+</table>
 
 <div class="row">
   <div class="col-sm-12">

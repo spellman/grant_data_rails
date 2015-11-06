@@ -4,17 +4,14 @@
 <% end %>
 
 <% provide :resource_form do %>
-  <%= render "shared/error_messages", resource: @patient %>
-  <div id="patient-form">
-    <%= render "patients/patient_add" %>
-  </div>
-  <div id ="patient-search">
-    <%= render "patients/patient_search" %>
-  </div>
+  <%= render(partial: "shared/error_messages",
+             locals: { resource: @patient }) %>
+  <%= render(partial: "patients/patient_add") %>
+  <%= render(partial: "patients/patient_search") %>
 <% end %>
 
 <% provide :resource_display do %>
-  <%= render "patients/patients_display" %>
+  <%= render(partial: "patients/patients_display") %>
 <% end %>
 
-<%= render template: "layouts/form_and_display_page" %>
+<%= render(template: "layouts/form_and_display_page") %>
