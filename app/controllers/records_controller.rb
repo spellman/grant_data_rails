@@ -74,10 +74,13 @@ class RecordsController < ApplicationController
   end
 
   def csv_download
-#    send_data @patient.data_to_csv, filename: csv_filename, type: "text/csv"
+    patient = Patient.find(params[:patient_id])
+    send_data(Export.to_csv([patient]),
+              filename: "patient-#{patient.study_assigned_id}-#{csv_filename}",
+              type: "text/csv")
   end
 
   def csv_filename
-    "records-#{Time.zone.now.to_s}"
+    "records-#{Time.zone.now.to_s}.csv"
   end
 end
