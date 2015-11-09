@@ -35,6 +35,19 @@ class Patient < ActiveRecord::Base
       end
     end
 
+    def export_data(patients)
+      result = Patient.connection.select_all(
+        union_query(record_types, patients)
+      )
+      {columns: result.columns, rows: result.rows}
+    end
+
+    def union_query(record_types, patients)
+      all_columns = all_attr_columns(record_types)
+      record_types.map { |r| union_sub_query(all_columns, patients, r) }
+        .join(" UNION ") + " " + order_by(record_types)
+    end
+
     def record_types
       [
         A1c,
@@ -50,120 +63,89 @@ class Patient < ActiveRecord::Base
       ]
     end
 
-    def export_data(patients)
-      ps = patients.map { |p| export_patient_data(p) }
-      rss = patients.map { |p| export_records_data(p) }
-
-      p_keys = ps.reduce([]) { |acc, p| acc + p[:keys] }.uniq
-      r_keys = rss.flatten
-      .group_by { |r| r[:record_type] }
-      .map { |type, rs|
-        [type, rs.flat_map { |r| r[:keys] }
-                 .uniq
-                 .sort { |a, b| column_sort(a, b) }]
-      }.sort { |a, b| a.first <=> b.first }
-      .flat_map { |type, keys| keys }
-
-
-      all_keys = p_keys + r_keys
-      all_keys_no_vals_hash = Hash[all_keys.zip([nil].cycle)]
-
-      all_records = ps.map { |p| all_keys_no_vals_hash.merge(p[:record]) }
-      .zip(rss)
-      .flat_map { |p, rs|
-        rs.flat_map { |r| r[:records] }
-        .map { |r| p.merge(r).values }
-      }
-
-      {columns: all_keys, rows: all_records}
+    def order_by(record_types)
+      "ORDER BY " +
+      "study_assigned_id ASC, " +
+      record_types.sort { |a, b| a.model_name.singular <=> b.model_name.singular }
+        .map { |r|
+          "#{alias_column(r.model_name.singular, "date")} ASC"
+        }.join(", ")
     end
 
-    def column_sort(a, b)
-      # Order: 1. Dates
-      #        2. Non-dates and non-timestamps
-      #        3. Timestamps
-      # Default order within each sort region.
-      if both?(:timestamp?, a, b) ||
-        both?(:date?, a, b) ||
-        (neither?(:timestamp?, a, b) &&
-         neither?(:date?, a, b))
-        a <=> b
-      elsif date?(a) && !date?(b)
-        -1
-      elsif !date?(a) && date?(b)
-        1
-      elsif timestamp?(a) && !timestamp?(b)
-        1
-      else
-        -1
-      end
+    def union_sub_query(all_columns, patients, record_type)
+      patient_table = Patient.table_name
+      record_table = record_type.table_name
+      patient_columns = format_columns(all_attr_columns([Patient]), Patient)
+      attr_columns = format_columns(all_columns, record_type)
+      join_criteria = "#{record_table}.patient_id = #{patient_table}.id"
+      patient_filter = "AND #{patient_table}.id IN (#{patients.map(&:id).join(", ")})"
+
+      %Q[SELECT #{patient_columns}, #{attr_columns} FROM #{patient_table}, #{record_table} WHERE #{join_criteria} #{patient_filter}]
     end
 
-    def both?(method_sym, a, b)
-      send(method_sym, a) && send(method_sym, b)
-    end
-
-    def neither?(method_sym, a, b)
-      !send(method_sym, a) && !send(method_sym, b)
-    end
-
-    def timestamp?(s)
-      ["created_at", "updated_at"].any? { |t| s.match(t) }
-    end
-
-    def date?(s)
-      s.match("date") && !timestamp?(s)
-    end
-
-    def export_patient_data(patient)
-      columns = export_columns(Patient)
-      attrs = patient.attributes.select { |k, v| columns.include?(k) }
-      {keys: attrs.keys, record: attrs}
-    end
-
-    def export_records_data(patient)
-      record_types.map { |record_type|
-        active_record_result = record_type.connection.select_all(%Q[
-        SELECT #{query_columns(record_type)}
-        FROM #{record_type.table_name}
-        WHERE patient_id = #{patient.id}
-        ])
-
-        keys = active_record_result.columns
-        records = active_record_result.rows.map { |vals| Hash[keys.zip(vals)] }
-
-        {record_type: record_type.model_name.singular,
-         keys: keys,
-         records: records}
-      }
-    end
-
-    def query_columns(record_type)
-      record_type_name = record_type.model_name.singular
-      columns = export_columns(record_type)
-      alias_names = columns.map { |column_name|
-        transform_column_name(record_type_name, column_name)
-      }
-      columns.zip(alias_names).map { |pair|
-        column, alias_name = *pair
-        column == alias_name ? column : "#{column} AS #{alias_name}"
+    def format_columns(columns, record_type)
+      table = record_type.table_name
+      union_query_record_columns(columns, record_type).map { |c|
+        n = c[:name]
+        a = c[:alias]
+        t = c[:sql_type]
+        table_n = n ? "#{table}.#{n}" : "CAST (NULL AS #{t.upcase})"
+        as_a = a ? " AS #{a}" : a
+        "#{table_n}#{as_a}"
       }.join(", ")
     end
 
-    def export_columns(model_class)
-      model_class.column_names.reject { |column_name|
-        ["id", "patient_id"].include?(column_name)
+    def union_query_record_columns(all_columns, record_type)
+      all_columns.flat_map { |model, columns|
+        nil_fill_non_existant_columns(record_type, model, columns)
       }
     end
 
-    def transform_column_name(model_name, column_name)
+    def nil_fill_non_existant_columns(record_type, model, columns)
+      columns.map { |column|
+        n = record_type.model_name.singular == model ? column[:name] : nil
+        a = if n
+              column[:alias]
+            else
+              column[:alias] || column[:name]
+            end
+        {
+          :name => n,
+          :alias => a,
+          :sql_type => column[:sql_type]
+        }
+      }
+    end
+
+    def all_attr_columns(record_types)
+      Hash[record_types.map { |r| [r.model_name.singular, query_columns(r)] }]
+    end
+
+    def query_columns(record_type)
+      r = record_type.model_name.singular
+      export_columns(record_type).map { |column|
+        {
+          :name => column.name,
+          :alias => alias_column(r, column.name),
+          :sql_type => column.sql_type
+        }
+      }
+    end
+
+    def export_columns(model_class)
+      model_class.columns.reject { |column|
+        ["id", "patient_id"].include?(column.name)
+      }
+    end
+
+    def alias_column(model_name, column_name)
       case column_name
       when "date"
         "#{model_name}_#{column_name}"
       when "created_at", "updated_at"
         "#{model_name}_#{column_name}"
       else
-        column_name
+        nil
       end
     end
   end
