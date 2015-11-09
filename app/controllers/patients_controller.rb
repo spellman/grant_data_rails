@@ -6,12 +6,20 @@ class PatientsController < ApplicationController
         patient_search? ? paginate_search_results : paginate_patients
       }
       format.js
+      format.csv  { csv_download(Patient.all, "all-patients-records") }
     end
   end
 
   def create
     @patient = Patient.new(patient_params)
     @patient.save ? save_succeeded : create_failed
+  end
+
+  def show
+    respond_to do |format|
+      p = Patient.find(params[:id])
+      format.csv { csv_download([p], "patient-#{p.study_assigned_id}-records") }
+    end
   end
 
   def edit
@@ -61,7 +69,7 @@ class PatientsController < ApplicationController
     ))
   end
 
-  def try_convert_true_false_strings_to_values_in params
+  def try_convert_true_false_strings_to_values_in(params)
     {
       study_assigned_id: params[:study_assigned_id],
       birthdate: params[:birthdate],
@@ -70,14 +78,14 @@ class PatientsController < ApplicationController
     }
   end
 
-  def as_true_false string
-    case string
+  def as_true_false(s)
+    case s
     when "true"
       true
     when "false"
       false
     else
-      string
+      s
     end
   end
 
@@ -115,5 +123,11 @@ class PatientsController < ApplicationController
     @patients = Patient.page(params[:page])
                        .per(13)
                        .order("study_assigned_id ASC")
+  end
+
+  def csv_download(patients, file_name)
+    send_data(Patient.to_csv(patients),
+              filename: "#{file_name}-#{Time.zone.now}.csv",
+              type: "text/csv")
   end
 end

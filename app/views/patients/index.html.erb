@@ -1,6 +1,6 @@
 <% provide :title, "Patients" %>
 <% provide :nav_export_link do %>
-  <%= link_to "Export data for all patients to CSV", "#" %>
+  <%= link_to "Export data for all patients to CSV", patients_path(format: "csv") %>
 <% end %>
 
 <% provide :resource_form do %>

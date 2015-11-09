@@ -1,6 +1,6 @@
 class Record
   include ActiveModel::Model
-  class CouldNotSaveAllModels < StandardError; end
+  CouldNotSaveAllModels = Class.new(StandardError)
 
   def self.model_names
     [
