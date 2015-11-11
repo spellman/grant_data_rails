@@ -6,19 +6,19 @@ class RecordsController < ApplicationController
     respond_to do |format|
       format.html {
         @patient = Patient.find params[:patient_id]
-        @view_model = PatientRecordsPresenter.new(@patient).index
+        @records = PatientRecordsPresenter.index(get_patient_records(@patient))
       }
       format.js
     end
   end
 
   def create
-    @record = Record.new record_params
+    @record = Record.new(record_params)
     if @record.save
       redirect_to patient_records_path(params[:patient_id])
     else
       @patient = Patient.find params[:patient_id]
-      @view_model = PatientRecordsPresenter.new(@patient).index
+      @records = PatientRecordsPresenter.index(get_patient_records(@patient))
       render "index"
     end
   end
@@ -70,5 +70,14 @@ class RecordsController < ApplicationController
         :date
       ]
     )
+  end
+
+  def get_patient_records(patient)
+    Patient.record_types.map { |r|
+      {
+        :model_name => r.model_name,
+        :records => patient.send(r.model_name.plural)
+      }
+    }
   end
 end

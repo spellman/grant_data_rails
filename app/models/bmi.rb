@@ -4,9 +4,6 @@ require "date_validator"
 class Bmi < ActiveRecord::Base
   belongs_to :patient
 
-  include I18n::Alchemy
-  localize :date, using: :date
-
   validates :patient_id,
     id: true,
     presence: true,

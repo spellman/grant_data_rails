@@ -38,13 +38,6 @@ describe Bmi do
     expect(invalid_date).to be_invalid
   end
 
-  specify "i18n_alchemy-localized proxy accepts mm/dd/yyyy date string under en locale" do
-    bmi = @valid_patient.bmis.build bmi: @valid_bmi
-    expect{ bmi.localized.date = @valid_date.strftime(@us_date_format) }.not_to raise_error
-    expect(bmi.date).to eq @valid_date
-    expect(bmi).to be_valid
-  end
-
   it "requires a non-negative number value" do
     valid_bmi    = @valid_patient.bmis.build bmi: @valid_bmi, date: @valid_date
     no_bmi       = @valid_patient.bmis.build                  date: @valid_date

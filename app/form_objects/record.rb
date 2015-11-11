@@ -34,7 +34,7 @@ class Record
       model_class = Patient.record_types.select { |r|
         r.model_name.singular == name
       }.first
-      model_class.new(attrs.merge({"patient_id" => patient_id})).localized
+      model_class.new(attrs.merge({"patient_id" => patient_id}))
     end
   end
 

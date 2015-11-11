@@ -29,11 +29,4 @@ describe Flu do
     expect(no_date).to be_invalid
     expect(invalid_date).to be_invalid
   end
-
-  specify "i18n_alchemy-localized proxy accepts mm/dd/yyyy date string under en locale" do
-    flu = @valid_patient.flus.build
-    expect{ flu.localized.date = @valid_date.strftime(@us_date_format) }.not_to raise_error
-    expect(flu.date).to eq @valid_date
-    expect(flu).to be_valid
-  end
 end

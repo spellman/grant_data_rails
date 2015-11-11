@@ -87,11 +87,4 @@ describe A1c do
     }
     expect(@pt.a1cs.build no_a1c).to be_invalid
   end
-
-  specify "i18n_alchemy-localized proxy accepts mm/dd/yyyy date string under en locale" do
-    a1c = @pt.a1cs.build a1c: @valid_a1c_value
-    expect{ a1c.localized.date = @valid_date.strftime(@us_date_format) }.not_to raise_error
-    expect(a1c.date).to eq @valid_date
-    expect(a1c).to be_valid
-  end
 end

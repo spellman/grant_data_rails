@@ -39,13 +39,6 @@ describe Renal do
     expect(invalid_date).to be_invalid
   end
 
-  specify "i18n_alchemy-localized proxy accepts mm/dd/yyyy date string under en locale" do
-    renal = @valid_patient.renals.build bun: @valid_bun
-    expect{ renal.localized.date = @valid_date.strftime(@us_date_format) }.not_to raise_error
-    expect(renal.date).to eq @valid_date
-    expect(renal).to be_valid
-  end
-
   it "requires at least one of bun, creatinine" do
     no_values = @valid_patient.renals.build date: @valid_date
     expect(no_values).to be_invalid

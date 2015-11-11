@@ -16,20 +16,6 @@ describe Record do
     Hash[attributes]
   end
 
-  it "initializes i18n_alchemy proxies of child models" do
-    record       = Record.new "patient_id" => @valid_patient.id,
-                              "a1c"        => @valid_a1c,
-                              "flu"        => @valid_flu
-    expected_a1c = @valid_patient.a1cs.build
-    expected_a1c.localized.assign_attributes @valid_a1c
-    expected_flu = @valid_patient.flus.build
-    expected_flu.localized.assign_attributes @valid_flu
-    expect(record.a1c).to be_an A1c
-    expect(record.flu).to be_a Flu
-    expect(record.a1c.attributes).to eq expected_a1c.attributes
-    expect(record.flu.attributes).to eq expected_flu.attributes
-  end
-
   it "defaults to a full set of child models if no params are given" do
     default_record = Record.new
     expect(default_record.models.length).to eq Record.domain_fields.length

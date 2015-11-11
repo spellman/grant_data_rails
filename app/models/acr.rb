@@ -1,11 +1,10 @@
 require "id_validator"
 require "date_validator"
+require "parsing"
 
 class Acr < ActiveRecord::Base
+  after_initialize Parsing.new([:date])
   belongs_to :patient
-
-  include I18n::Alchemy
-  localize :date, using: :date
 
   validates :patient_id,
     id: true,

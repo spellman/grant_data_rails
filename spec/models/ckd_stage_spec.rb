@@ -38,13 +38,6 @@ describe CkdStage do
     expect(invalid_date).to be_invalid
   end
 
-  specify "i18n_alchemy-localized proxy accepts mm/dd/yyyy date string under en locale" do
-    ckd_stage = @valid_patient.ckd_stages.build ckd_stage: @valid_ckd_stage
-    expect{ ckd_stage.localized.date = @valid_date.strftime(@us_date_format) }.not_to raise_error
-    expect(ckd_stage.date).to eq @valid_date
-    expect(ckd_stage).to be_valid
-  end
-
   it "requires a non-negative integer value" do
     valid_ckd_stage       = @valid_patient.ckd_stages.build ckd_stage: @valid_ckd_stage,
                                                             date:      @valid_date

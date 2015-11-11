@@ -1,6 +1,8 @@
 require "date_validator"
+require "parsing"
 
 class Patient < ActiveRecord::Base
+  after_initialize Parsing.new([:birthdate])
   has_many :a1cs
   has_many :acrs
   has_many :blood_pressures

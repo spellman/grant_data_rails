@@ -1,12 +1,11 @@
 require "id_validator"
 require "date_validator"
 require "not_all_domain_fields_blank_validator"
+require "parsing"
 
 class Measurements < ActiveRecord::Base
+  after_initialize Parsing.new([:date])
   belongs_to :patient
-
-  include I18n::Alchemy
-  localize :date, using: :date
 
   validates :patient_id,
     id: true,

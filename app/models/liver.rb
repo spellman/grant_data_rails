@@ -5,9 +5,6 @@ require "not_all_domain_fields_blank_validator"
 class Liver < ActiveRecord::Base
   belongs_to :patient
 
-  include I18n::Alchemy
-  localize :date, using: :date
-
   validates :patient_id,
     id: true,
     presence: true,

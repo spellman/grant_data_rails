@@ -39,13 +39,6 @@ describe Liver do
     expect(invalid_date).to be_invalid
   end
 
-  specify "i18n_alchemy-localized proxy accepts mm/dd/yyyy date string under en locale" do
-    liver = @valid_patient.livers.build ast: @valid_ast
-    expect{ liver.localized.date = @valid_date.strftime(@us_date_format) }.not_to raise_error
-    expect(liver.date).to eq @valid_date
-    expect(liver).to be_valid
-  end
-
   it "requires at least one of ast, alt" do
     no_values = @valid_patient.livers.build date: @valid_date
     expect(no_values).to be_invalid

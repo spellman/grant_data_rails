@@ -41,13 +41,6 @@ describe Cholesterol do
     expect(invalid_date).to be_invalid
   end
 
-  specify "i18n_alchemy-localized proxy accepts mm/dd/yyyy date string under en locale" do
-    cholesterol = @valid_patient.cholesterols.build tc: @valid_tc
-    expect{ cholesterol.localized.date = @valid_date.strftime(@us_date_format) }.not_to raise_error
-    expect(cholesterol.date).to eq @valid_date
-    expect(cholesterol).to be_valid
-  end
-
   it "requires at least one of tc, tg, hdl, ldl" do
     no_values = @valid_patient.cholesterols.build date: @valid_date
     expect(no_values).to be_invalid

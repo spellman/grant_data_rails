@@ -29,11 +29,4 @@ describe Pneumonia do
     expect(no_date).to be_invalid
     expect(invalid_date).to be_invalid
   end
-
-  specify "i18n_alchemy-localized proxy accepts mm/dd/yyyy date string under en locale" do
-    pneumonia = @valid_patient.pneumonias.build
-    expect{ pneumonia.localized.date = @valid_date.strftime(@us_date_format) }.not_to raise_error
-    expect(pneumonia.date).to eq @valid_date
-    expect(pneumonia).to be_valid
-  end
 end

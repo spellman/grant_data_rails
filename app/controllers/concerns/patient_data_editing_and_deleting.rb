@@ -62,10 +62,11 @@ module PatientDataEditingAndDeleting
     begin
       data_point = model_name.find(params[:id])
       data_point.destroy
+      redirect_to patient_records_path(data_point.patient_id)
     rescue ActiveRecord::RecordNotFound
-      flash[:warning] = "The patient to be deleted did not exist. The browser's \"back\" button may have been used to display a patient that had already been deleted."
+      flash[:warning] = "The record to be deleted did not exist. (Using the browser's back button can cause data to be displayed that no longer exists in the system.)"
+      redirect_to patients_path
     end
-    redirect_to patient_records_path(data.patient_id)
   end
 
   private
