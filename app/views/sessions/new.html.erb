@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-6 col-md-4 col-lg-4">
+    <h2 class="form-signin-heading">Sign in</h2>
     <%= form_tag sessions_path, id: "signin-form" do %>
-      <h2 class="form-signin-heading">Sign in</h2>
       <div>
         <%= email_field_tag :email, params[:email], class: "form-control", placeholder: "Email address", autofocus: true %>
       </div>
@@ -12,5 +12,33 @@
         <%= submit_tag "Sign in", class: "btn btn-primary" %>
       </div>
     <% end %>
+  </div>
+
+  <div id="logins" class="col-sm-6 col-md-4 col-md-offset-1 col-lg-4 col-lg-offset-2">
+    <h3>Sample login credentials</h3>
+
+    <div class="login">
+      <span>Admin user</span>
+      <ul class="list-unstyled">
+        <li>
+          admin@test.com
+        </li>
+        <li>
+          homer-simpson
+        </li>
+      </ul>
+    </div>
+
+    <div class="login">
+      <span>Non-admin user</span>
+      <ul class="list-unstyled">
+        <li>
+          user@test.com
+        </li>
+        <li>
+          homer-simpson
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
