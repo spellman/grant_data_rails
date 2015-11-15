@@ -3,16 +3,16 @@ require "parsing"
 
 class Patient < ActiveRecord::Base
   after_initialize Parsing.new([:birthdate])
-  has_many :a1cs
-  has_many :acrs
-  has_many :blood_pressures
-  has_many :bun_and_creatinines
-  has_many :cholesterols
-  has_many :ckd_stages
-  has_many :eye_exams
-  has_many :foot_exams
-  has_many :measurements, class_name: "Measurements"
-  has_many :testosterones
+  has_many :a1cs, dependent: :destroy
+  has_many :acrs, dependent: :destroy
+  has_many :blood_pressures, dependent: :destroy
+  has_many :bun_and_creatinines, dependent: :destroy
+  has_many :cholesterols, dependent: :destroy
+  has_many :ckd_stages, dependent: :destroy
+  has_many :eye_exams, dependent: :destroy
+  has_many :foot_exams, dependent: :destroy
+  has_many :measurements, class_name: "Measurements", dependent: :destroy
+  has_many :testosterones, dependent: :destroy
 
   validates :study_assigned_id,
     presence: true,

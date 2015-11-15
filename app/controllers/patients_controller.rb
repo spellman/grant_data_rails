@@ -48,28 +48,13 @@ class PatientsController < ApplicationController
   end
 
   def destroy
-    model_names = [
-      :a1cs,
-      :acrs,
-      :blood_pressures,
-      :bun_and_creatinines,
-      :cholesterols,
-      :ckd_stages,
-      :eye_exams,
-      :foot_exams,
-      :measurements,
-      :testosterones
-    ]
-
-    patient = Patient.find(params[:id])
-    model_names.each do |model_name| patient.send(model_name).destroy end
-    patient.destroy
-    redirect_to(:patients)
+    Patient.find(params[:id]).destroy
+    redirect_to(patients_url)
   end
 
   private
   def patient_params
-    convert_true_false_strings_to_values(params.require(:patient).permit(
+    parse_values(params.require(:patient).permit(
       :study_assigned_id,
       :birthdate,
       :smoker,
@@ -79,19 +64,14 @@ class PatientsController < ApplicationController
 
   def record_not_found
     flash[:warning] = "The requested patient could not be found. Has the patient been created? Has the patient been deleted? (Another user may have deleted the patient or the browser's \"back\" button may have been used to display a patient who had already been deleted.)"
-    redirect_to(patients_path) and return
+    redirect_to(patients_url) and return
   end
 
-  def convert_true_false_strings_to_values(params)
-    {
-      study_assigned_id: params[:study_assigned_id],
-      birthdate: params[:birthdate],
-      smoker: as_true_false(params[:smoker]),
-      etoh: as_true_false(params[:etoh])
-    }
+  def parse_values(params)
+    Hash[params.map { |k, v| [k, parse_boolean_string(v)] }]
   end
 
-  def as_true_false(s)
+  def parse_boolean_string(s)
     case s
     when "true"
       true
