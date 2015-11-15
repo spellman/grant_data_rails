@@ -1,6 +1,7 @@
 <div id="user-form-container">
   <div id="edit-user">
-    <%= render "users/user_form", button_text: "Update user info" %>
-    <%= link_to "Cancel", @cancel_edit_path, remote: @cancel_link_remote, id: "cancel-update", class: "btn btn-primary" %>
+    <%= render(partial: "users/user_form",
+               locals: {button_text: "Update user info"}) %>
+    <%= link_to("Cancel", cancel_edit_path, remote: cancel_link_remote, id: "cancel-update", class: "btn btn-primary")%>
   </div>
 </div>

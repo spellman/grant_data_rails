@@ -1,4 +1,6 @@
 class PatientsController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   def index
     @patient = Patient.new
     respond_to do |format|
@@ -12,12 +14,17 @@ class PatientsController < ApplicationController
 
   def create
     @patient = Patient.new(patient_params)
-    @patient.save ? save_succeeded : create_failed
+    if @patient.save
+      redirect_to(patients_path)
+    else
+      paginate_patients
+      render("index")
+    end
   end
 
   def show
+    p = Patient.find(params[:id])
     respond_to do |format|
-      p = Patient.find(params[:id])
       format.csv { csv_download([p], "patient-#{p.study_assigned_id}-records") }
     end
   end
@@ -32,7 +39,12 @@ class PatientsController < ApplicationController
 
   def update
     @patient = Patient.find(params[:id])
-    @patient.update_attributes(patient_params) ? save_succeeded : update_failed
+    if @patient.update_attributes(patient_params)
+      redirect_to(patients_path)
+    else
+      paginate_patients
+      render("edit")
+    end
   end
 
   def destroy
@@ -49,19 +61,15 @@ class PatientsController < ApplicationController
       :testosterones
     ]
 
-    begin
-      patient = Patient.find(params[:id])
-      model_names.each do |model_name| patient.send(model_name).destroy end
-      patient.destroy
-    rescue ActiveRecord::RecordNotFound
-      delete_failed
-    end
-    redirect_to :patients
+    patient = Patient.find(params[:id])
+    model_names.each do |model_name| patient.send(model_name).destroy end
+    patient.destroy
+    redirect_to(:patients)
   end
 
-  # private
+  private
   def patient_params
-    try_convert_true_false_strings_to_values_in(params.require(:patient).permit(
+    convert_true_false_strings_to_values(params.require(:patient).permit(
       :study_assigned_id,
       :birthdate,
       :smoker,
@@ -69,7 +77,12 @@ class PatientsController < ApplicationController
     ))
   end
 
-  def try_convert_true_false_strings_to_values_in(params)
+  def record_not_found
+    flash[:warning] = "The requested patient could not be found. Has the patient been created? Has the patient been deleted? (Another user may have deleted the patient or the browser's \"back\" button may have been used to display a patient who had already been deleted.)"
+    redirect_to(patients_path) and return
+  end
+
+  def convert_true_false_strings_to_values(params)
     {
       study_assigned_id: params[:study_assigned_id],
       birthdate: params[:birthdate],
@@ -91,24 +104,6 @@ class PatientsController < ApplicationController
 
   def patient_search?
     params[:search]
-  end
-
-  def save_succeeded
-    redirect_to patients_path
-  end
-
-  def create_failed
-    paginate_patients
-    render "index"
-  end
-
-  def update_failed
-    paginate_patients
-    render "edit"
-  end
-
-  def delete_failed
-    flash[:warning] = "The patient to be deleted did not exist. The browser's \"back\" button may have been used to display a patient that had already been deleted."
   end
 
   def paginate_search_results

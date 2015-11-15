@@ -1,1 +1,1 @@
-$("#patient-form-container").html('<%=j render("patients/patient_edit", cancel_link_remote: true) %>');
+$("#patient-form-container").html('<%=j render(partial: "patients/patient_edit", locals: {cancel_link_remote: true}) %>');

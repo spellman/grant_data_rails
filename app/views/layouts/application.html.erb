@@ -22,7 +22,9 @@
     <hr id="g-testosterone" class="guide" />
     <hr id="g-display-bottom" class="guide" />
 
-    <%= render "layouts/messages" %>
+    <div id="flash" class="row">
+      <%= render "layouts/messages" %>
+    </div>
     <%= content_for?(:content) ? yield(:content) : yield %>
   </div>
   <footer>

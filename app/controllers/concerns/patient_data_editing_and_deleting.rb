@@ -76,4 +76,21 @@ module PatientDataEditingAndDeleting
                     singular_underscored_name: singular_underscored_name,
                     plural_underscored_name: plural_underscored_name})
   end
+
+  def record_not_found
+    record = display_name
+    flash[:warning] = "The requested #{record} could not be found. Has it been deleted? (Another user may have deleted it or the browser's \"back\" button may have been used to display #{prepend_indefinite_article(record)} that had already been deleted.)"
+    redirect_to patients_path
+  end
+
+  def prepend_indefinite_article(word,
+                                 consonant_article = "a",
+                                 vowel_article = "an")
+    result = word.to_s.dup
+    if result.match(/^([aeiou])/i)
+      "#{vowel_article} #{result}"
+    else
+      "#{consonant_article} #{result}"
+    end
+  end
 end

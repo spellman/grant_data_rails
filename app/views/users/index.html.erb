@@ -1,12 +1,13 @@
 <% provide :title, "Users" %>
 
 <% provide :resource_form do %>
-  <%= render "shared/error_messages", resource: @user %>
-  <%= render "users/user_add" %>
+  <%= render(partial: "shared/error_messages",
+             locals: {resource: @user}) %>
+  <%= render(partial: "users/user_add") %>
 <% end %>
 
 <% provide :resource_display do %>
-  <%= render "users/users_display" %>
+  <%= render(partial: "users/users_display") %>
 <% end %>
 
-<%= render template: "layouts/form_and_display_page" %>
+<%= render(template: "layouts/form_and_display_page") %>
