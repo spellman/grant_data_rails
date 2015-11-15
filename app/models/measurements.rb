@@ -5,6 +5,7 @@ require "parsing"
 
 class Measurements < ActiveRecord::Base
   after_initialize Parsing.new([:date])
+
   belongs_to :patient
 
   validates :patient_id,
@@ -31,4 +32,8 @@ class Measurements < ActiveRecord::Base
       message: "must be a non-negative number"
     },
     allow_blank: true
+
+  def self.display_name
+    "measurements"
+  end
 end

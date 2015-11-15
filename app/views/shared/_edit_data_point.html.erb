@@ -15,8 +15,7 @@
 <% provide :resource_form do %>
   <%= render(partial: "shared/error_messages", locals: {resource: @data_point}) %>
   <%= render(partial: "shared/edit_data_point_form",
-             locals: {singular_underscored_name: singular_underscored_name,
-                      plural_underscored_name: plural_underscored_name,
+             locals: {model_name: model_name,
                       display_name: display_name,
                       cancel_link_remote_p: false}) %>
 

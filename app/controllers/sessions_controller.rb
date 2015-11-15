@@ -5,18 +5,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by_email params[:email]
+    user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to :patients
+      redirect_to(patients_url)
     else
       flash.now[:danger] = "Invalid email or password"
-      render "new"
+      render("new")
     end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to :root
+    redirect_to(root_url)
   end
 end

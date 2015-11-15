@@ -1,7 +1,7 @@
-<div id=<%= "edit-#{singular_underscored_name.dasherize}" %> class="edit-data-point">
+<div id=<%= "edit-#{model_name.singular.dasherize}" %> class="edit-data-point">
   <%= form_for @data_point do |f| %>
     <div class="form-group">
-      <%= render(partial: "#{plural_underscored_name}/#{singular_underscored_name}_form_fields",
+      <%= render(partial: "#{model_name.plural}/#{model_name.singular}_form_fields",
                  locals: {o: f}) %>
     </div>
     <%= f.submit "Update #{display_name}", class: "btn btn-primary" %>

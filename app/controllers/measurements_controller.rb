@@ -2,20 +2,8 @@ class MeasurementsController < ApplicationController
   include PatientDataEditingAndDeleting
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-  def model_name
+  def model
     Measurements
-  end
-
-  def display_name
-    "measurements"
-  end
-
-  def singular_underscored_name
-    "measurements"
-  end
-
-  def plural_underscored_name
-    "measurements"
   end
 
   def data_params

@@ -3,6 +3,7 @@ require "parsing"
 
 class Patient < ActiveRecord::Base
   after_initialize Parsing.new([:birthdate])
+
   has_many :a1cs, dependent: :destroy
   has_many :acrs, dependent: :destroy
   has_many :blood_pressures, dependent: :destroy
@@ -51,18 +52,7 @@ class Patient < ActiveRecord::Base
     end
 
     def record_types
-      [
-        A1c,
-        Acr,
-        BloodPressure,
-        BunAndCreatinine,
-        Cholesterol,
-        CkdStage,
-        EyeExam,
-        FootExam,
-        Measurements,
-        Testosterone
-      ]
+      reflect_on_all_associations.map { |a| a.class_name.constantize }
     end
 
     def order_by(record_types)

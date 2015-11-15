@@ -4,6 +4,7 @@ require "parsing"
 
 class Testosterone < ActiveRecord::Base
   after_initialize Parsing.new([:date])
+
   belongs_to :patient
 
   validates :patient_id,
@@ -27,4 +28,8 @@ class Testosterone < ActiveRecord::Base
       only_integer: true,
       message: "must be a non-negative number with no decimal places"
     }
+
+  def self.display_name
+    "testosterone"
+  end
 end

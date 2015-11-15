@@ -2,20 +2,8 @@ class CholesterolsController < ApplicationController
   include PatientDataEditingAndDeleting
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-  def model_name
+  def model
     Cholesterol
-  end
-
-  def display_name
-    "cholesterol"
-  end
-
-  def singular_underscored_name
-    "cholesterol"
-  end
-
-  def plural_underscored_name
-    "cholesterols"
   end
 
   def data_params

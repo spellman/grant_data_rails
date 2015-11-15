@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
     length: 8..127
 
   validates :email,
-    presence:   true,
-    length:     { minimum: 3 },
+    presence: true,
+    length: { minimum: 3 },
     uniqueness: true
 end

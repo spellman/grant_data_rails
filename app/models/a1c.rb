@@ -4,6 +4,7 @@ require "parsing"
 
 class A1c < ActiveRecord::Base
   after_initialize Parsing.new([:date])
+
   belongs_to :patient
 
   validates :patient_id,
@@ -26,4 +27,8 @@ class A1c < ActiveRecord::Base
       greater_than_or_equal_to: 0,
       message: "must be a non-negative number"
     }
+
+  def self.display_name
+    "A1c"
+  end
 end

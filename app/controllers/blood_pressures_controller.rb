@@ -2,20 +2,8 @@ class BloodPressuresController < ApplicationController
   include PatientDataEditingAndDeleting
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-  def model_name
+  def model
     BloodPressure
-  end
-
-  def display_name
-    "blood pressure"
-  end
-
-  def singular_underscored_name
-    "blood_pressure"
-  end
-
-  def plural_underscored_name
-    "blood_pressures"
   end
 
   def data_params

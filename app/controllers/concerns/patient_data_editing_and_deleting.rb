@@ -2,7 +2,7 @@ module PatientDataEditingAndDeleting
   extend ActiveSupport::Concern
 
   # The including controller should:
-  # 1. Define a model_name method that returns the model name (class name)
+  # 1. Define a model method that returns the model class.
   #    Example:
   #      def model_name
   #        CkdStage
@@ -10,26 +10,15 @@ module PatientDataEditingAndDeleting
   #
   # 2. Define a display_name method that returns a human-readable string,
   #    naming the model instance.
+  #    NOTE: THIS IS PROBABLY UNECESSARY BUT I DIDN'T OBSERVE SOME NAMING
+  #          CONVENTIONS WHEN I NAMED MY MODELS.
+  #          E.G., I USED CkdStage INSTEAD OF CKDStage.
   #    Example:
   #      def display_name
   #        "CKD stage"
   #      end
   #
-  # 3. Define a singular_underscored_name method that returns an underscored
-  #    string, naming the model instance (singular).
-  #    Example:
-  #      def singular_underscored_name
-  #        "ckd_stage"
-  #      end
-  #
-  # 4. Define a plural_underscored_name method that returns an underscored
-  #    string, naming the model instances (plural).
-  #    Example:
-  #      def plural_underscored_name
-  #        "ckd_stages"
-  #      end
-  #
-  # 5. Define a data_params method that whitelists params keys.
+  # 3. Define a data_params method that whitelists params keys.
   #    Example:
   #      def data_params
   #        params.require(:ckd_stage).permit(
@@ -38,7 +27,7 @@ module PatientDataEditingAndDeleting
   #      end
 
   def edit
-    @data_point = model_name.find(params[:id])
+    @data_point = model.find(params[:id])
     respond_to do |format|
       format.html {
         @patient = Patient.find(@data_point.patient_id)
@@ -49,9 +38,9 @@ module PatientDataEditingAndDeleting
   end
 
   def update
-    @data_point = model_name.find(params[:id])
+    @data_point = model.find(params[:id])
     if @data_point.update_attributes(data_params)
-      redirect_to patient_records_path(@data_point.patient_id)
+      redirect_to(patient_records_path(@data_point.patient_id))
     else
       @patient = Patient.find(@data_point.patient_id)
       render_edit
@@ -60,21 +49,20 @@ module PatientDataEditingAndDeleting
 
   def destroy
     begin
-      data_point = model_name.find(params[:id])
+      data_point = model.find(params[:id])
       data_point.destroy
-      redirect_to patient_records_path(data_point.patient_id)
+      redirect_to(patient_records_path(data_point.patient_id))
     rescue ActiveRecord::RecordNotFound
       flash[:warning] = "The record to be deleted did not exist. (Using the browser's back button can cause data to be displayed that no longer exists in the system.)"
-      redirect_to patients_path
+      redirect_to(patients_path)
     end
   end
 
   private
   def render_edit
     render(partial: "shared/edit_data_point",
-           locals: {display_name: display_name,
-                    singular_underscored_name: singular_underscored_name,
-                    plural_underscored_name: plural_underscored_name})
+           locals: {display_name: model.display_name,
+                    model_name: model.model_name})
   end
 
   def record_not_found

@@ -5,6 +5,7 @@ require "parsing"
 
 class BunAndCreatinine < ActiveRecord::Base
   after_initialize Parsing.new([:date])
+
   belongs_to :patient
 
   validates :patient_id,
@@ -31,4 +32,8 @@ class BunAndCreatinine < ActiveRecord::Base
       message: "must be a non-negative number with no decimal places"
     },
     allow_blank: true
+
+  def self.display_name
+    "BUN and creatinine"
+  end
 end

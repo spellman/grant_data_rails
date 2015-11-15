@@ -4,6 +4,7 @@ require "parsing"
 
 class FootExam < ActiveRecord::Base
   after_initialize Parsing.new([:date])
+
   belongs_to :patient
 
   validates :patient_id,
@@ -20,4 +21,8 @@ class FootExam < ActiveRecord::Base
   validates :date,
     presence: true,
     date: true
+
+  def self.display_name
+    "foot exam"
+  end
 end
