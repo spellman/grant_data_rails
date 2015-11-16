@@ -23,8 +23,13 @@
                   <% end %>
                   <span class="date"><%=l data_point.date %></span>
                   <div class="record-controls">
-                    <%= link_to "edit", send("edit_#{r[:data_point_path]}", data_point[:id]), class: "edit-data-point", remote: true %>
-                    <%= link_to "delete", send(r[:data_point_path], data_point.id), method: :delete, data: { confirm: "Confirm delete.".html_safe }, class: "delete-data-point" %>
+                    <%= link_to("edit", send("edit_#{r[:data_point_path]}", data_point[:id]),
+                                class: "edit-data-point",
+                                remote: true) %>
+                    <%= link_to("delete", send(r[:data_point_path], data_point.id),
+                                method: :delete,
+                                data: { confirm: "Confirm delete.".html_safe },
+                                class: "delete-data-point") %>
                   </div>
                 </div>
               </td>

@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       redirect_to(patients_url)
     else
       flash.now[:danger] = "Invalid email or password"
-      render("new")
+      render(template: "sessions/new")
     end
   end
 

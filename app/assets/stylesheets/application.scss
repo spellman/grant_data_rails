@@ -13,6 +13,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap/variables";
+@import "rails_bootstrap_forms";
 @import "**/*";
 
 body {
@@ -48,14 +49,6 @@ body {
 
 #error_explanation {
   margin-bottom: 0px;
-}
-
-#error_explanation ul {
-  padding-left: 0px;
-}
-
-#error_explanation li {
-  list-style-type: none;
 }
 
 .form-group {

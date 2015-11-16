@@ -1,3 +1,7 @@
+#add-record input[type="submit"] {
+  width: 100%;
+}
+
 .page-header.patient-records-header {
   border-bottom: none;
   margin-top: 0;
@@ -54,56 +58,45 @@
 }
 
 #a1c-records {
-  /* padding-bottom: 15px; */
   height: 91px;
 }
 
 #acr-records {
-  /* padding-bottom: 15px; */
   height: 99px;
 }
 
 #blood-pressure-records {
-  /* padding-bottom: 54px; */
   height: 158px;
 }
 
 #bun-and-creatinine-records {
-  /* padding-bottom: 54px; */
   height: 158px;
 }
 
 #cholesterol-records {
-  /* padding-bottom: 15px; */
   height: 99px;
 }
 
 #ckd-stage-records {
-  /* padding-bottom: 15px; */
   height: 99px;
 }
 
 #eye-exam-records {
-  /* padding-bottom: 35px; */
   height: 99px;
 }
 
 #foot-exam-records {
-  /* padding-bottom: 35px; */
   height: 99px;
 }
 
 #measurements-records {
-  /* padding-bottom: 34px; */
   height: 158px;
 }
 
 #testosterone-records {
-  /* padding-bottom: 15px; */
   height: 99px;
 }
 
-// TO HELP WITH POSITIONING
 /// GUIDES
 .guide {
   display: none;

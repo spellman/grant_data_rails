@@ -14,7 +14,7 @@
         <% if policy(user).destroy? %>
           <td>
             <%= link_to("delete", user_path(user.id), method: :delete,
-                  data: {confirm: "Delete #{user.email}?\nThis can't be undone."}) %>
+                        data: {confirm: "Delete #{user.email}?\nThis can't be undone."}) %>
           </td>
         <% end %>
       </tr>
@@ -22,4 +22,4 @@
   </tbody>
 </table>
 
-<%= paginate @users if @users %>
+<%= paginate(@users) if @users %>

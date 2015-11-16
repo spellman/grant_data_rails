@@ -8,6 +8,7 @@ gem "jquery-rails"
 gem "uglifier",                    ">= 1.3.0"
 gem 'bootstrap-sass'
 gem "sass-rails"
+gem "bootstrap_form"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 #gem "jbuilder", "~> 1.2"
 gem "pg",                          "~> 0.16"

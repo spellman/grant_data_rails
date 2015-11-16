@@ -1,18 +1,6 @@
-<%= form_for @user do |f| %>
-  <div class="form-group">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, class: "form-control" %>
-  </div>
-
+<%= bootstrap_form_for(@user) do |f| %>
+  <%= f.email_field :email %>
+  <%= f.password_field :password %>
+  <%= f.password_field :password_confirmation %>
   <%= f.submit button_text, class: "btn btn-primary" %>
 <% end %>

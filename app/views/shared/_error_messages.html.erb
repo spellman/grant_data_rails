@@ -1,11 +1,12 @@
 <% if resource.errors.any? %>
+  <% error_count = resource.errors.count %>
   <div id="error_explanation">
-  <div class="alert alert-danger">
-    The form contains <%= pluralize resource.errors.count, "error" %>.
+  <div class="alert alert-danger" role="alert">
+    There <%= "#{conjugate_be(error_count)} #{pluralize(error_count, "error")}" %>:
   </div>
   <ul>
     <% resource.errors.full_messages.each do |msg| %>
-      <li>* <%= msg %></li>
+      <li class="text-danger"><%= msg %></li>
   <% end %>
   </ul>
 </div>
