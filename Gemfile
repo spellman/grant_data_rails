@@ -1,11 +1,11 @@
 source "https://rubygems.org"
-ruby "2.1.0"
+ruby "2.2.1"
 
 gem "rails",                       "~> 4.0"
 gem "turbolinks"
 gem "sprockets-rails"
 gem "jquery-rails"
-gem "uglifier",                    ">= 1.3.0"
+gem "uglifier",                    ">= 1.3"
 gem 'bootstrap-sass'
 gem "sass-rails"
 gem "bootstrap_form"
@@ -13,7 +13,7 @@ gem "bootstrap_form"
 #gem "jbuilder", "~> 1.2"
 gem "pg",                          "~> 0.16"
 gem "pundit"
-gem "kaminari",                    "~> 0.14.1"
+gem "kaminari",                    "~> 0.14"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -27,8 +27,6 @@ group :development do
 end
 
 group :test do
-  gem "capybara-webkit",           "~> 1.0"
-  gem "capybara",                  "~> 2.1"
 end
 
 group :development, :test do
