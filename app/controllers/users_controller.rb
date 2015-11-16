@@ -23,19 +23,19 @@ class UsersController < ApplicationController
       redirect_after_save
     else
       paginate_users
-      render("index")
+      render(template: "users/index")
     end
   end
 
   def edit
     @user = User.find(params[:id])
     authorize(@user)
-    cancel_edit_path = current_user.admin? ? users_path : patients_path
-
     respond_to do |format|
-      format.html { render(locals: {cancel_edit_path: cancel_edit_path,
+      format.html { render(template: "users/edit",
+                           locals: {cancel_edit_path: cancel_edit_path,
                                     cancel_link_remote: false}) }
-      format.js { render(locals: {cancel_edit_path: cancel_edit_path,
+      format.js { render(template: "users/edit",
+                         locals: {cancel_edit_path: cancel_edit_path,
                                   cancel_link_remote: true}) }
     end
   end
@@ -43,7 +43,13 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     authorize(@user)
-    @user.update_attributes(user_params) ? redirect_after_save : render("edit")
+    if @user.update_attributes(user_params)
+      redirect_after_save
+    else
+      render(template: "users/edit",
+             locals: {cancel_edit_path: cancel_edit_path,
+                      cancel_link_remote: false})
+    end
   end
 
   def destroy
@@ -67,6 +73,10 @@ class UsersController < ApplicationController
       flash[:danger] = "Sorry, you aren't authorized to perform that action."
       redirect_to(patients_path)
     end
+  end
+
+  def cancel_edit_path
+    cancel_edit_path = current_user.admin? ? users_path : patients_path
   end
 
   def redirect_after_save
