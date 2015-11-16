@@ -18,7 +18,7 @@ User.create email: "user@test.com",
             admin: false
 
 # Patients
-study_assigned_ids = [5446, 1, 60000]
+study_assigned_ids = [5446, 1, 60000] + (3..30).to_a
 study_assigned_ids.each do |id|
   Patient.create!(study_assigned_id: id,
                   birthdate: "190#{id % 3}-#{(id % 12) + 1}-#{(id % 28) + 1}",
