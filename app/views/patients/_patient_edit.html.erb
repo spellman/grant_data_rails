@@ -1,10 +1,8 @@
-<div id="patient-form-container">
-  <div id="edit-patient">
-    <%= render(partial: "patients/patient_form",
-               locals: { button_text: "Update patient info" }) %>
-    <%= link_to("Cancel", patients_path,
-                remote: cancel_link_remote,
-                id: "cancel-update",
-                class: "btn btn-primary") %>
-  </div>
+<div id="edit-patient">
+  <%= render(partial: "patients/patient_form",
+             locals: { button_text: "Update patient info" }) %>
+  <%= link_to("Cancel", patients_path,
+              remote: cancel_link_remote,
+              id: "cancel-update",
+              class: "btn btn-primary") %>
 </div>

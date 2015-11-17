@@ -7,8 +7,10 @@
 <% provide :resource_form do %>
   <%= render(partial: "shared/error_messages",
              locals: { resource: @patient }) %>
-  <%= render(partial: "patients/patient_edit",
-             locals: { cancel_link_remote: false }) %>
+  <div id="patient-form-container">
+    <%= render(partial: "patients/patient_edit",
+               locals: { cancel_link_remote: false }) %>
+  </div>
 <% end %>
 
 <%= render(template: "layouts/form_and_display_page") %>

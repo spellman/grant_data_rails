@@ -47,7 +47,7 @@ feature "patient records page" do
       fill_in "record_bmi_date", with: @valid_date
       click_button "Save"
     end
-    expect(all("#error_explanation > ul > li").length).to be > 0
+    expect(all("#error-explanation > ul > li").length).to be > 0
   end
 
   scenario "displays errors when user tries to save an invalid (blank) record" do
@@ -55,7 +55,7 @@ feature "patient records page" do
     within "form" do
       click_button "Save"
     end
-    expect(all("#error_explanation > ul > li").length).to eq 1
+    expect(all("#error-explanation > ul > li").length).to eq 1
   end
 
   scenario "does not allow saving an invalid record" do

@@ -6,7 +6,9 @@
 <% provide :resource_form do %>
   <%= render(partial: "shared/error_messages",
              locals: { resource: @patient }) %>
-  <%= render(partial: "patients/patient_add") %>
+  <div id="patient-form-container">
+    <%= render(partial: "patients/patient_add") %>
+  </div>
   <%= render(partial: "patients/patient_search") %>
 <% end %>
 
