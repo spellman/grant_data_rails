@@ -10,4 +10,29 @@
 
 #patients {
   position: relative;
+
+  #th-patient-study-assigned-id {
+    width: 13%;
+    text-align: center;
+  }
+
+  #th-patient-records {
+    width: 26%;
+  }
+
+  #th-export-records {
+    width: 21%;
+  }
+
+  #th-edit-patient {
+    width: 20%;
+  }
+
+  #th-delete-patient {
+    width: 20%;
+  }
+
+  td {
+    text-align: center;
+  }
 }

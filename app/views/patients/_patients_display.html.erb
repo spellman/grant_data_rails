@@ -1,19 +1,36 @@
 <table id="patients" class="table table-striped">
   <thead>
     <tr>
-      <th>Patient Id #</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th id="th-patient-study-assigned-id">Patient Id #</th>
+      <th id="th-patient-records"></th>
+      <th id="th-export-records"></th>
+      <th id="th-edit-patient"></th>
+      <th id="th-delete-patient"></th>
     </tr>
   </thead>
   <tbody>
     <% @patients.each do |patient| %>
       <tr>
         <td><%= patient.study_assigned_id %></td>
-        <td><%= link_to "patient records", patient_records_path(patient.id) %></td>
-        <td><%= link_to "edit patient", edit_patient_path(patient.id), remote: true %></td>
-        <td><%= link_to "delete patient", patient_path(patient.id), method: :delete, data: { confirm: "Delete patient ##{patient.study_assigned_id}?\nDeleting this patient will also delete all of this patient's records.\nBe sure that's what you want &mdash; there's no going back.".html_safe } %></td>
+        <td>
+          <%= link_to("view or add records",
+                      patient_records_path(patient.id)) %>
+        </td>
+        <td>
+          <%= link_to("export records",
+                      patient_path(patient.id, format: "csv")) %>
+        </td>
+        <td>
+          <%= link_to("edit patient",
+                       edit_patient_path(patient.id),
+                       remote: true) %>
+        </td>
+        <td>
+          <%= link_to("delete patient",
+                      patient_path(patient.id),
+                      method: :delete,
+                      data: { confirm: "Delete patient ##{patient.study_assigned_id}?\nDeleting this patient will also delete all of this patient's records.\nBe sure that's what you want &mdash; there's no going back.".html_safe }) %>
+        </td>
       </tr>
     <% end %>
   </tbody>
