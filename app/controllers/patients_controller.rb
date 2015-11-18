@@ -18,7 +18,7 @@ class PatientsController < ApplicationController
     if @patient.save
       redirect_to(patients_path)
     else
-      paginate_patients
+      @patients = paginate(Patient)
       render("index")
     end
   end
@@ -43,7 +43,7 @@ class PatientsController < ApplicationController
     if @patient.update_attributes(patient_params)
       redirect_to(patients_path)
     else
-      paginate_patients
+      @patients = paginate(Patient)
       render("edit")
     end
   end
