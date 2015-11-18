@@ -15,7 +15,8 @@ class Patient < ActiveRecord::Base
   has_many :measurements, class_name: "Measurements", dependent: :destroy
   has_many :testosterones, dependent: :destroy
 
-  validates :study_assigned_id,
+  validates(
+    :study_assigned_id,
     presence: true,
     numericality: {
       greater_than_or_equal_to: 0,
@@ -23,11 +24,18 @@ class Patient < ActiveRecord::Base
       message: "must be a non-negative number with no decimal places"
     },
     uniqueness: true
-  validates :birthdate,
+  )
+  validates(
+    :birthdate,
     presence: true,
     date: true
+  )
 
   class << self
+    def record_types
+      reflect_on_all_associations.map { |a| a.class_name.constantize }
+    end
+
     def to_csv(patients, options = {})
       d = export_data(patients)
       CSV.generate(options) do |csv|
@@ -49,10 +57,6 @@ class Patient < ActiveRecord::Base
       all_columns = all_attr_columns(record_types)
       record_types.map { |r| union_sub_query(all_columns, patients, r) }
         .join(" UNION ") + " " + order_by(record_types)
-    end
-
-    def record_types
-      reflect_on_all_associations.map { |a| a.class_name.constantize }
     end
 
     def order_by(record_types)

@@ -1,7 +1,8 @@
-<% provide :title, "Records" %>
+<% provide(:title, "Records") %>
 
-<% provide :resource_form do %>
-  <%= render(partial: "shared/error_messages", locals: { resource: @record }) %>
+<% provide(:resource_form) do %>
+  <%= render(partial: "shared/error_messages",
+             locals: { resource: @record }) %>
   <%= render(partial: "records/record_form") %>
 <% end %>
 

@@ -8,30 +8,38 @@ class Measurements < ActiveRecord::Base
 
   belongs_to :patient
 
-  validates :patient_id,
+  validates(
+    :patient_id,
     id: true,
     presence: true,
     numericality: {
       greater_than_or_equal_to: 0,
       only_integer: true
     }
+  )
 #    uniqueness: {
 #      scope: :date,
 #      message: "patient already has an A1c for this date"
 #    }
-  validates :date,
+  validates(
+    :date,
     presence: true,
     date: true
-  validates_with NotAllDomainFieldsBlankValidator,
+  )
+  validates_with(
+    NotAllDomainFieldsBlankValidator,
     domain_fields: ["weight_in_pounds", "height_in_inches", "waist_circumference_in_inches"]
-  validates :weight_in_pounds,
-            :height_in_inches,
-            :waist_circumference_in_inches,
+  )
+  validates(
+    :weight_in_pounds,
+    :height_in_inches,
+    :waist_circumference_in_inches,
     numericality: {
       greater_than_or_equal_to: 0,
       message: "must be a non-negative number"
     },
     allow_blank: true
+  )
 
   def self.display_name
     "measurements"

@@ -71,7 +71,7 @@ class Record
   end
 
   def non_blank_models
-    models.reject { |model| blank_model? model }
+    models.reject { |model| blank_model?(model) }
   end
 
   def blank_model?(model)

@@ -1,5 +1,5 @@
 $("#form-panel").html(
-  '<%=j render(partial: "shared/edit_data_point_form",
-               locals: {model_name: model_name,
-                        display_name: display_name,
-                        cancel_link_remote_p: true}) %>');
+  '<%= j(render(partial: "shared/edit_data_point_form",
+                locals: {model_name: model_name,
+                         display_name: display_name,
+                         cancel_link_remote_p: true})) %>');

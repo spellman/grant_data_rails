@@ -4,7 +4,7 @@
       <%= render(partial: "#{model_name.plural}/#{model_name.singular}_form_fields",
                  locals: {o: f}) %>
     </div>
-    <%= f.submit "Update #{display_name}", class: "btn btn-primary" %>
+    <%= f.submit("Update #{display_name}", class: "btn btn-primary") %>
   <% end %>
   <%= link_to("Cancel",
               patient_records_path(@data_point.patient_id),

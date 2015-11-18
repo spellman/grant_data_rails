@@ -1,10 +1,11 @@
-<% provide :title, "Edit patient" %>
+<% provide(:title, "Edit patient") %>
 
-<% provide :nav_export_link do %>
-  <%= link_to "Export data for all patients to CSV", "#" %>
+<% provide(:nav_export_link) do %>
+  <%= link_to("Export data for all patients to CSV",
+              patients_path(format: "csv")) %>
 <% end %>
 
-<% provide :resource_form do %>
+<% provide(:resource_form) do %>
   <%= render(partial: "shared/error_messages",
              locals: { resource: @patient }) %>
   <div id="patient-form-container">

@@ -14,7 +14,6 @@ class Parsing
 
   def parse_date(d)
     return d unless d.is_a?(String)
-
     begin
       Date.strptime(d, "%Y-%m-%d")
     rescue ArgumentError

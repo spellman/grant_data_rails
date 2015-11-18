@@ -19,7 +19,7 @@ class RecordsController < ApplicationController
     else
       @patient = Patient.find params[:patient_id]
       @records = PatientRecordsPresenter.index(get_patient_records(@patient))
-      render "index"
+      render("index")
     end
   end
 

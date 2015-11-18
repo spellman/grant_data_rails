@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Waivers Grant Data | <%= yield :title %></title>
+  <title>Waivers Grant Data | <%= yield(:title) %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag("application", media: "all", "data-turbolinks-track" => true) %>
+  <%= javascript_include_tag("application", "data-turbolinks-track" => true) %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <%= render "layouts/navigation" %>
+  <%= render("layouts/navigation") %>
   <div class="container">
     <hr id="g-a1c" class="guide" />
     <hr id="g-acr" class="guide" />
@@ -23,7 +23,7 @@
     <hr id="g-display-bottom" class="guide" />
 
     <div id="flash" class="row">
-      <%= render "layouts/messages" %>
+      <%= render("layouts/messages") %>
     </div>
     <%= content_for?(:content) ? yield(:content) : yield %>
   </div>

@@ -1,6 +1,6 @@
 <div id="patient-search">
   <%= bootstrap_form_tag(url: patients_path, method: "get") do |f| %>
-    <%= f.text_field "search[study_assigned_id]", value: "", placeholder: "Patient ID #", hide_label: true %>
-    <%= f.submit "Find patient by ID #", name: nil, class: "btn btn-primary" %>
+    <%= f.text_field("search[study_assigned_id]", value: "", placeholder: "Patient ID #", hide_label: true) %>
+    <%= f.submit("Find patient by ID #", name: nil, class: "btn btn-primary") %>
   <% end %>
 </div>

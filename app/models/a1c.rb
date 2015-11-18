@@ -7,26 +7,32 @@ class A1c < ActiveRecord::Base
 
   belongs_to :patient
 
-  validates :patient_id,
+  validates(
+    :patient_id,
     id: true,
     presence: true,
     numericality: {
       greater_than_or_equal_to: 0,
       only_integer: true
     }
+  )
 #    uniqueness: {
 #      scope: :date,
 #      message: "patient already has an A1c for this date"
 #    }
-  validates :date,
+  validates(
+    :date,
     presence: true,
     date: true
-  validates :a1c,
+  )
+  validates(
+    :a1c,
     presence: true,
     numericality: {
       greater_than_or_equal_to: 0,
       message: "must be a non-negative number"
     }
+  )
 
   def self.display_name
     "A1c"

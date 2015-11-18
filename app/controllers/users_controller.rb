@@ -67,7 +67,7 @@ class UsersController < ApplicationController
   def record_not_found
     if current_user.admin?
       skip_authorization
-      flash[:warning] = "The requested user could not be found. Has the user been created? Has the user been deleted? (Another admin may have deleted the user or the browser's \"back\" button may have been used to display a user who had already been deleted.)"
+      flash[:warning] = "The requested user was not found. Has the user been created? Has the user been deleted? (Another admin may have deleted the user or the browser's \"back\" button may have been used to display a user who had already been deleted.)"
       redirect_to(users_path) and return
     else
       flash[:danger] = "Sorry, you aren't authorized to perform that action."

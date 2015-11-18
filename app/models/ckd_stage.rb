@@ -7,27 +7,33 @@ class CkdStage < ActiveRecord::Base
 
   belongs_to :patient
 
-  validates :patient_id,
+  validates(
+    :patient_id,
     id: true,
     presence: true,
     numericality: {
       greater_than_or_equal_to: 0,
       only_integer: true
     }
+  )
 #    uniqueness: {
 #      scope: :date,
 #      message: "patient already has an A1c for this date"
 #    }
-  validates :date,
+  validates(
+    :date,
     presence: true,
     date: true
-  validates :ckd_stage,
+  )
+  validates(
+    :ckd_stage,
     presence: true,
     numericality: {
       greater_than_or_equal_to: 0,
       only_integer: true,
       message: "must be a non-negative number with no decimal places"
     }
+  )
 
   def self.display_name
     "CKD stage"

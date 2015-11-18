@@ -1,15 +1,15 @@
-<% provide :content do %>
+<% provide(:content) do %>
   <div class="row">
     <%= yield(:full_width_top) if content_for?(:full_width_top) %>
   </div>
   <div class="row">
     <div id="form-panel" class="col-sm-4">
-      <%= yield :resource_form %>
+      <%= yield(:resource_form) %>
     </div>
     <div id="resource-display-panel" class="col-sm-8">
-      <%= yield :resource_display %>
+      <%= yield(:resource_display) %>
     </div>
   </div>
 <% end %>
 
-<%= render template: "layouts/application" %>
+<%= render(template: "layouts/application") %>

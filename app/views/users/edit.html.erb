@@ -1,7 +1,8 @@
-<% provide :title, "Edit user" %>
+<% provide(:title, "Edit user") %>
 
-<% provide :resource_form do %>
-  <%= render(partial: "shared/error_messages", locals: {resource: @user}) %>
+<% provide(:resource_form) do %>
+  <%= render(partial: "shared/error_messages",
+             locals: {resource: @user}) %>
   <%= render(partial: "users/user_edit",
              locals: {cancel_edit_path: cancel_edit_path,
                       cancel_link_remote: cancel_link_remote}) %>

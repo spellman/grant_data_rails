@@ -3,9 +3,14 @@
     <h2 class="form-signin-heading">Sign in</h2>
     <div id="signin-form-container">
       <%= bootstrap_form_tag(url: sessions_path) do |f| %>
-          <%= f.email_field :email, hide_label: true, placeholder: "Email address", autofocus: true %>
-          <%= f.password_field :password, hide_label: true, placeholder: "Password" %>
-          <%= f.submit "Sign in", class: "btn btn-primary" %>
+        <%= f.email_field(:email,
+                          hide_label: true,
+                          placeholder: "Email address",
+                          autofocus: true) %>
+        <%= f.password_field(:password,
+                             hide_label: true,
+                             placeholder: "Password") %>
+          <%= f.submit("Sign in", class: "btn btn-primary") %>
       <% end %>
     </div>
   </div>

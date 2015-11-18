@@ -1,7 +1,7 @@
-<%= bootstrap_form_for(@patient)do |f| %>
-  <%= f.text_field :study_assigned_id, label: "Patient ID #"  %>
-  <%= f.date_field :birthdate, label: "Date of Birth"  %>
-  <%= f.select :smoker, [["no", false], ["yes", true]], {label: "Smoker?"}, {include_blank: true} %>
-  <%= f.select :etoh, [["no", false], ["yes", true]], {label: "ETOH?"}, {include_blank: true} %>
-  <%= f.submit button_text, class: "btn btn-primary" %>
+<%= bootstrap_form_for(@patient) do |f| %>
+  <%= f.text_field(:study_assigned_id, label: "Patient ID #") %>
+  <%= f.date_field(:birthdate, label: "Date of Birth") %>
+  <%= f.select(:smoker, [["no", false], ["yes", true]], {label: "Smoker?"}, {include_blank: true}) %>
+  <%= f.select(:etoh, [["no", false], ["yes", true]], {label: "ETOH?"}, {include_blank: true}) %>
+  <%= f.submit(button_text, class: "btn btn-primary") %>
 <% end %>

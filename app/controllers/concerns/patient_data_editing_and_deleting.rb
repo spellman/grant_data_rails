@@ -48,14 +48,9 @@ module PatientDataEditingAndDeleting
   end
 
   def destroy
-    begin
-      data_point = model.find(params[:id])
-      data_point.destroy
-      redirect_to(patient_records_path(data_point.patient_id))
-    rescue ActiveRecord::RecordNotFound
-      flash[:warning] = "The record to be deleted did not exist. (Using the browser's back button can cause data to be displayed that no longer exists in the system.)"
-      redirect_to(patients_path)
-    end
+    data_point = model.find(params[:id])
+    data_point.destroy
+    redirect_to(patient_records_path(data_point.patient_id))
   end
 
   private
@@ -66,9 +61,9 @@ module PatientDataEditingAndDeleting
   end
 
   def record_not_found
-    record = display_name
-    flash[:warning] = "The requested #{record} could not be found. Has it been deleted? (Another user may have deleted it or the browser's \"back\" button may have been used to display #{prepend_indefinite_article(record)} that had already been deleted.)"
-    redirect_to patients_path
+    record_type = display_name
+    flash[:warning] = "The requested #{record_type} was not found. Has it been deleted? (Another user may have deleted it or the browser's \"back\" button may have been used to display #{prepend_indefinite_article(record)} that had already been deleted.)"
+    redirect_to(patients_path)
   end
 
   def prepend_indefinite_article(word,
