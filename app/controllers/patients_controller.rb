@@ -5,7 +5,8 @@ class PatientsController < ApplicationController
     @patient = Patient.new
     respond_to do |format|
       format.html {
-        patient_search? ? paginate_search_results : paginate_patients
+        patients_source = patient_search? ? search_result : Patient
+        @patients = paginate(patients_source)
       }
       format.js
       format.csv  { csv_download(Patient.all, "all-patients-records") }
@@ -63,7 +64,7 @@ class PatientsController < ApplicationController
   end
 
   def record_not_found
-    flash[:warning] = "The requested patient could not be found. Has the patient been created? Has the patient been deleted? (Another user may have deleted the patient or the browser's \"back\" button may have been used to display a patient who had already been deleted.)"
+    flash[:warning] = "The requested patient was not found. Has the patient been created? Has the patient been deleted? (Another user may have deleted the patient or the browser's \"back\" button may have been used to display a patient who had already been deleted.)"
     redirect_to(patients_url) and return
   end
 
@@ -86,18 +87,16 @@ class PatientsController < ApplicationController
     params[:search]
   end
 
-  def paginate_search_results
-    @patients = Patient.where(study_assigned_id: params[:search]["study_assigned_id"])
-                       .page(params[:page])
-                       .per(13)
-                       .order("study_assigned_id ASC")
-
+  def search_result
+    result = Patient.where(study_assigned_id: params[:search]["study_assigned_id"])
+    raise(ActiveRecord::RecordNotFound) if result.empty?
+    result
   end
 
-  def paginate_patients
-    @patients = Patient.page(params[:page])
-                       .per(13)
-                       .order("study_assigned_id ASC")
+  def paginate(patients)
+    patients.page(params[:page])
+      .per(13)
+      .order("study_assigned_id ASC")
   end
 
   def csv_download(patients, file_name)
