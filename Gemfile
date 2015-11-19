@@ -9,6 +9,9 @@ gem "uglifier",                    ">= 1.3"
 gem 'bootstrap-sass'
 gem "sass-rails"
 gem "bootstrap_form"
+#gem 'unobtrusive_flash',           ">= 3"
+#gem 'unobtrusive_flash',           path: "../../unobtrusive_flash"
+gem 'unobtrusive_flash',           git: "https://github.com/spellman/unobtrusive_flash"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 #gem "jbuilder", "~> 1.2"
 gem "pg",                          "~> 0.16"

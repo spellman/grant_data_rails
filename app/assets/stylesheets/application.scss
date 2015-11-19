@@ -21,6 +21,20 @@ body {
   overflow-y: scroll;
 }
 
+#flash {
+  position: fixed;
+  top: 0;
+  z-index: 1100;
+  width: inherit;
+
+  .alert {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
 .page-header {
   margin-bottom: 40px;
 }

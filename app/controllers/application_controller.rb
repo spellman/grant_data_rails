@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  # Unobtrusive flash
+  after_filter :prepare_unobtrusive_flash
+
   private
   def authenticate_user
     unless signed_in?

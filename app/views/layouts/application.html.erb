@@ -10,6 +10,7 @@
 <body>
   <%= render("layouts/navigation") %>
   <div class="container">
+    <div id="flash" class="unobtrusive-flash-container"></div>
     <hr id="g-a1c" class="guide" />
     <hr id="g-acr" class="guide" />
     <hr id="g-blood-pressure" class="guide" />
@@ -21,10 +22,6 @@
     <hr id="g-measurements" class="guide" />
     <hr id="g-testosterone" class="guide" />
     <hr id="g-display-bottom" class="guide" />
-
-    <div id="flash" class="row">
-      <%= render("layouts/messages") %>
-    </div>
     <%= content_for?(:content) ? yield(:content) : yield %>
   </div>
   <footer>
