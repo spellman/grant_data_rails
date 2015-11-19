@@ -1,16 +1,19 @@
-<div id="blood-pressure" class="row">
-  <div class="col-sm-6, col-md-6, col-lg-6">
-    <%= o.label(:systolic_in_mmhg, "Systolic (mm Hg)") %><br />
-    <%= o.text_field_without_bootstrap(:systolic_in_mmhg,
-                                       class: "form-control") %>
+<div id="blood-pressure" class="form-group">
+  <div class="row">
+    <div class="col-sm-6, col-md-6, col-lg-6">
+      <%= o.text_field(:systolic_in_mmhg,
+                       label: "Systolic (mm Hg)",
+                       wrapper_class: "inner-form-group") %>
+    </div>
+    <div class="col-sm-6, col-md-6, col-lg-6">
+      <%= o.text_field(:diastolic_in_mmhg,
+                       label: "Diastolic (mm Hg)",
+                       wrapper_class: "inner-form-group") %>
+    </div>
   </div>
-  <div class="col-sm-6, col-md-6, col-lg-6">
-    <%= o.label(:diastolic_in_mmhg, "Diastolic (mm Hg)") %><br />
-    <%= o.text_field_without_bootstrap(:diastolic_in_mmhg,
-                                       class: "form-control") %>
+  <div>
+    <%= o.date_field(:date,
+                     label: "Date",
+                     wrapper_class: "inner-form-group") %>
   </div>
-</div>
-<div>
-  <%= o.label(:date, "Date") %><br />
-  <%= o.date_field_without_bootstrap(:date, class: "form-control") %>
 </div>

@@ -5,76 +5,59 @@
                            method: :post,
                            url: patient_records_path(params[:patient_id])) do |f| %>
       <%= f.hidden_field(:patient_id, value: params[:patient_id]) %>
-
-      <div class="form-group">
-        <%= f.fields_for(@record.a1c) do |o| %>
-          <%= render(partial: "a1cs/a1c_form_fields",
-                     locals: {o: o}) %>
-        <% end %>
+      <div id="error-message" class="row">
+        <%= record_form_error_message(f, @record.errors) %>
       </div>
 
-      <div class="form-group">
-        <%= f.fields_for(@record.acr) do |o| %>
-          <%= render(partial: "acrs/acr_form_fields",
-                     locals: {o: o}) %>
-        <% end %>
-      </div>
+      <%= f.fields_for(@record.a1c) do |o| %>
+        <%= render(partial: "a1cs/a1c_form_fields",
+                   locals: {o: o}) %>
+      <% end %>
 
-      <div class="form-group">
-        <%= f.fields_for(@record.blood_pressure) do |o| %>
-          <%= render(partial: "blood_pressures/blood_pressure_form_fields",
-                     locals: {o: o}) %>
-        <% end %>
-      </div>
+      <%= f.fields_for(@record.acr) do |o| %>
+        <%= render(partial: "acrs/acr_form_fields",
+                   locals: {o: o}) %>
+      <% end %>
 
-      <div class="form-group">
-        <%= f.fields_for(@record.bun_and_creatinine) do |o| %>
-          <%= render(partial: "bun_and_creatinines/bun_and_creatinine_form_fields",
-                     locals: {o: o}) %>
-        <% end %>
-      </div>
+      <%= f.fields_for(@record.blood_pressure) do |o| %>
+        <%= render(partial: "blood_pressures/blood_pressure_form_fields",
+                   locals: {o: o}) %>
+      <% end %>
 
-      <div class="form-group">
-        <%= f.fields_for(@record.cholesterol) do |o| %>
-          <%= render(partial: "cholesterols/cholesterol_form_fields",
-                     locals: {o: o}) %>
-        <% end %>
-      </div>
+      <%= f.fields_for(@record.bun_and_creatinine) do |o| %>
+        <%= render(partial: "bun_and_creatinines/bun_and_creatinine_form_fields",
+                   locals: {o: o}) %>
+      <% end %>
 
-      <div class="form-group">
-        <%= f.fields_for(@record.ckd_stage) do |o| %>
-          <%= render(partial: "ckd_stages/ckd_stage_form_fields",
-                     locals: {o: o}) %>
-        <% end %>
-      </div>
+      <%= f.fields_for(@record.cholesterol) do |o| %>
+        <%= render(partial: "cholesterols/cholesterol_form_fields",
+                   locals: {o: o}) %>
+      <% end %>
 
-      <div class="form-group">
-        <%= f.fields_for(@record.eye_exam) do |o| %>
-          <%= render(partial: "eye_exams/eye_exam_form_fields",
-                     locals: {o: o}) %>
-        <% end %>
-      </div>
+      <%= f.fields_for(@record.ckd_stage) do |o| %>
+        <%= render(partial: "ckd_stages/ckd_stage_form_fields",
+                   locals: {o: o}) %>
+      <% end %>
 
-      <div class="form-group">
-        <%= f.fields_for(@record.foot_exam) do |o| %>
-          <%= render(partial: "foot_exams/foot_exam_form_fields",
-                     locals: {o: o}) %>
-        <% end %>
-      </div>
+      <%= f.fields_for(@record.eye_exam) do |o| %>
+        <%= render(partial: "eye_exams/eye_exam_form_fields",
+                   locals: {o: o}) %>
+      <% end %>
 
-      <div class="form-group">
-        <%= f.fields_for(@record.measurements) do |o| %>
-          <%= render(partial: "measurements/measurements_form_fields",
-                     locals: {o: o})  %>
-        <% end %>
-      </div>
+      <%= f.fields_for(@record.foot_exam) do |o| %>
+        <%= render(partial: "foot_exams/foot_exam_form_fields",
+                   locals: {o: o}) %>
+      <% end %>
 
-      <div class="form-group">
-        <%= f.fields_for(@record.testosterone) do |o| %>
-          <%= render(partial: "testosterones/testosterone_form_fields",
-                     locals: {o: o}) %>
-        <% end %>
-      </div>
+      <%= f.fields_for(@record.measurements) do |o| %>
+        <%= render(partial: "measurements/measurements_form_fields",
+                   locals: {o: o})  %>
+      <% end %>
+
+      <%= f.fields_for(@record.testosterone) do |o| %>
+        <%= render(partial: "testosterones/testosterone_form_fields",
+                   locals: {o: o}) %>
+      <% end %>
 
       <%= f.submit("Save", class: "btn btn-primary") %>
     <% end %>

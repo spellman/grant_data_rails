@@ -17,16 +17,51 @@
 @import "**/*";
 
 body {
-  padding-top: 70px;
+  padding-top: 51px;
   overflow-y: scroll;
 }
 
-#form-panel > div {
-  margin-bottom: 64px;
+.page-header {
+  margin-bottom: 40px;
 }
 
-#form-panel label {
-  font-weight: normal;
+#form-panel {
+  #error-message {
+    position: absolute;
+    top: -56px;
+    left: 7%;
+  }
+
+  .help-block {
+    margin-bottom: 0px;
+  }
+
+  label {
+    font-weight: normal;
+  }
+
+  .edit-data-point {
+    position: relative;
+
+    #cancel-update {
+      position: absolute;
+      bottom: 0px;
+    }
+  }
+}
+
+.form-group:not(:nth-of-type(2)) {
+  padding-top: 8px;
+}
+
+.form-group {
+  margin-bottom: 0px;
+  padding-bottom: 32px;
+
+  .inner-form-group {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
 }
 
 #resource-display-panel {
@@ -45,26 +80,4 @@ body {
 
 #export-records {
   margin-top: 27px;
-}
-
-#error-explanation {
-  margin-bottom: 0px;
-}
-
-.form-group {
-  margin-bottom: 0px;
-  padding-bottom: 32px;
-}
-
-div.form-group:not(:first-of-type) {
-  padding-top: 8px;
-}
-
-#form-panel .edit-data-point {
-  position: relative;
-}
-
-.edit-data-point #cancel-update {
-  position: absolute;
-  bottom: 0px;
 }

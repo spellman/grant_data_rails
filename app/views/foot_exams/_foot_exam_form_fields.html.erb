@@ -1,2 +1,5 @@
-<%= o.label(:date, "Foot Exam Date") %><br />
-<%= o.date_field_without_bootstrap(:date, class: "form-control") %>
+<div id="foot-exam" class="form-group">
+  <%= o.date_field(:date,
+                   label: "Foot Exam Date",
+                   wrapper_class: "inner-form-group") %>
+</div>

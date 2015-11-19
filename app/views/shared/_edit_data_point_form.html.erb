@@ -1,9 +1,7 @@
 <div id=<%= "edit-#{model_name.singular.dasherize}" %> class="edit-data-point">
   <%= bootstrap_form_for(@data_point) do |f| %>
-    <div class="form-group">
-      <%= render(partial: "#{model_name.plural}/#{model_name.singular}_form_fields",
-                 locals: {o: f}) %>
-    </div>
+    <%= render(partial: "#{model_name.plural}/#{model_name.singular}_form_fields",
+               locals: {o: f}) %>
     <%= f.submit("Update #{display_name}", class: "btn btn-primary") %>
   <% end %>
   <%= link_to("Cancel",

@@ -4,9 +4,15 @@
               patients_path(format: "csv")) %>
 <% end %>
 
+<% provide(:full_width_top) do %>
+  <div class="container">
+    <div class="page-header">
+      <h1>Patients</h1>
+    </div>
+  </div>
+<% end %>
+
 <% provide(:resource_form) do %>
-  <%= render(partial: "shared/error_messages",
-             locals: { resource: @patient }) %>
   <div id="patient-form-container">
     <%= render(partial: "patients/patient_add") %>
   </div>

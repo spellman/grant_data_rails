@@ -1,4 +1,8 @@
 <%= bootstrap_form_for(@patient) do |f| %>
+  <div id="error-message" class="row">
+    <%= f.alert_message(form_error_message(@patient.errors.count),
+                        error_summary: false) %>
+  </div>
   <%= f.text_field(:study_assigned_id, label: "Patient ID #") %>
   <%= f.date_field(:birthdate, label: "Date of Birth") %>
   <%= f.select(:smoker, [["no", false], ["yes", true]], {label: "Smoker?", include_blank: true}) %>

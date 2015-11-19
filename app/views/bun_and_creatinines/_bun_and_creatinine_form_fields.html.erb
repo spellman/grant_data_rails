@@ -1,16 +1,19 @@
-<div id="bun-creatinine" class="row">
-  <div class="col-sm-6, col-md-6, col-lg-6">
-    <%= o.label(:bun_in_mg_per_dl, "BUN (mg/dl)") %><br />
-    <%= o.text_field_without_bootstrap(:bun_in_mg_per_dl,
-                                       class: "form-control") %>
+<div id="bun-creatinine" class="form-group">
+  <div class="row">
+    <div class="col-sm-6, col-md-6, col-lg-6">
+      <%= o.text_field(:bun_in_mg_per_dl,
+                       label: "BUN (mg/dl)",
+                       wrapper_class: "inner-form-group") %>
+    </div>
+    <div class="col-sm-6, col-md-6, col-lg-6">
+      <%= o.text_field(:creatinine_in_mg_per_dl,
+                       label: "Creatinine (mg/dl)",
+                       wrapper_class: "inner-form-group") %>
+    </div>
   </div>
-  <div class="col-sm-6, col-md-6, col-lg-6">
-    <%= o.label(:creatinine_in_mg_per_dl, "Creatinine (mg/dl)") %><br />
-    <%= o.text_field_without_bootstrap(:creatinine_in_mg_per_dl,
-                                       class: "form-control") %>
+  <div>
+    <%= o.date_field(:date,
+                     label: "Date",
+                     wrapper_class: "inner-form-group") %>
   </div>
-</div>
-<div>
-  <%= o.label(:date, "Date") %><br />
-  <%= o.date_field_without_bootstrap(:date, class: "form-control") %>
 </div>

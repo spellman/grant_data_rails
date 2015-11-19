@@ -1,4 +1,8 @@
 <%= bootstrap_form_for(@user) do |f| %>
+  <div id="error-message" class="row">
+    <%= f.alert_message(form_error_message(@user.errors.count),
+                        error_summary: false) %>
+  </div>
   <%= f.email_field(:email) %>
   <%= f.password_field(:password) %>
   <%= f.password_field(:password_confirmation) %>

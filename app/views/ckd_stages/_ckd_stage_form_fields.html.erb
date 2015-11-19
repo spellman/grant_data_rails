@@ -1,10 +1,12 @@
-<div id="ckd-stage" class="row">
+<div id="ckd-stage" class="row form-group">
   <div class="col-sm-5, col-md-5, col-lg-5">
-    <%= o.label(:ckd_stage, "CKD Stage") %><br />
-    <%= o.text_field_without_bootstrap(:ckd_stage, class: "form-control") %>
+    <%= o.text_field(:ckd_stage,
+                     label: "CKD Stage",
+                     wrapper_class: "inner-form-group") %>
   </div>
   <div class="col-sm-7, col-md-7, col-lg-7">
-    <%= o.label(:date, "Date") %><br />
-    <%= o.date_field_without_bootstrap(:date, class: "form-control") %>
+    <%= o.date_field(:date,
+                     label: "Date",
+                     wrapper_class: "inner-form-group") %>
   </div>
 </div>
