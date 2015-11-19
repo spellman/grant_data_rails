@@ -17,7 +17,6 @@ class Patient < ActiveRecord::Base
 
   validates(
     :study_assigned_id,
-    presence: true,
     numericality: {
       greater_than_or_equal_to: 0,
       only_integer: true,
@@ -27,7 +26,6 @@ class Patient < ActiveRecord::Base
   )
   validates(
     :birthdate,
-    presence: true,
     date: true
   )
 

@@ -10,25 +10,22 @@ class BloodPressure < ActiveRecord::Base
   validates(
     :patient_id,
     id: true,
-    presence: true,
     numericality: {
       greater_than_or_equal_to: 0,
       only_integer: true
     }
   )
-#    uniqueness: {
-#      scope: :date,
-#      message: "patient already has an A1c for this date"
-#    }
   validates(
     :date,
-    presence: true,
-    date: true
+    date: true,
+    uniqueness: {
+      scope: :patient_id,
+      message: "patient already has a blood pressure for this date"
+    }
   )
   validates(
     :systolic_in_mmhg,
     :diastolic_in_mmhg,
-    presence: true,
     numericality: {
       greater_than_or_equal_to: 0,
       only_integer: true,

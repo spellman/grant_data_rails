@@ -11,20 +11,18 @@ class BunAndCreatinine < ActiveRecord::Base
   validates(
     :patient_id,
     id: true,
-    presence: true,
     numericality: {
       greater_than_or_equal_to: 0,
       only_integer: true
     }
   )
-#    uniqueness: {
-#      scope: :date,
-#      message: "patient already has an A1c for this date"
-#    }
   validates(
     :date,
-    presence: true,
-    date: true
+    date: true,
+    uniqueness: {
+      scope: :patient_id,
+      message: "patient already has a BUN and/or creatinine for this date"
+    }
   )
   validates_with(
     NotAllDomainFieldsBlankValidator,
