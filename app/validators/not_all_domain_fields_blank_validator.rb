@@ -20,6 +20,6 @@ class NotAllDomainFieldsBlankValidator < ActiveModel::Validator
 
   def error_message
     domain_fields_string = domain_fields.map { |x| x.to_s.titlecase }.join(", ")
-    "At least one of #{domain_fields_string} cannot be blank"
+    "At least one of #{domain_fields_string} cannot be blank."
   end
 end
