@@ -95,7 +95,7 @@ class PatientsController < ApplicationController
 
   def paginate(patients)
     patients.page(params[:page])
-      .per(13)
+      .per(14)
       .order("study_assigned_id ASC")
   end
 
