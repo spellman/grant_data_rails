@@ -1,5 +1,5 @@
 <%= bootstrap_form_for(@user) do |f| %>
-  <div id="error-message" class="row">
+  <div id="error-message">
     <%= f.alert_message(form_error_message(@user.errors.count),
                         error_summary: false) %>
   </div>

@@ -36,14 +36,18 @@ body {
 }
 
 .page-header {
-  margin-bottom: 40px;
+  border-bottom: none;
+  margin-top: 0;
+
+  h1 {
+    font-size: 24px;
+  }
 }
 
 #form-panel {
-  #error-message {
-    position: absolute;
-    top: -56px;
-    left: 7%;
+  #error-message .alert {
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
 
   .help-block {

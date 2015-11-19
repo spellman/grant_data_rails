@@ -5,7 +5,7 @@
                            method: :post,
                            url: patient_records_path(params[:patient_id])) do |f| %>
       <%= f.hidden_field(:patient_id, value: params[:patient_id]) %>
-      <div id="error-message" class="row">
+      <div id="error-message">
         <%= record_form_error_message(f, @record.errors) %>
       </div>
 
