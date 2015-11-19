@@ -33,7 +33,7 @@ class PatientsController < ApplicationController
   def edit
     @patient = Patient.find(params[:id])
     respond_to do |format|
-      format.html { paginate_patients }
+      format.html
       format.js
     end
   end
