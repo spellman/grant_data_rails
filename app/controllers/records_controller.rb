@@ -15,7 +15,7 @@ class RecordsController < ApplicationController
   def create
     @record = Record.new(record_params)
     if @record.save
-      redirect_to patient_records_path(params[:patient_id])
+      redirect_to(patient_records_url(params[:patient_id]))
     else
       @patient = Patient.find params[:patient_id]
       @records = PatientRecordsPresenter.index(get_patient_records(@patient))

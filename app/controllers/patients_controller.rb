@@ -16,7 +16,7 @@ class PatientsController < ApplicationController
   def create
     @patient = Patient.new(patient_params)
     if @patient.save
-      redirect_to(patients_path)
+      redirect_to(patients_url)
     else
       @patients = paginate(Patient)
       render("index")
@@ -41,7 +41,7 @@ class PatientsController < ApplicationController
   def update
     @patient = Patient.find(params[:id])
     if @patient.update_attributes(patient_params)
-      redirect_to(patients_path)
+      redirect_to(patients_url)
     else
       @patients = paginate(Patient)
       render("edit")

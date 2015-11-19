@@ -40,7 +40,7 @@ module PatientDataEditingAndDeleting
   def update
     @data_point = model.find(params[:id])
     if @data_point.update_attributes(data_params)
-      redirect_to(patient_records_path(@data_point.patient_id))
+      redirect_to(patient_records_url(@data_point.patient_id))
     else
       @patient = Patient.find(@data_point.patient_id)
       render_edit
@@ -50,7 +50,7 @@ module PatientDataEditingAndDeleting
   def destroy
     data_point = model.find(params[:id])
     data_point.destroy
-    redirect_to(patient_records_path(data_point.patient_id))
+    redirect_to(patient_records_url(data_point.patient_id))
   end
 
   private
@@ -63,7 +63,7 @@ module PatientDataEditingAndDeleting
   def record_not_found
     record_type = display_name
     flash[:warning] = "The requested #{record_type} was not found. Has it been deleted? (Another user may have deleted it or the browser's \"back\" button may have been used to display #{prepend_indefinite_article(record)} that had already been deleted.)"
-    redirect_to(patients_path)
+    redirect_to(patients_url)
   end
 
   def prepend_indefinite_article(word,

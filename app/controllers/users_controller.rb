@@ -56,7 +56,7 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     authorize(user)
     user.destroy
-    redirect_to(users_path)
+    redirect_to(users_url)
   end
 
   private
@@ -68,10 +68,10 @@ class UsersController < ApplicationController
     if current_user.admin?
       skip_authorization
       flash[:warning] = "The requested user was not found. Has the user been created? Has the user been deleted? (Another admin may have deleted the user or the browser's \"back\" button may have been used to display a user who had already been deleted.)"
-      redirect_to(users_path) and return
+      redirect_to(users_url) and return
     else
       flash[:danger] = "Sorry, you aren't authorized to perform that action."
-      redirect_to(patients_path)
+      redirect_to(patients_url)
     end
   end
 
@@ -80,7 +80,7 @@ class UsersController < ApplicationController
   end
 
   def redirect_after_save
-    current_user.admin? ? redirect_to(users_path) : redirect_to(records_path)
+    current_user.admin? ? redirect_to(users_url) : redirect_to(records_url)
   end
 
   def paginate_users
