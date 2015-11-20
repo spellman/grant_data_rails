@@ -1,28 +1,11 @@
-== README
+As a practice Rails project, I wrote this CRUD app in late 2013 to collect data in a diabetes clinical study for later analysis. (The app ended up not being used in production because Google Sheets provided a sufficient solution for the Waivers-grant study.)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+I revised the project in late 2015, fleshing out the functionality and cleaning up the styling. It's functional and coherent, if not nice:
+*   The display of patient records (https://aqueous-garden-9507.herokuapp.com/patients/1/records) mimicks the paper records in use by the team conducting the study:
+    *   Records are displayed in a horizontal table, where each row displays records of a given type.
+    *   Within each row, records are sorted oldest on the left to newest on the right.
+    *   Within each row, the list of records grows to the right and defaults to showing the right-most (newest) records.
+*   Ajax links avoid superfluous queries.
+*   At any patient visit, it is likely that there will be new data for only some sets of lab values and/or measurements. Therefore, the form for a new "patient record" (https://aqueous-garden-9507.herokuapp.com/patients/1/records) does not require all types of data but accepts any valid subset of data. The Record form-object delegtes to the appropriate models.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Live demo: https://aqueous-garden-9507.herokuapp.com/
